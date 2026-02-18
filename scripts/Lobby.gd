@@ -18,7 +18,7 @@ func _ready():
 		$VBoxContainer/Back.pressed.connect(func(): 
 			var error = get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
 			if error != OK:
-				push_error("Failed to load MainMenu scene")
+				push_error("Failed to load MainMenu scene: " + str(error))
 		)
 	multiplayer.peer_connected.connect(_on_peer)
 	multiplayer.peer_disconnected.connect(_on_dis)
