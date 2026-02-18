@@ -6,7 +6,7 @@ func _ready():
 	await tween.finished
 	$Light.visible = true
 	var light_tween = create_tween()
-	light_tween.tween_property($Light, "color:a", 0.5, 3.0)
+	light_tween.tween_property($Light, "modulate:a", 0.5, 3.0)
 	await light_tween.finished
 	# End
 	get_tree().quit()
