@@ -8,6 +8,7 @@ func host():
 		push_error("Failed to create server: " + str(error))
 		return error
 	multiplayer.multiplayer_peer = peer
+	AudioManager.play_sfx("res://assets/audio/sfx/join_success.wav")
 	return OK
 
 func join(code):
@@ -16,4 +17,5 @@ func join(code):
 		push_error("Failed to connect to server: " + str(error))
 		return error
 	multiplayer.multiplayer_peer = peer
+	AudioManager.play_sfx("res://assets/audio/sfx/join_success.wav")
 	return OK
