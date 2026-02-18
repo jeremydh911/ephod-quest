@@ -1,9 +1,15 @@
 extends Control
 var player_list = []
 func _ready():
-	$VBoxContainer/Host.pressed.connect(MultiplayerLobby.host)
-	$VBoxContainer/Join.pressed.connect(func(): MultiplayerLobby.join($VBoxContainer/CodeEntry.text))
-	$VBoxContainer/Back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/MainMenu.tscn"))
+	$VBoxContainer/Host.pressed.connect(func():
+		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		MultiplayerLobby.host())
+	$VBoxContainer/Join.pressed.connect(func(): 
+		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		MultiplayerLobby.join($VBoxContainer/CodeEntry.text))
+	$VBoxContainer/Back.pressed.connect(func(): 
+		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		get_tree().change_scene_to_file("res://scenes/MainMenu.tscn"))
 	multiplayer.peer_connected.connect(_on_peer)
 	multiplayer.peer_disconnected.connect(_on_dis)
 func _on_peer(id):

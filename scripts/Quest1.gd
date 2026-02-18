@@ -1,13 +1,16 @@
 extends Node2D
 func _ready():
+	AudioManager.play_music("res://assets/audio/music/quest_theme.ogg")
 	$ElderLabel.text = "My child, climb the ladder—steady like Reuben learns."
 	$Timer.start()
 	$Timer.timeout.connect(reuben_mini)
 func reuben_mini():
 	$ElderLabel.text = "Trust in the Lord... Prov 3:5-6"
 	$VerseLabel.visible = true
+	AudioManager.play_sfx("res://assets/audio/sfx/verse_reveal.wav")
 	$VerseLabel.text = "Repeat: 'Trust in the Lord'?"
 	await get_tree().create_timer(3.0).timeout  # Simulate memorization
+	AudioManager.play_sfx("res://assets/audio/sfx/stone_unlock.wav")
 	Global.add_stone("Reuben")
 	Global.add_verse("Reuben", "Prov 3:5-6")
 	$VerseLabel.text += "\nButterfly: tastes with feet! New creation - 2 Cor 5:17"
