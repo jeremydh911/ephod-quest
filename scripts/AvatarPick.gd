@@ -1,16 +1,19 @@
 extends Control
+
+func _ready():
+	# Connect the Confirm button to proceed to Quest1
+	if has_node("Confirm"):
+		$Confirm.pressed.connect(func(): 
+			# Store selected tribe/avatar in Global if needed
+			get_tree().change_scene_to_file("res://scenes/Quest1.tscn")
+		)
+
 func tribe_mini():
-	# Example for Reuben
-	var taps = 0
-	var timer = Timer.new()
-	timer.timeout.connect(func(): taps += 1; if taps >= 5: unlock_stone())
-	add_child(timer)
-	timer.start(1.0)
-	
-	# Judah roar
-	var rhythm = [0.5, 1.0, 0.5]
-	# ... Add similar for all tribes as per previous
+	# Placeholder for future tribe-specific mini-games
+	# Each tribe will have unique challenges to unlock stones
+	pass
 
 func unlock_stone():
-	# Unlock logic
+	# Called when a tribe mini-game is completed
+	# Will add the tribe's stone to the Global collection
 	pass
