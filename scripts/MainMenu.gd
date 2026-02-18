@@ -1,5 +1,13 @@
 extends Control
 func _ready():
-	$VBoxContainer/Start.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/AvatarPick.tscn"))
-	$VBoxContainer/Multiplayer.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/Lobby.tscn"))
+	$VBoxContainer/Start.pressed.connect(func(): 
+		var error = get_tree().change_scene_to_file("res://scenes/AvatarPick.tscn")
+		if error != OK:
+			push_error("Failed to load AvatarPick scene")
+	)
+	$VBoxContainer/Multiplayer.pressed.connect(func(): 
+		var error = get_tree().change_scene_to_file("res://scenes/Lobby.tscn")
+		if error != OK:
+			push_error("Failed to load Lobby scene")
+	)
 	$VBoxContainer/Quit.pressed.connect(get_tree().quit)

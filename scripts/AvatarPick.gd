@@ -5,7 +5,9 @@ func _ready():
 	if has_node("Confirm"):
 		$Confirm.pressed.connect(func(): 
 			# Store selected tribe/avatar in Global if needed
-			get_tree().change_scene_to_file("res://scenes/Quest1.tscn")
+			var error = get_tree().change_scene_to_file("res://scenes/Quest1.tscn")
+			if error != OK:
+				push_error("Failed to load Quest1 scene: " + str(error))
 		)
 
 func tribe_mini():

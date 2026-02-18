@@ -11,4 +11,6 @@ func reuben_mini():
 	Global.add_stone("Reuben")
 	Global.add_verse("Reuben", "Prov 3:5-6")
 	$VerseLabel.text += "\nButterfly: tastes with feet! New creation - 2 Cor 5:17"
-	get_tree().change_scene_to_file("res://scenes/Finale.tscn")
+	var error = get_tree().change_scene_to_file("res://scenes/Finale.tscn")
+	if error != OK:
+		push_error("Failed to load Finale scene")
