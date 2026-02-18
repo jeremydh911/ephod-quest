@@ -3,11 +3,13 @@
 [node name="Finale" type="Node2D"]
 script = ExtResource("1")
 [node name="CourtyardBG" type="ColorRect"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.9, 0.8, 0.7, 1)
 [node name="Ephod" type="ColorRect"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -20,6 +22,7 @@ offset_bottom = 50
 color = Color(1, 0.8, 0, 1)
 visible = false
 [node name="Light" type="ColorRect"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
