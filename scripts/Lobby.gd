@@ -15,7 +15,11 @@ func _ready():
 				push_error("Failed to join game")
 		)
 	if has_node("VBoxContainer/Back"):
-		$VBoxContainer/Back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/MainMenu.tscn"))
+		$VBoxContainer/Back.pressed.connect(func(): 
+			var error = get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+			if error != OK:
+				push_error("Failed to load MainMenu scene")
+		)
 	multiplayer.peer_connected.connect(_on_peer)
 	multiplayer.peer_disconnected.connect(_on_dis)
 
