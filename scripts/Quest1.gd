@@ -13,4 +13,4 @@ func reuben_mini():
 	$VerseLabel.text += "\nButterfly: tastes with feet! New creation - 2 Cor 5:17"
 	var error = get_tree().change_scene_to_file("res://scenes/Finale.tscn")
 	if error != OK:
-		push_error("Failed to load Finale scene")
+		push_error("Failed to load Finale scene: " + str(error))
