@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://f5g6h7i8j9k0l1m2n3o4p5q6r7s8t9u0"]
+
+[ext_resource type="Script" path="res://scripts/minigames/DialogueChoiceMinigame.gd" id="1"]
+
+[node name="DialogueChoiceMinigame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+goal = 3
+prompt = "Choose wisely to bring peace!"

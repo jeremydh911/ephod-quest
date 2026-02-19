@@ -1,0 +1,112 @@
+[gd_scene load_steps=3 format=3 uid="uid://quest7_gad"]
+
+[ext_resource type="Script" path="res://scripts/Quest7.gd" id="1_quest7"]
+[ext_resource type="FontFile" path="res://assets/fonts/default_font.ttf" id="2_font"]
+
+[node name="Quest7" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_quest7")
+tribe_key = "gad"
+quest_id = "gad_main"
+next_scene = "res://scenes/Quest8.tscn"
+music_path = "res://assets/audio/music/quest_theme.ogg"
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.4, 0.5, 0.6, 1)
+z_index = -10
+
+[node name="Mountains" type="ColorRect" parent="BG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.5, 0.6, 0.7, 1)
+
+[node name="Peak1" type="ColorRect" parent="Mountains"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 250.0
+offset_bottom = 200.0
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Peak2" type="ColorRect" parent="Mountains"]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 80.0
+offset_right = 450.0
+offset_bottom = 180.0
+color = Color(0.55, 0.65, 0.75, 1)
+
+[node name="Stronghold" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -80.0
+offset_right = 120.0
+offset_bottom = 80.0
+color = Color(0.5, 0.4, 0.3, 1)
+
+[node name="Walls" type="ColorRect" parent="Stronghold"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 130.0
+offset_bottom = 10.0
+color = Color(0.4, 0.3, 0.2, 1)
+
+[node name="Walls2" type="ColorRect" parent="Stronghold"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = 70.0
+offset_right = 130.0
+offset_bottom = 90.0
+color = Color(0.4, 0.3, 0.2, 1)
+
+[node name="Walls3" type="ColorRect" parent="Stronghold"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 90.0
+color = Color(0.4, 0.3, 0.2, 1)
+
+[node name="Walls4" type="ColorRect" parent="Stronghold"]
+layout_mode = 0
+offset_left = 110.0
+offset_top = -10.0
+offset_right = 130.0
+offset_bottom = 90.0
+color = Color(0.4, 0.3, 0.2, 1)
+
+[node name="TribeBar" type="Label" parent="."]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 8.0
+offset_right = 640.0
+offset_bottom = 42.0
+text = "✦ Tribe of Gad  ·  Fortitude & Perseverance"
+horizontal_alignment = 1
+add_theme_color_override("font_color", Color(0.3, 0.4, 0.5, 1))
+add_theme_font_override("font", ExtResource("2_font"))
+add_theme_font_size_override("font_size", 16)
+
+[node name="MiniGameContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 90.0
+offset_right = 580.0
+offset_bottom = 510.0
+add_theme_constant_override("separation", 14)
+visible = false

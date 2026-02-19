@@ -1,0 +1,92 @@
+[gd_scene load_steps=3 format=3 uid="uid://quest12_benjamin"]
+
+[ext_resource type="Script" path="res://scripts/Quest12.gd" id="1_quest12"]
+[ext_resource type="FontFile" path="res://assets/fonts/default_font.ttf" id="2_font"]
+
+[node name="Quest12" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_quest12")
+tribe_key = "benjamin"
+quest_id = "benjamin_main"
+next_scene = "res://scenes/Finale.tscn"
+music_path = "res://assets/audio/music/quest_theme.ogg"
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.4, 0.3, 0.6, 1)
+z_index = -10
+
+[node name="Mountain" type="ColorRect" parent="BG"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.3, 0.2, 0.4, 1)
+
+[node name="Peak1" type="ColorRect" parent="Mountain"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = 50.0
+color = Color(0.4, 0.3, 0.5, 1)
+
+[node name="Peak2" type="ColorRect" parent="Mountain"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = -30.0
+offset_right = 500.0
+offset_bottom = 70.0
+color = Color(0.4, 0.3, 0.5, 1)
+
+[node name="Shelter" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 150.0
+offset_right = 350.0
+offset_bottom = 200.0
+color = Color(0.5, 0.4, 0.3, 1)
+
+[node name="ShelterRoof" type="ColorRect" parent="Shelter"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 110.0
+offset_bottom = 10.0
+color = Color(0.4, 0.3, 0.2, 1)
+
+[node name="GuardianFigure" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 290.0
+offset_top = 180.0
+offset_right = 310.0
+offset_bottom = 200.0
+color = Color(0.6, 0.4, 0.8, 1)
+
+[node name="TribeBar" type="Label" parent="."]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 8.0
+offset_right = 640.0
+offset_bottom = 42.0
+text = "✦ Tribe of Benjamin  ·  Precision & Protection"
+horizontal_alignment = 1
+add_theme_color_override("font_color", Color(0.9, 0.8, 1.0, 1))
+add_theme_font_override("font", ExtResource("2_font"))
+add_theme_font_size_override("font_size", 16)
+
+[node name="MiniGameContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 90.0
+offset_right = 580.0
+offset_bottom = 510.0
+add_theme_constant_override("separation", 14)
+visible = false

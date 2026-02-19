@@ -1,13 +1,236 @@
-# Copilot Instructions for Ephod Quest
+# Copilot Instructions for Twelve Stones — Ephod Quest
 
 ## Project Overview
-Ephod Quest (also known as "Twelve Stones") is a 2D biblical adventure game built with Godot Engine 4.3. The game features a multiplayer experience where players progress through tribal quests based on the 12 tribes of Israel, collecting stones and learning biblical verses.
+"Twelve Stones" (Ephod Quest) is a mobile-first 2D biblical co-operative adventure built
+with Godot Engine 4.3. Players choose one of 48 avatars across 12 tribes of Israel,
+complete tribal quests, collect gemstones matching the high-priest's ephod
+(Exodus 28), and memorise scripture. The finale is a courtyard scene where all
+tribes weave their stones into the breastplate together.
+
+**Core promise:** No violence, no stats, no power-ups, no loot. Only heart, unity,
+and the joy of discovery.
+
+---
 
 ## Technology Stack
-- **Engine**: Godot 4.3
-- **Language**: GDScript
-- **Architecture**: Scene-based with autoload singletons
-- **Networking**: ENet for multiplayer
+- **Engine**: Godot 4.3  (use only Godot 4.x APIs)
+- **Language**: GDScript  (typed where possible)
+- **Architecture**: Scene-based + autoload singletons
+- **Networking**: ENet peer-to-peer, port 7777, max 12 players
+- **Target platforms**: Android (min SDK 24), iOS, PC, Web
+
+---
+
+## Project Structure
+```
+ephod-quest/
+├── scenes/          # .tscn scene files
+├── scripts/         # .gd GDScript files
+│   ├── Global.gd          # ALL game state + TRIBES/AVATARS data
+│   ├── MultiplayerLobby.gd
+│   ├── AudioManager.gd
+│   ├── VerseVault.gd      # Collectible verse catalogue
+│   ├── QuestBase.gd       # Base class for all Quest scripts
+│   ├── TouchControls.gd   # Virtual joystick
+│   └── Quest1-12.gd, Finale.gd, ...
+├── DOCS/            # Design documents
+└── export_presets.cfg
+```
+
+---
+
+## Autoload Singletons
+
+| Autoload           | Purpose                                          |
+|--------------------|--------------------------------------------------|
+| `Global`           | Selected tribe/avatar, stones, verses, save/load |
+| `MultiplayerLobby` | ENet host/join, player registry, co-op detection |
+| `AudioManager`     | Cross-fade music, one-shot SFX                   |
+| `VerseVault`       | Verse catalogue, unlock/memorise API             |
+
+Always route shared state through `Global`. Never store game state in individual
+scene scripts.
+
+---
+
+## Biblical Fidelity Rules
+
+1. **Never use the words "temple" or "church"** when describing visual settings.
+   Use physical descriptors only:
+   - ✅ "gold-plated cedar pillars", "blue and purple and scarlet curtains",
+         "a thick veil with embroidered cherubim", "the seven-flame lampstand"
+   - ❌ "the temple", "the church building", "the sanctuary" (word)
+
+2. **All scripture must be accurate** — copy from NIV or KJV exactly. Never
+   paraphrase or invent a verse. Always include the reference (e.g. "John 3:16").
+
+3. **Nature-science facts must be real** — firefly bioluminescence, eagle eyesight,
+   lion roar range, butterfly migration. Source from established biology.
+
+4. **Elder dialogue tone**:
+   - Elders always say: "My child…", "God sees your heart", "Shalom, shalom",
+     "Well done", "That is the gift of [tribe]"
+   - Children/players say: "Please, Elder [name]…", "Thank you", "Shalom"
+   - Never condescending. Never preachy. Warm, narrative, inviting.
+
+5. **Tribe order** (Exodus 28 ephod row order):
+   reuben → simeon → levi → judah → dan → naphtali →
+   gad → asher → issachar → zebulun → joseph → benjamin
+
+---
+
+## Gameplay Rules (NEVER violate)
+
+- **No magic** — All mechanics are physical: tapping, rhythm, holding, pattern recognition
+- **No damage / HP** — Failure is gentle: "Let's try again. God is patient."
+- **No stats or power-ups** — Avatar bonuses are narrative (e.g. "Ezra hears rhythms more clearly")
+- **No loot** — Only collectibles: 1 gemstone + 1 verse per quest
+- **Co-op is cross-tribe** — Multiplayer bonuses only activate when DIFFERENT tribes
+  work together (never same-tribe stacking)
+
+---
+
+## GDScript Style
+
+```gdscript
+# ✅ Correct
+extends Control
+
+@export var tribe_key: String = ""
+
+func _ready() -> void:
+    $Button.pressed.connect(func(): _do_something())
+
+func _do_something() -> void:
+    pass
+```
+
+- **snake_case** for vars and functions
+- **PascalCase** for class names and scene file names
+- Always annotate return types on public functions
+- Always check scene change results:
+
+```gdscript
+var res := get_tree().change_scene_to_file("res://scenes/Lobby.tscn")
+if res != OK:
+    push_error("Failed to change scene")
+```
+
+---
+
+## Mobile / Touch First
+
+- All Control nodes use `anchors_preset = 15` (full-rect) where appropriate
+- Minimum touch target size: **44 × 44 px** (`custom_minimum_size`)
+- Virtual joystick is `TouchControls.gd` — attach to CanvasLayer, bottom-left
+- `Global._input()` translates `InputEventScreenDrag` to action presses
+- Stretch mode: `canvas_items` / `expand` aspect — already set in `project.godot`
+
+---
+
+## Quest Architecture
+
+All quest scripts extend `QuestBase.gd`:
+
+```gdscript
+extends "res://scripts/QuestBase.gd"
+
+func _ready() -> void:
+    tribe_key  = "reuben"
+    quest_id   = "reuben_main"
+    next_scene = "res://scenes/Quest2.tscn"
+    music_path = "res://assets/audio/music/quest_theme.ogg"
+    super._ready()
+
+func on_quest_ready() -> void:
+    show_dialogue([
+        {"name": "Hanoch", "text": "My child, shalom…"},
+        {"name": "You",    "text": "Please, elder…",
+         "callback": Callable(self, "_start_mini")}
+    ])
+```
+
+**QuestBase hooks to override:**
+- `on_quest_ready()` — called after UI is built and music starts
+- `on_minigame_complete(result: Dictionary)` — called by base mini-game builders
+- `on_minigame_timeout(result: Dictionary)` — called on time-out
+
+**QuestBase helpers available:**
+- `show_dialogue(lines)` — queued dialogue panel
+- `show_verse_scroll(ref, text)` — memorisation scroll popup
+- `show_nature_fact()` — auto-reads from tribe data
+- `build_tap_minigame(parent, goal, prompt, time_limit)` → result dict
+- `build_rhythm_minigame(parent, beat_dur, beats, goal, prompt)` → result dict
+- `_collect_stone()` → glow animation → `_fade_out_and_change(next_scene)`
+
+---
+
+## Multiplayer
+
+- `MultiplayerLobby.host()` — host a game (emits `host_ready(ip_code)`)
+- `MultiplayerLobby.join(code)` — join a game (emits `join_failed(reason)` on error)
+- `players: Dictionary` — `peer_id → {name, tribe, avatar, stones}`
+- Co-op actions in `Global.COOP_ACTIONS`:
+  - Keys are `"tribe1_tribe2"` (alphabetical), value has `gift` and `bonus` strings
+- RPC decorators: `@rpc("any_peer", "call_remote", "reliable")`
+
+---
+
+## Visual Style
+
+**Earth & Gold palette**:
+
+| Token            | Hex       | Use                        |
+|------------------|-----------|----------------------------|
+| Desert Sand      | `#E9D5B3` | Background warmth          |
+| Clay Brown       | `#8B6F47` | Ground, earth tones        |
+| Olive Green      | `#6B7A4F` | Vegetation                 |
+| Pure Gold        | `#FFD700` | Ephod, gems, highlights    |
+| Antique Gold     | `#C5A572` | UI borders, pillar accents |
+
+Soft pastel cartoon aesthetic. Calming, diverse, welcoming.
+Avoid harsh contrasts or dark ominous tones.
+
+---
+
+## Diversity & Representation
+
+- All 48 avatars have **varied skin, hair, eyes, builds, ages (12–29)**
+- No stereotype casting — any tribe can have any skill
+- Avatar gameplay edges are **narrative bonuses**, not stat modifiers
+- Ages deliberately include 12–18 so younger players see themselves
+
+---
+
+## Common Tasks
+
+### Add a new Quest (tribe N)
+
+1. Create `scenes/QuestN.tscn` — landscape matching tribe geography
+2. Create `scripts/QuestN.gd` — `extends "res://scripts/QuestBase.gd"`
+3. Set `tribe_key`, `quest_id`, `next_scene`, `music_path` in `_ready()`
+4. Implement `on_quest_ready()` with elder dialogue + mini-game sequence
+5. Add route in `AvatarPick.gd` → `_quest_scenes` dict
+
+### Add a verse to VerseVault
+
+Edit `scripts/VerseVault.gd` → `VAULT` array. Each entry:
+```gdscript
+{"tribe": "judah", "type": "quest",   "ref": "Psalm 100:1",  "text": "…"},
+{"tribe": "judah", "type": "nature",  "ref": "Revelation 5:5","text": "…", "fact": "…"},
+```
+
+### Add an avatar
+
+Edit `Global.gd` → `AVATARS` dict. Each avatar entry:
+```gdscript
+"key_name": {
+    "key": "key_name", "tribe": "tribe_key", "name": "Name",
+    "age": 17, "skin": "medium", "hair": "black curly", "eyes": "brown",
+    "build": "lean", "backstory": "…", "gameplay_edge": "…"
+}
+```
+
 
 ## Project Structure
 ```

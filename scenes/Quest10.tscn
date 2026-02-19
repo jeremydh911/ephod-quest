@@ -1,0 +1,99 @@
+[gd_scene load_steps=3 format=3 uid="uid://quest10_zebulun"]
+
+[ext_resource type="Script" path="res://scripts/Quest10.gd" id="1_quest10"]
+[ext_resource type="FontFile" path="res://assets/fonts/default_font.ttf" id="2_font"]
+
+[node name="Quest10" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_quest10")
+tribe_key = "zebulun"
+quest_id = "zebulun_main"
+next_scene = "res://scenes/Quest11.tscn"
+music_path = "res://assets/audio/music/quest_theme.ogg"
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.2, 0.5, 0.8, 1)
+z_index = -10
+
+[node name="Sea" type="ColorRect" parent="BG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.4, 0.7, 0.8)
+
+[node name="Wave1" type="ColorRect" parent="Sea"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 200.0
+offset_right = 640.0
+offset_bottom = 220.0
+color = Color(0.3, 0.6, 0.9, 0.6)
+
+[node name="Wave2" type="ColorRect" parent="Sea"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 240.0
+offset_right = 640.0
+offset_bottom = 260.0
+color = Color(0.4, 0.7, 1.0, 0.4)
+
+[node name="Ship" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 180.0
+offset_right = 340.0
+offset_bottom = 200.0
+color = Color(0.6, 0.4, 0.2, 1)
+
+[node name="Sail" type="ColorRect" parent="Ship"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = -20.0
+offset_right = 25.0
+offset_bottom = 20.0
+color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="Harbor" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 250.0
+offset_right = 200.0
+offset_bottom = 280.0
+color = Color(0.5, 0.3, 0.1, 1)
+
+[node name="Pier" type="ColorRect" parent="Harbor"]
+layout_mode = 0
+offset_left = -50.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 30.0
+color = Color(0.4, 0.2, 0.0, 1)
+
+[node name="TribeBar" type="Label" parent="."]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 8.0
+offset_right = 640.0
+offset_bottom = 42.0
+text = "✦ Tribe of Zebulun  ·  Haven for Ships"
+horizontal_alignment = 1
+add_theme_color_override("font_color", Color(0.9, 0.95, 1.0, 1))
+add_theme_font_override("font", ExtResource("2_font"))
+add_theme_font_size_override("font_size", 16)
+
+[node name="MiniGameContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 90.0
+offset_right = 580.0
+offset_bottom = 510.0
+add_theme_constant_override("separation", 14)
+visible = false

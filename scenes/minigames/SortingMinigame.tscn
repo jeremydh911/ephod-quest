@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://e4f5g6h7i8j9k0l1m2n3o4p5q6r7s8t9"]
+
+[ext_resource type="Script" path="res://scripts/minigames/SortingMinigame.gd" id="1"]
+
+[node name="SortingMinigame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+goal = 4
+prompt = "Balance the scales of justice!"
+time_limit = 15.0

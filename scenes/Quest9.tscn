@@ -1,0 +1,96 @@
+[gd_scene load_steps=3 format=3 uid="uid://quest9_issachar"]
+
+[ext_resource type="Script" path="res://scripts/Quest9.gd" id="1_quest9"]
+[ext_resource type="FontFile" path="res://assets/fonts/default_font.ttf" id="2_font"]
+
+[node name="Quest9" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_quest9")
+tribe_key = "issachar"
+quest_id = "issachar_main"
+next_scene = "res://scenes/Quest10.tscn"
+music_path = "res://assets/audio/music/quest_theme.ogg"
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.3, 0.2, 0.5, 1)
+z_index = -10
+
+[node name="NightSky" type="ColorRect" parent="BG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.1, 0.3, 1)
+
+[node name="Star1" type="ColorRect" parent="NightSky"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 154.0
+offset_bottom = 104.0
+color = Color(1, 1, 1, 0.8)
+
+[node name="Star2" type="ColorRect" parent="NightSky"]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 120.0
+offset_right = 354.0
+offset_bottom = 124.0
+color = Color(1, 1, 0.9, 1)
+
+[node name="Star3" type="ColorRect" parent="NightSky"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 90.0
+offset_right = 504.0
+offset_bottom = 94.0
+color = Color(1, 1, 0.7, 0.6)
+
+[node name="Observatory" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -70.0
+offset_right = 100.0
+offset_bottom = 70.0
+color = Color(0.4, 0.3, 0.5, 1)
+
+[node name="Dome" type="ColorRect" parent="Observatory"]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 120.0
+offset_bottom = 0.0
+color = Color(0.5, 0.4, 0.6, 1)
+
+[node name="TribeBar" type="Label" parent="."]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 8.0
+offset_right = 640.0
+offset_bottom = 42.0
+text = "✦ Tribe of Issachar  ·  Wisdom & Understanding"
+horizontal_alignment = 1
+add_theme_color_override("font_color", Color(0.8, 0.7, 1.0, 1))
+add_theme_font_override("font", ExtResource("2_font"))
+add_theme_font_size_override("font_size", 16)
+
+[node name="MiniGameContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 90.0
+offset_right = 580.0
+offset_bottom = 510.0
+add_theme_constant_override("separation", 14)
+visible = false
