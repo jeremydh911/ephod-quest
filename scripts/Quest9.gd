@@ -90,12 +90,6 @@ func _show_quest_verse() -> void:
 	var text: String = _tribe_data.get("quest_verse_text", "")
 	show_verse_scroll(ref, text)
 
-func _show_nature_fact() -> void:
-	show_nature_fact()
-
-func _collect_stone() -> void:
-	_collect_stone()
-
 # ─────────────────────────────────────────────────────────────────────────────
 # QUEST COMPLETE — fade out and change scene
 # ─────────────────────────────────────────────────────────────────────────────
