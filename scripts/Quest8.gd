@@ -94,7 +94,7 @@ func _show_nature_fact() -> void:
 	show_nature_fact()
 
 func _collect_stone() -> void:
-	_collect_stone()
+	super._collect_stone()
 
 # ─────────────────────────────────────────────────────────────────────────────
 # QUEST COMPLETE — fade out and change scene
