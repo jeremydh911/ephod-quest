@@ -45,6 +45,7 @@ func host() -> void:
 	var code := _get_local_ip()
 	host_ready.emit(code)
 	AudioManager.play_sfx("res://assets/audio/sfx/join_success.wav")
+	return OK
 
 # ─────────────────────────────────────────────────────────────────────────────
 # JOIN
