@@ -1,5 +1,7 @@
 extends "res://scripts/QuestBase.gd"
 
+var _phase: String = ""
+
 func _ready() -> void:
     tribe_key  = "zebulun"
     quest_id   = "zebulun_main"
@@ -19,12 +21,12 @@ func on_quest_ready() -> void:
     ])
 
 func _start_sailing() -> void:
-    var sailing_game := build_sailing_minigame(
+    _phase = "sailing"
+    build_sailing_minigame(
         $MiniGameContainer,
         "Guide the ship through the waves! Tap to steer, hold to maintain course.",
         30.0  # 30 seconds
     )
-    sailing_game.connect("minigame_complete", Callable(self, "_on_sailing_complete"))
 
 func _on_sailing_complete(result: Dictionary) -> void:
     if result.get("success", false):
@@ -44,12 +46,18 @@ func _on_sailing_complete(result: Dictionary) -> void:
         ])
 
 func _start_hospitality() -> void:
-    var hospitality_game := build_hospitality_minigame(
+    _phase = "hospitality"
+    build_hospitality_minigame(
         $MiniGameContainer,
         "Welcome the travelers! Match their needs with the gifts available.",
         25.0  # 25 seconds
     )
-    hospitality_game.connect("minigame_complete", Callable(self, "_on_hospitality_complete"))
+
+func on_minigame_complete(result: Dictionary) -> void:
+    if _phase == "sailing":
+        _on_sailing_complete(result)
+    elif _phase == "hospitality":
+        _on_hospitality_complete(result)
 
 func _on_hospitality_complete(result: Dictionary) -> void:
     if result.get("success", false):

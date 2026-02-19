@@ -1,5 +1,7 @@
 extends "res://scripts/QuestBase.gd"
 
+var _phase: String = ""
+
 func _ready() -> void:
     tribe_key  = "joseph"
     quest_id   = "joseph_main"
@@ -19,12 +21,12 @@ func on_quest_ready() -> void:
     ])
 
 func _start_growth() -> void:
-    var growth_game := build_growth_minigame(
+    _phase = "growth"
+    build_growth_minigame(
         $MiniGameContainer,
         "Nurture the garden! Water the plants, remove weeds, and help them grow.",
         35.0  # 35 seconds
     )
-    growth_game.connect("minigame_complete", Callable(self, "_on_growth_complete"))
 
 func _on_growth_complete(result: Dictionary) -> void:
     if result.get("success", false):
@@ -45,12 +47,18 @@ func _on_growth_complete(result: Dictionary) -> void:
         ])
 
 func _start_forgiveness() -> void:
-    var forgiveness_game := build_forgiveness_minigame(
+    _phase = "forgiveness"
+    build_forgiveness_minigame(
         $MiniGameContainer,
         "Choose wisely: Hold onto anger or extend forgiveness?",
         20.0  # 20 seconds
     )
-    forgiveness_game.connect("minigame_complete", Callable(self, "_on_forgiveness_complete"))
+
+func on_minigame_complete(result: Dictionary) -> void:
+    if _phase == "growth":
+        _on_growth_complete(result)
+    elif _phase == "forgiveness":
+        _on_forgiveness_complete(result)
 
 func _on_forgiveness_complete(result: Dictionary) -> void:
     if result.get("success", false):

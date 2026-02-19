@@ -1,5 +1,7 @@
 extends "res://scripts/QuestBase.gd"
 
+var _phase: String = ""
+
 func _ready() -> void:
     tribe_key  = "benjamin"
     quest_id   = "benjamin_main"
@@ -19,12 +21,12 @@ func on_quest_ready() -> void:
     ])
 
 func _start_precision() -> void:
-    var precision_game := build_precision_minigame(
+    _phase = "precision"
+    build_precision_minigame(
         $MiniGameContainer,
         "Strike with precision! Hit the targets exactly in the center.",
         30.0  # 30 seconds
     )
-    precision_game.connect("minigame_complete", Callable(self, "_on_precision_complete"))
 
 func _on_precision_complete(result: Dictionary) -> void:
     if result.get("success", false):
@@ -44,12 +46,18 @@ func _on_precision_complete(result: Dictionary) -> void:
         ])
 
 func _start_protection() -> void:
-    var protection_game := build_protection_minigame(
+    _phase = "protection"
+    build_protection_minigame(
         $MiniGameContainer,
         "Protect the precious ones! Block the threats and keep them safe.",
         25.0  # 25 seconds
     )
-    protection_game.connect("minigame_complete", Callable(self, "_on_protection_complete"))
+
+func on_minigame_complete(result: Dictionary) -> void:
+    if _phase == "precision":
+        _on_precision_complete(result)
+    elif _phase == "protection":
+        _on_protection_complete(result)
 
 func _on_protection_complete(result: Dictionary) -> void:
     if result.get("success", false):
