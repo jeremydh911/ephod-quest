@@ -1,5 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://lobby"]
 [ext_resource type="Script" path="res://scripts/Lobby.gd" id="1"]
+
 [node name="Lobby" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -8,34 +9,150 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
-[node name="VBoxContainer" type="VBoxContainer"]
+
+; Background — warm clay ────────────────────────────────────────────────────
+[node name="BG" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -150.0
-offset_right = 200.0
-offset_bottom = 150.0
-grow_horizontal = 2
-grow_vertical = 2
-[node name="Label" type="Label" parent="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.969, 0.929, 0.847, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
-text = "Multiplayer Lobby"
+theme_override_constants/separation = 20
+
+; Title ─────────────────────────────────────────────────────────────────────
+[node name="Label" type="Label" parent="Margin/VBoxContainer"]
+layout_mode = 2
+text = "Gathering the Tribes"
 horizontal_alignment = 1
-[node name="Host" type="Button" parent="VBoxContainer"]
+theme_override_font_sizes/font_size = 36
+
+[node name="SubLabel" type="Label" parent="Margin/VBoxContainer"]
 layout_mode = 2
-text = "Host"
-[node name="CodeEntry" type="LineEdit" parent="VBoxContainer"]
+text = "Play together — cross-tribe cooperation required!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+modulate = Color(0.45, 0.33, 0.12, 1)
+
+[node name="HSep" type="HSeparator" parent="Margin/VBoxContainer"]
 layout_mode = 2
-placeholder_text = "Enter Code"
-[node name="Join" type="Button" parent="VBoxContainer"]
+
+; Main content row ───────────────────────────────────────────────────────────
+[node name="ContentRow" type="HBoxContainer" parent="Margin/VBoxContainer"]
 layout_mode = 2
-text = "Join"
-[node name="PlayerList" type="ItemList" parent="VBoxContainer"]
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+; -- Left: host/join controls ────────────────────────────────────────────────
+[node name="ControlPanel" type="VBoxContainer" parent="Margin/VBoxContainer/ContentRow"]
 layout_mode = 2
-[node name="Back" type="Button" parent="VBoxContainer"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="HostLabel" type="Label" parent="Margin/VBoxContainer/ContentRow/ControlPanel"]
 layout_mode = 2
-text = "Back"
+text = "Start a new gathering:"
+theme_override_font_sizes/font_size = 17
+
+[node name="Host" type="Button" parent="Margin/VBoxContainer/ContentRow/ControlPanel"]
+layout_mode = 2
+text = "Host — Open Doors"
+custom_minimum_size = Vector2(0, 56)
+
+[node name="CodeDisplay" type="PanelContainer" parent="Margin/VBoxContainer/ContentRow/ControlPanel"]
+layout_mode = 2
+visible = false
+
+[node name="CodeLabel" type="Label" parent="Margin/VBoxContainer/ContentRow/ControlPanel/CodeDisplay"]
+layout_mode = 2
+text = "Code: —"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+
+[node name="Sep2" type="HSeparator" parent="Margin/VBoxContainer/ContentRow/ControlPanel"]
+layout_mode = 2
+
+[node name="JoinLabel" type="Label" parent="Margin/VBoxContainer/ContentRow/ControlPanel"]
+layout_mode = 2
+text = "Join an existing gathering:"
+theme_override_font_sizes/font_size = 17
+
+[node name="CodeEntry" type="LineEdit" parent="Margin/VBoxContainer/ContentRow/ControlPanel"]
+layout_mode = 2
+placeholder_text = "Enter host's IP or code"
+custom_minimum_size = Vector2(0, 50)
+
+[node name="Join" type="Button" parent="Margin/VBoxContainer/ContentRow/ControlPanel"]
+layout_mode = 2
+text = "Join — Come In, Shalom!"
+custom_minimum_size = Vector2(0, 56)
+
+[node name="StatusLabel" type="Label" parent="Margin/VBoxContainer/ContentRow/ControlPanel"]
+layout_mode = 2
+text = ""
+modulate = Color(0.7, 0.2, 0.1, 1)
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 15
+
+; -- Right: connected players list ───────────────────────────────────────────
+[node name="PlayersPanel" type="VBoxContainer" parent="Margin/VBoxContainer/ContentRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="PlayersTitle" type="Label" parent="Margin/VBoxContainer/ContentRow/PlayersPanel"]
+layout_mode = 2
+text = "Tribes Present:"
+theme_override_font_sizes/font_size = 18
+
+[node name="PlayerScroll" type="ScrollContainer" parent="Margin/VBoxContainer/ContentRow/PlayersPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+; Script fills this list ─────────────────────────────────────────────────────
+[node name="PlayerList" type="VBoxContainer" parent="Margin/VBoxContainer/ContentRow/PlayersPanel/PlayerScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+; Co-op hint box — shown when two matching tribes are in lobby ───────────────
+[node name="CoopHint" type="PanelContainer" parent="Margin/VBoxContainer/ContentRow/PlayersPanel"]
+layout_mode = 2
+visible = false
+
+[node name="CoopLabel" type="Label" parent="Margin/VBoxContainer/ContentRow/PlayersPanel/CoopHint"]
+layout_mode = 2
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 14
+
+; Bottom bar ──────────────────────────────────────────────────────────────────
+[node name="BottomBar" type="HBoxContainer" parent="Margin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Back" type="Button" parent="Margin/VBoxContainer/BottomBar"]
+layout_mode = 2
+text = "← Main Menu"
+custom_minimum_size = Vector2(160, 52)
+
+[node name="BottomSpacer" type="Control" parent="Margin/VBoxContainer/BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StartBtn" type="Button" parent="Margin/VBoxContainer/BottomBar"]
+layout_mode = 2
+text = "Begin the Quest →"
+custom_minimum_size = Vector2(200, 52)
+visible = false

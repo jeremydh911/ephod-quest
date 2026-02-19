@@ -1,0 +1,127 @@
+[gd_scene load_steps=3 format=3 uid="uid://verse_vault_scene"]
+
+[ext_resource type="Script" path="res://scripts/VerseVaultScene.gd" id="1_vvscr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvbg"]
+bg_color = Color(0.10, 0.08, 0.05, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.78, 0.62, 0.20, 0.7)
+
+[node name="VerseVaultScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_vvscr")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.12, 0.10, 0.06, 1)
+
+[node name="Header" type="Label" parent="."]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 14.0
+offset_right = 640.0
+offset_bottom = 56.0
+text = "✦ Verse Vault — The Twelve Stones Journal"
+horizontal_alignment = 1
+add_theme_color_override("font_color", Color(0.95, 0.78, 0.20, 1))
+add_theme_font_size_override("font_size", 20)
+
+[node name="TribeSwatch" type="ColorRect" parent="."]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 66.0
+offset_right = 600.0
+offset_bottom = 88.0
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="PageCard" type="PanelContainer" parent="."]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 96.0
+offset_right = 610.0
+offset_bottom = 490.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vvbg")
+
+[node name="CardContent" type="VBoxContainer" parent="PageCard"]
+layout_mode = 2
+add_theme_constant_override("separation", 12)
+
+[node name="VerseRef" type="Label" parent="PageCard/CardContent"]
+layout_mode = 2
+text = "—"
+add_theme_color_override("font_color", Color(0.85, 0.72, 0.30, 1))
+add_theme_font_size_override("font_size", 17)
+
+[node name="VerseText" type="Label" parent="PageCard/CardContent"]
+layout_mode = 2
+text = "Select a tribe to read its verse."
+autowrap_mode = 3
+add_theme_color_override("font_color", Color(0.92, 0.88, 0.78, 1))
+add_theme_font_size_override("font_size", 16)
+
+[node name="MemoBadge" type="Label" parent="PageCard/CardContent"]
+layout_mode = 2
+text = ""
+add_theme_color_override("font_color", Color(0.4, 0.9, 0.4, 1))
+add_theme_font_size_override("font_size", 15)
+
+[node name="HSep" type="HSeparator" parent="PageCard/CardContent"]
+layout_mode = 2
+
+[node name="NatureRef" type="Label" parent="PageCard/CardContent"]
+layout_mode = 2
+text = ""
+add_theme_color_override("font_color", Color(0.55, 0.80, 0.45, 1))
+add_theme_font_size_override("font_size", 15)
+
+[node name="NatureFact" type="Label" parent="PageCard/CardContent"]
+layout_mode = 2
+autowrap_mode = 3
+text = ""
+add_theme_color_override("font_color", Color(0.80, 0.88, 0.72, 1))
+add_theme_font_size_override("font_size", 14)
+
+[node name="NavRow" type="HBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 498.0
+offset_right = 610.0
+offset_bottom = 548.0
+add_theme_constant_override("separation", 12)
+
+[node name="PrevBtn" type="Button" parent="NavRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "◀ Prev"
+
+[node name="PageLabel" type="Label" parent="NavRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1 / 1"
+horizontal_alignment = 1
+
+[node name="NextBtn" type="Button" parent="NavRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Next ▶"
+
+[node name="BackBtn" type="Button" parent="."]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 558.0
+offset_right = 610.0
+offset_bottom = 610.0
+text = "← Back"

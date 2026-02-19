@@ -1,0 +1,85 @@
+# What Music is Left to Do - Twelve Stones: Ephod Quest
+
+This file lists all custom music and sound effects needed for the game. Use Suno.com (paid commercial account) to generate royalty-free tracks. Themes: Uplifting, biblical, calm, educational—soft harp/strings, gentle melodies, no loud/violent sounds. All tracks should evoke unity, discovery, and heart.
+
+## Background Music (Loops, 30-60 seconds)
+Use Suno prompts for instrumental tracks with subtle vocals if fitting.
+
+1. **Main Menu Music** (main_menu.ogg) - ✅ COMPLETED
+   - Link: https://suno.com/s/G2l8KOdbgDf9HXuR
+   - Prompt: "Soft, uplifting instrumental with harp and strings, evoking ancient wisdom and unity, calm and inviting, 30 seconds loop, biblical theme of gathering tribes."
+   - Length: 30 seconds (loop).
+   - Theme: Welcoming, sets peaceful tone for menu navigation.
+   - Action: Download from Suno, convert to OGG, place in assets/audio/music/main_menu.ogg.
+
+2. **Quest Theme** (quest_theme.ogg) - ✅ COMPLETED
+   - Link: https://suno.com/s/73MBFBENiqBD9BaE
+   - Prompt: "Gentle adventure music with flute and light percussion, exploring caves and hills, discovery and perseverance, 45 seconds loop, educational biblical journey."
+   - Length: 45 seconds (loop).
+   - Theme: Exploration, fits all tribal quests.
+   - Action: Download from Suno, convert to OGG, place in assets/audio/music/quest_theme.ogg.
+
+3. **Finale Theme** (finale_theme.ogg) - ✅ COMPLETED
+   - Link: https://suno.com/s/MSXjyehIuhYgsNsP
+   - Prompt: "Triumphant yet serene orchestral piece with choir hints, weaving stones together, celebration of unity, 60 seconds loop, heartwarming biblical finale."
+   - Length: 60 seconds (loop).
+   - Theme: Joyful completion, ephod assembly.
+   - Action: Download from Suno, convert to OGG, place in assets/audio/music/finale_theme.ogg.
+
+## Sound Effects (Short, 1-5 seconds)
+Use Suno for custom SFX or generate via prompts; ensure crisp and age-appropriate.
+
+4. **Tap Sound** (tap.wav) - ✅ COMPLETED
+   - Link: https://suno.com/s/xhpUNSWw887EynFz
+   - Prompt: "Soft, gentle tap like touching a stone, subtle chime, 1 second, discovery feel."
+   - Length: 1 second.
+   - Theme: Positive feedback for taps.
+   - Note: Cut into small chunks for various sound effects (e.g., verse_reveal.wav, stone_unlock.wav).
+   - Action: Download from Suno, convert to WAV, cut into chunks, place in assets/audio/sfx/tap.wav and other SFX files.
+
+5. **Click Sound** (click.wav) - ✅ COMPLETED
+   - Link: https://suno.com/s/atKom1q8Plxi0yc0
+   - Prompt: "Light click like opening a scroll, paper rustle with soft bell, 1 second, inviting."
+   - Length: 1 second.
+   - Theme: Navigation confirmation.
+   - Note: Cut into chunks as needed for sound effects (use different parts for various SFX).
+   - Action: Download from Suno, cut into WAV chunks, place in assets/audio/sfx/ (click.wav, etc.).
+
+6. **Verse Reveal** (verse_reveal.wav) - ✅ COMPLETED (from Tap/Click chunks)
+   - Prompt: "Magical yet calm reveal, harp pluck with echo, 2 seconds, awe-inspiring."
+   - Length: 2 seconds.
+   - Theme: Sacred discovery.
+   - Action: Cut chunk from Tap or Click sound, place in assets/audio/sfx/verse_reveal.wav.
+
+7. **Stone Unlock** (stone_unlock.wav) - ✅ COMPLETED (from Tap/Click chunks)
+   - Prompt: "Sparkling unlock, crystal chime with light glow, 2 seconds, achievement."
+   - Length: 2 seconds.
+   - Theme: Tribal progress.
+   - Action: Cut chunk from Tap or Click sound, place in assets/audio/sfx/stone_unlock.wav.
+
+8. **Butterfly Flutter** (butterfly.wav) - ✅ COMPLETED (from song sections)
+   - Prompt: "Gentle butterfly wings fluttering, soft whoosh, 3 seconds loop, nature wonder."
+   - Length: 3 seconds (loop for animation).
+   - Theme: Educational, calming.
+   - Action: Cut section from existing Suno tracks, place in assets/audio/sfx/butterfly.wav.
+
+9. **Praise Roar Echo** (roar_echo.wav) - ✅ COMPLETED (from song sections)
+   - Prompt: "Soft lion roar echo, distant and mighty, 3 seconds, strength without fear."
+   - Length: 3 seconds.
+   - Theme: Tribal power, gentle.
+   - Action: Cut section from existing Suno tracks, place in assets/audio/sfx/roar_echo.wav.
+
+10. **Ephod Weave** (weave.wav) - ✅ COMPLETED (from song sections)
+    - Prompt: "Threads weaving with golden sparkle, tinkling chimes, 5 seconds, unity."
+    - Length: 5 seconds.
+    - Theme: Completion, heart.
+    - Action: Cut section from existing Suno tracks, place in assets/audio/sfx/weave.wav.
+
+## Production Notes
+- **Suno Settings**: Use "Instrumental" mode for music; "Sound Effect" for SFX. Commercial license ensures game use.
+- **File Formats**: Export as OGG (music) or WAV (SFX) from Suno.
+- **Testing**: Import into Godot, adjust volumes (music low, SFX clear).
+- **Themes Consistency**: All tracks should feel connected—biblical peace, no dissonance.
+- **Total Needed**: 10 tracks; generate in batches to match style.
+
+Once created, place in assets/audio/music/ and assets/audio/sfx/. Update this file as completed!

@@ -1,0 +1,120 @@
+[gd_scene load_steps=3 format=3 uid="uid://quest5_naphtali"]
+
+[ext_resource type="Script" path="res://scripts/Quest5.gd" id="1_quest5"]
+[ext_resource type="FontFile" path="res://assets/fonts/default_font.ttf" id="2_font"]
+
+[node name="Quest5" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_quest5")
+tribe_key = "naphtali"
+quest_id = "naphtali_main"
+next_scene = "res://scenes/Quest6.tscn"
+music_path = "res://assets/audio/music/quest_theme.ogg"
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.2, 0.4, 1)
+z_index = -10
+
+[node name="Stars" type="Control" parent="BG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Star1" type="ColorRect" parent="Stars"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = 104.0
+offset_bottom = 54.0
+color = Color(1, 1, 0.8, 0.8)
+
+[node name="Star2" type="ColorRect" parent="Stars"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 80.0
+offset_right = 304.0
+offset_bottom = 84.0
+color = Color(1, 1, 0.9, 1)
+
+[node name="Star3" type="ColorRect" parent="Stars"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 60.0
+offset_right = 504.0
+offset_bottom = 64.0
+color = Color(1, 1, 0.7, 0.6)
+
+[node name="Forest" type="ColorRect" parent="BG"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+color = Color(0.2, 0.4, 0.2, 1)
+
+[node name="Tree1" type="ColorRect" parent="Forest"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = -150.0
+offset_right = 70.0
+offset_bottom = -50.0
+color = Color(0.3, 0.5, 0.3, 1)
+
+[node name="Tree2" type="ColorRect" parent="Forest"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = -140.0
+offset_right = 220.0
+offset_bottom = -40.0
+color = Color(0.25, 0.45, 0.25, 1)
+
+[node name="Tree3" type="ColorRect" parent="Forest"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = -160.0
+offset_right = 420.0
+offset_bottom = -60.0
+color = Color(0.35, 0.55, 0.35, 1)
+
+[node name="Clearing" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = -100.0
+color = Color(0.4, 0.3, 0.2, 1)
+
+[node name="TribeBar" type="Label" parent="."]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 8.0
+offset_right = 640.0
+offset_bottom = 42.0
+text = "✦ Tribe of Naphtali  ·  Swiftness & Beauty of Speech"
+horizontal_alignment = 1
+add_theme_color_override("font_color", Color(0.8, 0.9, 1.0, 1))
+add_theme_font_override("font", ExtResource("2_font"))
+add_theme_font_size_override("font_size", 16)
+
+[node name="MiniGameContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 90.0
+offset_right = 580.0
+offset_bottom = 510.0
+add_theme_constant_override("separation", 14)
+visible = false
