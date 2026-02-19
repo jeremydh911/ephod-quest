@@ -139,5 +139,5 @@ func on_minigame_timeout(result: Dictionary) -> void:
 		get_tree().create_timer(1.2).timeout.connect(func():
 			for child in $MiniGameContainer.get_children(): child.queue_free()
 			_roar_result = build_rhythm_minigame(
-				$MiniGameContainer, 0.7, 12, 6, "Try again — tap boldly with the pulse!"),
-			CONNECT_ONE_SHOT)
+				$MiniGameContainer, 0.7, 12, 6, "Try again — tap boldly with the pulse!")
+		, CONNECT_ONE_SHOT)
