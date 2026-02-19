@@ -17,6 +17,14 @@ func _ready():
 		if error != OK:
 			push_error("Failed to load MainMenu scene: " + str(error))
 	)
+		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		MultiplayerLobby.host())
+	$VBoxContainer/Join.pressed.connect(func(): 
+		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		MultiplayerLobby.join($VBoxContainer/CodeEntry.text))
+	$VBoxContainer/Back.pressed.connect(func(): 
+		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		get_tree().change_scene_to_file("res://scenes/MainMenu.tscn"))
 	multiplayer.peer_connected.connect(_on_peer)
 	multiplayer.peer_disconnected.connect(_on_dis)
 

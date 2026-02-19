@@ -1,13 +1,12 @@
 extends Control
 func _ready():
+	AudioManager.play_music("res://assets/audio/music/main_menu.ogg")
 	$VBoxContainer/Start.pressed.connect(func(): 
-		var error = get_tree().change_scene_to_file("res://scenes/AvatarPick.tscn")
-		if error != OK:
-			push_error("Failed to load AvatarPick scene: " + str(error))
-	)
+		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		get_tree().change_scene_to_file("res://scenes/AvatarPick.tscn"))
 	$VBoxContainer/Multiplayer.pressed.connect(func(): 
-		var error = get_tree().change_scene_to_file("res://scenes/Lobby.tscn")
-		if error != OK:
-			push_error("Failed to load Lobby scene: " + str(error))
-	)
-	$VBoxContainer/Quit.pressed.connect(get_tree().quit)
+		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		get_tree().change_scene_to_file("res://scenes/Lobby.tscn"))
+	$VBoxContainer/Quit.pressed.connect(func():
+		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		get_tree().quit())
