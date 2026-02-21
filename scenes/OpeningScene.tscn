@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://opening_scene_12tribes"]
+
+[ext_resource type="Script" path="res://scripts/OpeningScene.gd" id="1_open"]
+
+[node name="OpeningScene" type="Node3D"]
+script = ExtResource("1_open")

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Twelve Stones"
-run/main_scene="res://scenes/MainMenu.tscn"
+run/main_scene="res://scenes/OpeningScene.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 
 [autoload]
