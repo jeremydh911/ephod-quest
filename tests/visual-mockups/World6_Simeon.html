@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>World 6 — Desert Border Crossing (Simeon)</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #c8932a; }
+.sky { position:absolute;inset:0; background:linear-gradient(180deg,#6b3a0a 0%,#c7601a 25%,#e8901a 50%,#f0b830 75%,#d4a028 100%); }
+.sun { position:absolute;top:60px;right:180px;width:90px;height:90px;background:radial-gradient(circle,#fff8e0 0%,#ffe060 50%,#ff9900 100%);border-radius:50%;box-shadow:0 0 60px 30px rgba(255,200,50,0.5),0 0 120px 60px rgba(255,160,0,0.25); }
+.heat-shimmer { position:absolute;bottom:160px;left:0;right:0;height:60px;background:linear-gradient(180deg,transparent,rgba(255,180,50,0.15),transparent);animation:shimmer-heat 1.8s ease-in-out infinite; }
+@keyframes shimmer-heat { 0%,100%{opacity:0.4;transform:scaleY(1);}50%{opacity:0.8;transform:scaleY(1.3) translateY(-10px);} }
+.dune { position:absolute;background:linear-gradient(180deg,#e8c078 0%,#c8902a 100%);border-radius:50% 50% 0 0; }
+.palm-trunk { position:absolute;bottom:160px;width:14px;background:linear-gradient(180deg,#7a5420 0%,#5a3a10 100%);border-radius:4px;transform:rotate(var(--lean,0deg));transform-origin:bottom center; }
+.ground { position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(180deg,#e0b860 0%,#c89840 40%,#a87820 100%); }
+</style>
+</head>
+<body>
+<div class="sky"></div><div class="sun"></div><div class="heat-shimmer"></div>
+<div class="dune" style="bottom:145px;left:-60px;width:520px;height:160px;opacity:0.7;background:linear-gradient(180deg,#d4a040,#a87020);"></div>
+<div class="dune" style="bottom:148px;right:-40px;width:380px;height:120px;opacity:0.55;background:linear-gradient(180deg,#c89838,#986818);"></div>
+<div class="dune" style="bottom:156px;left:100px;width:260px;height:80px;"></div>
+<div class="dune" style="bottom:157px;right:140px;width:200px;height:65px;"></div>
+<!-- Palm left -->
+<div class="palm-trunk" style="left:90px;height:130px;--lean:-5deg;">
+  <div style="position:absolute;top:0;left:50%;transform-origin:bottom left;width:80px;height:8px;background:linear-gradient(90deg,#2e7c1e,#4aaa2a);border-radius:0 50% 50% 0;transform:rotate(-40deg) translate(10px,0);"></div>
+  <div style="position:absolute;top:0;left:50%;transform-origin:bottom left;width:90px;height:8px;background:linear-gradient(90deg,#2e7c1e,#4aaa2a);border-radius:0 50% 50% 0;transform:rotate(-10deg) translate(6px,0);"></div>
+  <div style="position:absolute;top:0;left:50%;transform-origin:bottom right;width:85px;height:8px;background:linear-gradient(90deg,#4aaa2a,#2e7c1e);border-radius:50% 0 0 50%;transform:rotate(15deg) translate(-6px,0);"></div>
+</div>
+<!-- Ruined border wall stones -->
+<div style="position:absolute;bottom:156px;left:220px;width:28px;height:65px;background:linear-gradient(180deg,#b86030,#8a4020);box-shadow:inset 0 0 10px rgba(0,0,0,0.3);"></div>
+<div style="position:absolute;bottom:156px;left:252px;width:22px;height:80px;background:linear-gradient(180deg,#b86030,#8a4020);"></div>
+<div style="position:absolute;bottom:156px;left:278px;width:30px;height:55px;background:linear-gradient(180deg,#b86030,#8a4020);"></div>
+<!-- Justice Scales -->
+<div style="position:absolute;right:260px;bottom:195px;">
+  <svg width="140" height="110" viewBox="0 0 140 110" fill="none">
+    <rect x="67" y="10" width="6" height="75" rx="3" fill="#c5a030"/>
+    <rect x="15" y="24" width="110" height="5" rx="2.5" fill="#c5a030"/>
+    <line x1="25" y1="29" x2="22" y2="65" stroke="#c5a030" stroke-width="2"/>
+    <line x1="115" y1="29" x2="118" y2="65" stroke="#c5a030" stroke-width="2"/>
+    <ellipse cx="22" cy="72" rx="18" ry="8" fill="#a87820" stroke="#c5a030" stroke-width="2"/>
+    <ellipse cx="118" cy="78" rx="18" ry="8" fill="#a87820" stroke="#c5a030" stroke-width="2"/>
+    <polygon points="65,85 75,85 70,100" fill="#c5a030"/>
+  </svg>
+</div>
+<div class="ground"></div>
+<!-- Player -->
+<div style="position:absolute;bottom:168px;left:170px;">
+  <div style="width:30px;height:30px;background:#d4924a;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-4px;left:-3px;right:-3px;height:18px;background:#2a1808;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:11px;left:6px;width:6px;height:7px;background:#1a0e04;border-radius:50%;"></div>
+    <div style="position:absolute;top:11px;right:6px;width:6px;height:7px;background:#1a0e04;border-radius:50%;"></div>
+  </div>
+  <div style="width:26px;height:40px;background:linear-gradient(180deg,#c0682a,#8a3e10);border-radius:6px 6px 3px 3px;margin:0 auto;margin-top:2px;"></div>
+</div>
+<!-- Elder Zimri -->
+<div style="position:absolute;bottom:162px;left:310px;">
+  <div style="width:34px;height:34px;background:#c8884a;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-5px;left:-2px;right:-2px;height:16px;background:#ddd8c8;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:13px;left:6px;width:7px;height:8px;background:#1a0e04;border-radius:50%;"></div>
+    <div style="position:absolute;top:13px;right:6px;width:7px;height:8px;background:#1a0e04;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:-12px;left:3px;right:3px;height:18px;background:#d8d4c4;border-radius:0 0 50% 50%;"></div>
+  </div>
+  <div style="width:30px;height:52px;background:linear-gradient(180deg,#7a1020,#4a0810);border-radius:6px 6px 4px 4px;margin:0 auto;margin-top:2px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:5px;background:#c5a030;border-radius:4px 4px 0 0;"></div>
+    <div style="position:absolute;right:-14px;top:-50px;width:5px;height:100px;background:#7a5420;border-radius:2px;"></div>
+  </div>
+</div>
+<!-- HUD -->
+<div class="hud-bar">
+  <div class="hud-tribe-badge" style="background:linear-gradient(135deg,#c87020,#e0a030);">⚖ Simeon</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:14px;">💎 0/12</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:13px;">⛺ Border Crossing</div>
+</div>
+<div style="position:absolute;top:70px;left:12px;font-size:26px;letter-spacing:3px;text-shadow:1px 1px 4px rgba(0,0,0,0.6);">❤❤❤</div>
+<div class="dialogue-panel" style="bottom:20px;">
+  <div class="dlg-portrait" style="background:linear-gradient(135deg,#7a1020,#4a0810);font-size:24px;">👴</div>
+  <div class="dlg-body">
+    <div class="dlg-name">Elder Zimri</div>
+    <div class="dlg-text">My child… the scales of justice must be balanced. God sees every weight you carry. Shalom, shalom.</div>
+  </div>
+</div>
+<div class="dpad"><div class="dpad-btn dpad-up">▲</div><div class="dpad-btn dpad-left">◄</div><div class="dpad-btn dpad-down">▼</div><div class="dpad-btn dpad-right">►</div></div>
+<div class="action-btn">✦</div>
+<div class="quest-box" style="top:70px;right:14px;">
+  <div class="quest-title">Quest: Balance the Scales</div>
+  <div class="quest-step">✧ Carry offerings to Elder Zimri</div>
+  <div class="quest-step">✧ Sort justice stones</div>
+</div>
+<div class="minimap">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#FFD700;border-radius:50%;"></div>
+</div>
+<div class="verse-strip">"The Lord demands accurate scales and balances; he sets the standards for fairness." — Proverbs 16:11</div>
+</body>
+</html>

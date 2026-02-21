@@ -42,27 +42,7 @@ func _build_terrain() -> void:
 	_draw_wall(Rect2(-920, -730, 1840, 20))
 	_draw_wall(Rect2(-920,  730, 1840, 20))
 
-func _draw_tile(r: Rect2, color: Color) -> void:
-	var mesh_instance := MeshInstance3D.new()
-	var plane := PlaneMesh.new()
-	plane.size = Vector2(r.size.x, r.size.y)
-	mesh_instance.mesh = plane
-	var material := StandardMaterial3D.new()
-	material.albedo_color = color
-	mesh_instance.material_override = material
-	mesh_instance.position = Vector3(r.position.x + r.size.x / 2, 0, r.position.y + r.size.y / 2)
-	mesh_instance.rotation_degrees = Vector3(-90, 0, 0)
-	add_child(mesh_instance)
-
-func _draw_wall(r: Rect2) -> void:
-	var sb := StaticBody3D.new()
-	sb.position = Vector3(r.position.x + r.size.x / 2, r.size.y / 2, r.position.y + r.size.y / 2)
-	var cs3d := CollisionShape3D.new()
-	var box := BoxShape3D.new()
-	box.size = Vector3(r.size.x, r.size.y, 1)
-	cs3d.shape = box
-	sb.add_child(cs3d)
-	add_child(sb)
+# _draw_tile and _draw_wall are inherited from WorldBase — no override needed
 
 func _place_npcs() -> void:
 	var elder_name: String = _tribe_data.get("elder", "Elder Shuham") as String
@@ -86,39 +66,12 @@ func _place_npcs() -> void:
 		 "text": "The eagle waits for your command. Soar high, my child."}
 	]
 
-func _spawn_npc(pos: Vector3, npc_name: String, emoji: String, color: Color) -> Area3D:
-	var npc: Area3D = preload("res://scripts/NPC.gd").new()
-	npc.position = pos
-	npc.npc_name = npc_name
-	# Add visual
-	var body := MeshInstance3D.new()
-	var box_mesh := BoxMesh.new()
-	box_mesh.size = Vector3(0.8, 1.6, 0.8)
-	body.mesh = box_mesh
-	var material := StandardMaterial3D.new()
-	material.albedo_color = color
-	body.material_override = material
-	npc.add_child(body)
-	var shape := CollisionShape3D.new()
-	var cs := SphereShape3D.new()
-	cs.radius = 0.5
-	shape.shape = cs
-	npc.add_child(shape)
-	return npc
+# _spawn_npc and _spawn_chest are inherited from WorldBase — no override needed
 
 func _place_chests() -> void:
 	_spawn_chest(Vector3(350, 0, -180), "dan_chest_proverbs",
 		"verse", "", "Proverbs 2:6",
 		"For the LORD gives wisdom; from his mouth come knowledge and understanding.")
-
-func _spawn_chest(pos: Vector3, chest_id: String, reward_type: String, reward_id: String, reward_ref: String, reward_text: String) -> void:
-	var chest: Area3D = preload("res://scripts/TreasureChest.gd").new()
-	chest.position = pos
-	chest.chest_id = chest_id
-	chest.reward_type = reward_type
-	chest.reward_id = reward_id
-	chest.reward_text = reward_text
-	add_child(chest)
 
 func _show_world_intro() -> void:
 	var elder: String = _tribe_data.get("elder", "Elder") as String

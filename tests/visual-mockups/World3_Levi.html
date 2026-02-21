@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>World 3 — Sacred Hall (Levi)</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body{background:#1a1000;}
+.sky{position:absolute;inset:0;background:linear-gradient(180deg,#0a0800 0%,#1a1200 40%,#3a2800 70%,#6a4800 100%);}
+/* Gold-plated cedar pillars */
+.hall-floor{position:absolute;bottom:0;left:0;right:0;height:320px;background:linear-gradient(180deg,#2a1a04 0%,#4a3010 30%,#8B6F47 100%);}
+.pillar{position:absolute;bottom:320px;}
+.pillar-shaft{background:linear-gradient(90deg,#8B6914,#FFD700,#C5A572,#FFD700,#8B6914);border-radius:6px;box-shadow:2px 0 12px rgba(255,215,0,0.3),-2px 0 12px rgba(255,215,0,0.2),inset 2px 0 6px rgba(255,255,255,0.15);}
+.pillar-cap{background:linear-gradient(180deg,#FFD700,#8B6914);border-radius:4px 4px 0 0;box-shadow:0 -4px 12px rgba(255,200,0,0.5);}
+.pillar-base{background:linear-gradient(180deg,#8B6914,#5a4010);border-radius:0 0 4px 4px;}
+/* Cedar ceiling beams */
+.beam{position:absolute;top:0;background:linear-gradient(180deg,#5a3a18,#3a2010,#5a3a18);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.6);}
+/* Blue/purple/scarlet curtain at back */
+.curtain{position:absolute;top:0;left:50%;transform:translateX(-50%);width:400px;bottom:320px;
+  background:repeating-linear-gradient(90deg,#1a2090 0px,#2a3ab0 30px,#6a0080 60px,#8a0060 90px,#b02020 120px,#a00030 150px,#1a2090 180px);
+  opacity:0.85;}
+.curtain-cherub{position:absolute;font-size:28px;opacity:0.4;}
+/* 7-flame lampstand */
+.lampstand{position:absolute;bottom:320px;left:50%;transform:translateX(-50%);}
+.lamp-base{width:20px;height:8px;background:#FFD700;border-radius:3px;margin:0 auto;}
+.lamp-pole{width:4px;height:90px;background:linear-gradient(180deg,#FFD700,#C5A572);margin:0 auto;}
+.lamp-arm{position:absolute;display:flex;justify-content:space-around;width:160px;left:-78px;}
+.lamp-flame{width:10px;height:18px;background:radial-gradient(circle at 50% 80%,#fff8c0,#FFD700,#FF8C00,transparent);border-radius:50% 50% 30% 30%;animation:flicker 0.6s ease-in-out infinite alternate;}
+@keyframes flicker{from{transform:scaleX(1) scaleY(1);}to{transform:scaleX(0.9) scaleY(1.1);}}
+/* Ambient glow from lampstand */
+.lamp-glow{position:absolute;bottom:360px;left:50%;transform:translateX(-50%);width:300px;height:200px;
+  background:radial-gradient(ellipse at 50% 100%,rgba(255,200,50,0.4) 0%,transparent 70%);}
+/* Incense smoke */
+.smoke{position:absolute;width:6px;border-radius:3px;background:rgba(220,220,180,0.15);animation:smoke-rise 3s ease-out infinite;}
+@keyframes smoke-rise{from{opacity:0.5;transform:translateY(0) scaleX(1);}to{opacity:0;transform:translateY(-80px) scaleX(2);}}
+/* Floor tiles */
+.floor-tile{position:absolute;background:linear-gradient(135deg,#4a3010 25%,#6a4820 50%,#4a3010 75%);border:1px solid rgba(197,165,114,0.2);}
+</style></head><body>
+<div class="sky"></div>
+<!-- Ceiling beams -->
+<div class="beam" style="top:30px;left:0;right:0;height:28px;"></div>
+<div class="beam" style="top:70px;left:0;right:0;height:18px;opacity:0.8;"></div>
+<div class="beam" style="top:100px;left:0;right:0;height:14px;opacity:0.7;"></div>
+<!-- Curtain at back wall -->
+<div class="curtain">
+  <div class="curtain-cherub" style="top:30%;left:20%;">✨</div>
+  <div class="curtain-cherub" style="top:55%;left:60%;">✨</div>
+</div>
+<!-- Hall floor -->
+<div class="hall-floor">
+  <!-- Floor tile pattern -->
+  <div class="floor-tile" style="left:0;right:0;top:0;height:6px;background:linear-gradient(90deg,#6a4820,#8a6040,#6a4820);opacity:0.5;"></div>
+</div>
+<!-- Pillars — 3 left, 3 right -->
+<div class="pillar" style="left:60px;bottom:318px;">
+  <div class="pillar-cap" style="width:52px;height:28px;"></div>
+  <div class="pillar-shaft" style="width:38px;height:280px;margin:0 7px;"></div>
+  <div class="pillar-base" style="width:52px;height:18px;"></div>
+</div>
+<div class="pillar" style="left:180px;bottom:318px;">
+  <div class="pillar-cap" style="width:52px;height:28px;"></div>
+  <div class="pillar-shaft" style="width:38px;height:280px;margin:0 7px;"></div>
+  <div class="pillar-base" style="width:52px;height:18px;"></div>
+</div>
+<div class="pillar" style="left:300px;bottom:318px;">
+  <div class="pillar-cap" style="width:52px;height:28px;"></div>
+  <div class="pillar-shaft" style="width:38px;height:280px;margin:0 7px;"></div>
+  <div class="pillar-base" style="width:52px;height:18px;"></div>
+</div>
+<div class="pillar" style="right:60px;bottom:318px;">
+  <div class="pillar-cap" style="width:52px;height:28px;"></div>
+  <div class="pillar-shaft" style="width:38px;height:280px;margin:0 7px;"></div>
+  <div class="pillar-base" style="width:52px;height:18px;"></div>
+</div>
+<div class="pillar" style="right:180px;bottom:318px;">
+  <div class="pillar-cap" style="width:52px;height:28px;"></div>
+  <div class="pillar-shaft" style="width:38px;height:280px;margin:0 7px;"></div>
+  <div class="pillar-base" style="width:52px;height:18px;"></div>
+</div>
+<div class="pillar" style="right:300px;bottom:318px;">
+  <div class="pillar-cap" style="width:52px;height:28px;"></div>
+  <div class="pillar-shaft" style="width:38px;height:280px;margin:0 7px;"></div>
+  <div class="pillar-base" style="width:52px;height:18px;"></div>
+</div>
+<!-- 7-flame lampstand -->
+<div class="lamp-glow"></div>
+<div class="lampstand">
+  <div class="lamp-arm" style="top:-100px;">
+    <!-- 7 flames at different heights -->
+    <div style="display:flex;flex-direction:column;align-items:center;"><div class="lamp-flame" style="animation-delay:0.1s;"></div><div style="width:2px;height:18px;background:#C5A572;"></div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:-10px;"><div class="lamp-flame" style="animation-delay:0.3s;"></div><div style="width:2px;height:28px;background:#C5A572;"></div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:-18px;"><div class="lamp-flame" style="animation-delay:0.5s;"></div><div style="width:2px;height:36px;background:#C5A572;"></div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:-22px;"><div class="lamp-flame" style="width:14px;height:22px;animation-delay:0s;"></div><div style="width:2px;height:40px;background:#C5A572;"></div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:-18px;"><div class="lamp-flame" style="animation-delay:0.4s;"></div><div style="width:2px;height:36px;background:#C5A572;"></div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:-10px;"><div class="lamp-flame" style="animation-delay:0.2s;"></div><div style="width:2px;height:28px;background:#C5A572;"></div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;"><div class="lamp-flame" style="animation-delay:0.15s;"></div><div style="width:2px;height:18px;background:#C5A572;"></div></div>
+  </div>
+  <div class="lamp-pole"></div>
+  <div class="lamp-base"></div>
+</div>
+<!-- Incense smoke ribbons -->
+<div class="smoke" style="left:46%;bottom:350px;animation-delay:0s;"></div>
+<div class="smoke" style="left:53%;bottom:350px;animation-delay:1.2s;"></div>
+<!-- HUD -->
+<div class="hud-bar"><div class="hud-tribe-badge">⚜ Tribe of Levi</div><div class="hud-gem-row"><div class="hud-gem" style="background:var(--gem-levi);"></div><div style="font-size:13px;color:var(--sand);">Carbuncle stone awaits</div></div></div>
+<div class="quest-box"><strong>Quest: Sacred Hall</strong><br>Light the 7 flames in order</div>
+<div class="minimap"><div style="position:absolute;inset:0;background:rgba(20,10,0,0.7);"></div><div class="minimap-player" style="top:60%;left:50%;"></div></div>
+<div class="dpad"><div class="dpad-ring"><div class="dpad-thumb"></div></div></div>
+<div class="action-btn">✦</div>
+<div style="position:absolute;top:165px;left:50%;transform:translateX(-50%);text-align:center;z-index:30;">
+  <div style="font-size:38px;color:var(--gold);text-shadow:0 0 20px rgba(255,215,0,0.9),0 4px 8px rgba(0,0,0,0.9);font-weight:bold;">Sacred Hall</div>
+  <div style="font-size:16px;color:var(--sand);text-shadow:0 2px 6px rgba(0,0,0,0.9);margin-top:5px;">Tribe of Levi — Carbuncle Stone</div>
+  <div style="font-size:13px;color:var(--gold-ant);font-style:italic;margin-top:8px;">"Let your light shine before others." — Matthew 5:16</div>
+</div>
+<div class="ui-frame"></div>
+</body></html>

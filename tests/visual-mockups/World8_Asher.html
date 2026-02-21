@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>World 8 — Fertile Valley Orchards (Asher)</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #6aaf3a; }
+.sky { position:absolute;inset:0; background:linear-gradient(180deg,#1a4a7a 0%,#2a6aaa 30%,#4a9ad8 60%,#7abcf0 80%,#a8d8f8 100%); }
+/* Fluffy clouds */
+.cloud { position:absolute; border-radius:50px; }
+/* Rolling hills */
+.hill { position:absolute;bottom:145px;border-radius:50% 50% 0 0; }
+/* Orchard trees (round, fruity) */
+.orchard-tree { position:absolute;bottom:145px;display:flex;flex-direction:column;align-items:center; }
+.canopy { border-radius:50%;position:relative; }
+/* Beehive -->
+.beehive { position:absolute; }
+/* Bread oven -->
+.oven { position:absolute;bottom:150px; }
+/* Honeycomb glow -->
+.honey-glow { position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(255,190,20,0.13) 0%,transparent 65%);pointer-events:none; }
+/* Ground — lush green -->
+.ground { position:absolute;bottom:0;left:0;right:0;height:145px;background:linear-gradient(180deg,#5aaa30 0%,#3a8818 40%,#286010 100%); }
+/* Bee animation -->
+.bee { position:absolute;animation:bee-fly 3s ease-in-out infinite; }
+@keyframes bee-fly { 0%,100%{transform:translate(0,0);} 25%{transform:translate(15px,-12px);} 50%{transform:translate(30px,5px);} 75%{transform:translate(10px,18px);} }
+</style>
+</head>
+<body>
+<div class="sky"></div>
+
+<!-- Clouds -->
+<div class="cloud" style="top:45px;left:60px;width:160px;height:50px;background:rgba(255,255,255,0.88);box-shadow:-18px 0 0 10px rgba(255,255,255,0.7),18px 0 0 8px rgba(255,255,255,0.6);"></div>
+<div class="cloud" style="top:65px;right:80px;width:120px;height:40px;background:rgba(255,255,255,0.82);box-shadow:-14px 0 0 8px rgba(255,255,255,0.65),14px 0 0 6px rgba(255,255,255,0.55);"></div>
+<div class="cloud" style="top:30px;left:280px;width:100px;height:35px;background:rgba(255,255,255,0.75);box-shadow:-12px 0 0 6px rgba(255,255,255,0.55);"></div>
+
+<!-- Rolling green hills -->
+<div class="hill" style="left:-100px;width:450px;height:180px;background:linear-gradient(180deg,#68b838,#3a8020);opacity:0.7;"></div>
+<div class="hill" style="right:-80px;width:380px;height:150px;background:linear-gradient(180deg,#60b030,#387820);opacity:0.6;"></div>
+
+<!-- Orchard trees (olive, fig, pomegranate) -->
+<div class="orchard-tree" style="left:55px;">
+  <div class="canopy" style="width:70px;height:65px;background:radial-gradient(circle,#68b828 0%,#3a8018 100%);">
+    <!-- Fruits -->
+    <div style="position:absolute;top:18px;left:12px;width:10px;height:12px;background:#cc3030;border-radius:50%;"></div>
+    <div style="position:absolute;top:10px;right:15px;width:9px;height:11px;background:#dd4040;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:14px;left:22px;width:10px;height:12px;background:#c02828;border-radius:50%;"></div>
+  </div>
+  <div style="width:12px;height:35px;background:#6a4018;border-radius:3px;"></div>
+</div>
+<div class="orchard-tree" style="left:145px;">
+  <div class="canopy" style="width:60px;height:58px;background:radial-gradient(circle,#78c038 0%,#488820 100%);">
+    <div style="position:absolute;top:16px;left:14px;width:9px;height:10px;background:#8a3090;border-radius:50%;"></div>
+    <div style="position:absolute;top:22px;right:12px;width:8px;height:10px;background:#7a2080;border-radius:50%;"></div>
+  </div>
+  <div style="width:12px;height:30px;background:#6a4018;border-radius:3px;"></div>
+</div>
+<div class="orchard-tree" style="right:50px;">
+  <div class="canopy" style="width:65px;height:62px;background:radial-gradient(circle,#70bc30 0%,#408018 100%);">
+    <div style="position:absolute;top:15px;left:10px;width:11px;height:13px;background:#e8a820;border-radius:50%;"></div>
+    <div style="position:absolute;top:24px;right:10px;width:10px;height:12px;background:#e0a018;border-radius:50%;"></div>
+  </div>
+  <div style="width:12px;height:32px;background:#6a4018;border-radius:3px;"></div>
+</div>
+<div class="orchard-tree" style="right:140px;">
+  <div class="canopy" style="width:58px;height:55px;background:radial-gradient(circle,#60a828,#386018);border-radius:50%;">
+    <div style="position:absolute;top:18px;left:13px;width:9px;height:10px;background:#cc3030;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:14px;right:12px;width:8px;height:10px;background:#bb2828;border-radius:50%;"></div>
+  </div>
+  <div style="width:12px;height:28px;background:#6a4018;border-radius:3px;"></div>
+</div>
+
+<!-- Beehive (straw hive on a post) -->
+<div class="beehive" style="left:265px;bottom:168px;">
+  <div style="width:38px;height:50px;background:linear-gradient(180deg,#e8c840 0%,#c89018 100%);border-radius:50% 50% 40% 40%;box-shadow:0 4px 12px rgba(200,140,0,0.4);">
+    <!-- Horizontal lines -->
+    <div style="position:absolute;top:12px;left:4px;right:4px;height:2px;background:rgba(180,120,0,0.5);border-radius:2px;"></div>
+    <div style="position:absolute;top:22px;left:4px;right:4px;height:2px;background:rgba(180,120,0,0.5);border-radius:2px;"></div>
+    <div style="position:absolute;top:32px;left:4px;right:4px;height:2px;background:rgba(180,120,0,0.5);border-radius:2px;"></div>
+    <!-- Entrance hole -->
+    <div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:10px;height:6px;background:#403010;border-radius:50%;"></div>
+  </div>
+  <div style="width:6px;height:22px;background:#8a5820;margin:0 auto;border-radius:2px;"></div>
+</div>
+
+<!-- Bees -->
+<div class="bee" style="left:255px;bottom:235px;font-size:16px;animation-delay:0s;">🐝</div>
+<div class="bee" style="left:295px;bottom:228px;font-size:14px;animation-delay:0.8s;">🐝</div>
+<div class="bee" style="left:240px;bottom:215px;font-size:12px;animation-delay:1.5s;">🐝</div>
+
+<!-- Bread oven (stone dome) -->
+<div class="oven" style="right:210px;">
+  <div style="width:60px;height:40px;background:linear-gradient(180deg,#b09070 0%,#806848 100%);border-radius:50% 50% 0 0;position:relative;box-shadow:inset 0 -4px 12px rgba(0,0,0,0.3);">
+    <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:22px;height:20px;background:#2a1808;border-radius:50% 50% 0 0;"></div>
+    <!-- Heat glow -->
+    <div style="position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:16px;height:10px;background:rgba(255,120,0,0.5);border-radius:50%;"></div>
+  </div>
+  <!-- Bread loaves on stone -->
+  <div style="display:flex;gap:4px;justify-content:center;margin-top:3px;">
+    <div style="width:18px;height:12px;background:#c8901a;border-radius:50% 50% 30% 30%;"></div>
+    <div style="width:18px;height:12px;background:#c8901a;border-radius:50% 50% 30% 30%;"></div>
+  </div>
+</div>
+
+<div class="honey-glow"></div>
+<div class="ground"></div>
+<!-- Small flowers on ground -->
+<div style="position:absolute;bottom:146px;left:100px;font-size:14px;">🌸</div>
+<div style="position:absolute;bottom:146px;left:168px;font-size:12px;">🌼</div>
+<div style="position:absolute;bottom:146px;right:170px;font-size:13px;">🌸</div>
+
+<!-- Player (Asher — curly hair, joyful expression) -->
+<div style="position:absolute;bottom:158px;left:160px;">
+  <div style="width:30px;height:30px;background:#d8a858;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-6px;left:-4px;right:-4px;height:20px;background:#1e0c04;border-radius:50% 50% 0 0;box-shadow:4px -3px 0 2px #1e0c04,-4px -3px 0 2px #1e0c04;"></div>
+    <div style="position:absolute;top:11px;left:5px;width:6px;height:7px;background:#0a0a0a;border-radius:50%;"></div>
+    <div style="position:absolute;top:11px;right:5px;width:6px;height:7px;background:#0a0a0a;border-radius:50%;"></div>
+    <!-- Smile -->
+    <div style="position:absolute;bottom:5px;left:8px;width:14px;height:5px;border-bottom:2px solid #a05820;border-radius:0 0 6px 6px;"></div>
+  </div>
+  <div style="width:26px;height:40px;background:linear-gradient(180deg,#d8c070,#a89040);border-radius:6px 6px 3px 3px;margin:0 auto;margin-top:2px;"></div>
+</div>
+
+<!-- Elder Ithran (Asher) -->
+<div style="position:absolute;bottom:154px;right:270px;">
+  <div style="width:34px;height:34px;background:#c89058;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-5px;left:-2px;right:-2px;height:16px;background:#e0dcc8;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:12px;left:6px;width:7px;height:8px;background:#1a0e04;border-radius:50%;"></div>
+    <div style="position:absolute;top:12px;right:6px;width:7px;height:8px;background:#1a0e04;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:-12px;left:3px;right:3px;height:18px;background:#d8d4c4;border-radius:0 0 50% 50%;"></div>
+  </div>
+  <div style="width:30px;height:52px;background:linear-gradient(180deg,#c0a830,#887018);border-radius:6px 6px 4px 4px;margin:0 auto;margin-top:2px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:5px;background:#e8c840;border-radius:4px 4px 0 0;"></div>
+    <div style="position:absolute;right:-14px;top:-48px;width:5px;height:95px;background:#6a5020;border-radius:2px;"></div>
+  </div>
+</div>
+
+<!-- HUD -->
+<div class="hud-bar">
+  <div class="hud-tribe-badge" style="background:linear-gradient(135deg,#5a9030,#88c850);">🍯 Asher</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:14px;">💎 0/12</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:13px;">🌳 Fertile Valley</div>
+</div>
+<div style="position:absolute;top:70px;left:12px;font-size:26px;letter-spacing:3px;">❤❤❤</div>
+<div class="dialogue-panel" style="bottom:20px;">
+  <div class="dlg-portrait" style="background:linear-gradient(135deg,#c0a830,#887018);font-size:24px;">👴</div>
+  <div class="dlg-body">
+    <div class="dlg-name">Elder Ithran</div>
+    <div class="dlg-text">My child… Asher's bread shall be rich, and he shall provide royal delicacies. Go — share the bread of heaven. Shalom, shalom.</div>
+  </div>
+</div>
+<div class="dpad"><div class="dpad-btn dpad-up">▲</div><div class="dpad-btn dpad-left">◄</div><div class="dpad-btn dpad-down">▼</div><div class="dpad-btn dpad-right">►</div></div>
+<div class="action-btn">✦</div>
+<div class="quest-box" style="top:70px;right:14px;">
+  <div class="quest-title">Quest: Bread of Heaven</div>
+  <div class="quest-step">✧ Collect honey from 3 hives</div>
+  <div class="quest-step">✧ Bake bread for the hungry</div>
+  <div class="quest-step">✧ Share with 4 travellers 🍞</div>
+</div>
+<div class="minimap">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#FFD700;border-radius:50%;"></div>
+</div>
+<div class="verse-strip">"Asher's food will be rich; he will provide delicacies fit for a king." — Genesis 49:20 | Bees communicate by dancing — they can map a 5-mile flight path this way!</div>
+</body>
+</html>

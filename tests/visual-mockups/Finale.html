@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Finale — The Ephod Complete — Twelve Stones</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+* { margin:0;padding:0;box-sizing:border-box; }
+body { background:#060410;overflow:hidden;font-family:'Segoe UI',sans-serif; }
+canvas { display:none; }
+
+/* Deep night sky background */
+.bg { position:fixed;inset:0;background:radial-gradient(ellipse 120% 80% at 50% 120%,#18100a 0%,#0a0818 40%,#04030e 80%,#020208 100%); }
+
+/* Stars */
+.stars { position:fixed;inset:0;overflow:hidden; }
+.star { position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--dur,2s) var(--del,0s) infinite alternate; }
+@keyframes twinkle { from{opacity:0.2;transform:scale(1)} to{opacity:1;transform:scale(1.3)} }
+
+/* Golden light column from above */
+.light-shaft { position:fixed;top:0;left:50%;transform:translateX(-50%);width:340px;height:100vh;background:linear-gradient(180deg,rgba(255,215,0,0.18) 0%,rgba(255,200,80,0.06) 50%,transparent 100%);pointer-events:none;animation:shaft-pulse 4s ease-in-out infinite alternate; }
+@keyframes shaft-pulse { from{opacity:0.6;width:320px} to{opacity:1;width:380px} }
+
+/* EPHOD BREASTPLATE — centre piece */
+.ephod-wrap { position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:0; }
+.ephod-frame { width:264px;background:linear-gradient(160deg,#c8a838,#e8c040,#a87820);border-radius:14px;padding:14px 12px;box-shadow:0 0 60px rgba(255,200,50,0.4),0 0 120px rgba(255,180,20,0.2),inset 0 1px 2px rgba(255,230,100,0.6);border:2px solid rgba(255,220,80,0.6); }
+.ephod-title { font-size:10px;color:rgba(20,10,0,0.6);text-align:center;letter-spacing:3px;margin-bottom:9px;font-weight:700; }
+.gem-row { display:flex;gap:7px;margin-bottom:7px;justify-content:center; }
+.gem { width:52px;height:52px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;cursor:default;animation:gem-glow var(--gd,3s) calc(var(--gi,0)*0.4s) ease-in-out infinite alternate; }
+@keyframes gem-glow { from{filter:brightness(1);transform:scale(1)} to{filter:brightness(1.4);transform:scale(1.04);box-shadow:0 0 18px var(--gc,#fff)} }
+.gem-letter { font-size:8.5px;color:rgba(255,255,255,0.9);font-weight:800;letter-spacing:0.5px;text-shadow:0 1px 3px rgba(0,0,0,0.5); }
+.gem-icon { font-size:18px;line-height:1; }
+/* Urim & Thummim shoulder stones */
+.shoulder-stones { display:flex;justify-content:space-between;width:264px;margin-bottom:4px; }
+.shoulder-gem { width:40px;height:22px;border-radius:6px;background:linear-gradient(135deg,#f8f0d0,#d0c890);border:1.5px solid rgba(200,180,100,0.7);display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(80,60,10,0.9);font-weight:700;letter-spacing:0.5px; }
+/* Gold chain detail */
+.chain { width:260px;height:8px;position:relative;margin-bottom:4px; }
+.chain svg { width:100%;height:100%; }
+
+/* Title text */
+.finale-title { position:fixed;top:12%;left:50%;transform:translateX(-50%);text-align:center;z-index:10; }
+.title-main { font-size:26px;font-weight:900;color:#FFD700;text-shadow:0 0 40px rgba(255,200,50,0.8),0 2px 6px rgba(0,0,0,0.9);letter-spacing:3px;animation:title-flash 2.5s ease-in-out infinite alternate; }
+@keyframes title-flash { from{text-shadow:0 0 20px rgba(255,200,50,0.5)} to{text-shadow:0 0 60px rgba(255,220,80,0.95),0 0 100px rgba(255,180,20,0.4)} }
+.title-sub { font-size:14px;color:#e0c880;letter-spacing:2px;margin-top:6px;opacity:0.85; }
+.verse-strip { margin-top:10px;font-size:12px;color:rgba(220,190,110,0.8);font-style:italic;letter-spacing:0.5px; }
+
+/* Celebration avatars row */
+.avatars-row { position:fixed;bottom:80px;left:0;right:0;display:flex;justify-content:center;gap:10px;z-index:10; }
+.celeb-avatar { width:50px;height:60px;position:relative;animation:celeb-bounce var(--bd,1.2s) var(--bde,0s) ease-in-out infinite alternate; }
+@keyframes celeb-bounce { from{transform:translateY(0)} to{transform:translateY(-8px)} }
+
+/* Floating motes (confetti-like) */
+.mote { position:fixed;width:6px;height:6px;border-radius:50%;animation:float-up var(--fd,4s) var(--fde,0s) ease-in-out infinite; opacity:0.8; }
+@keyframes float-up { 0%{transform:translateY(100vh) translateX(0) rotate(0);opacity:0} 20%{opacity:0.9} 90%{opacity:0.3} 100%{transform:translateY(-80px) translateX(var(--fx,30px)) rotate(360deg);opacity:0} }
+
+/* Bottom actions */
+.action-bar { position:fixed;bottom:0;left:0;right:0;height:74px;background:linear-gradient(180deg,transparent,rgba(4,3,12,0.98));display:flex;align-items:center;justify-content:center;gap:14px;z-index:20; }
+.btn-primary { padding:13px 40px;border-radius:28px;background:linear-gradient(135deg,#b89030,#FFD700);color:#0a0806;font-size:16px;font-weight:800;border:none;cursor:pointer;letter-spacing:1px;box-shadow:0 0 24px rgba(255,200,50,0.5); }
+.btn-secondary { padding:13px 28px;border-radius:28px;background:rgba(30,25,15,0.9);border:1.5px solid rgba(180,150,50,0.4);color:#c8a840;font-size:14px;font-weight:700;cursor:pointer; }
+
+/* Tribe roll (scrolling names at bottom) */
+.tribe-roll { position:fixed;bottom:80px;left:0;right:0;height:18px;overflow:hidden;z-index:8; }
+.tribe-roll-inner { display:flex;gap:28px;animation:scroll-left 18s linear infinite;white-space:nowrap; }
+@keyframes scroll-left { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.tribe-name-chip { font-size:11px;font-weight:700;letter-spacing:1.5px;opacity:0.7; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Light shaft -->
+<div class="light-shaft"></div>
+
+<!-- Floating motes -->
+<div class="mote" style="left:12%;--fd:5s;--fde:0s;--fx:20px;background:#FFD700;"></div>
+<div class="mote" style="left:20%;--fd:4.2s;--fde:0.8s;--fx:-15px;background:#C41E3A;"></div>
+<div class="mote" style="left:35%;--fd:6s;--fde:0.3s;--fx:40px;background:#00AA44;"></div>
+<div class="mote" style="left:48%;--fd:3.8s;--fde:1.2s;--fx:-30px;background:#4682B4;"></div>
+<div class="mote" style="left:65%;--fd:5.5s;--fde:0.5s;--fx:25px;background:#FFD700;"></div>
+<div class="mote" style="left:75%;--fd:4.7s;--fde:1.8s;--fx:-20px;background:#7B2FBE;"></div>
+<div class="mote" style="left:88%;--fd:6.2s;--fde:0.2s;--fx:15px;background:#C41E3A;"></div>
+<div class="mote" style="left:55%;--fd:5s;--fde:2s;--fx:-40px;background:#00AA44;"></div>
+<div class="mote" style="left:30%;--fd:4s;--fde:0.6s;--fx:35px;background:#4682B4;"></div>
+<div class="mote" style="left:80%;--fd:5.8s;--fde:1s;--fx:-25px;background:#FFD700;"></div>
+<div class="mote" style="left:8%;--fd:4.5s;--fde:1.5s;--fx:30px;background:#8B0000;"></div>
+<div class="mote" style="left:60%;--fd:6.5s;--fde:0.9s;--fx:18px;background:#2E8B57;"></div>
+
+<!-- Title -->
+<div class="finale-title">
+  <div class="title-main">ALL TWELVE STONES GATHERED</div>
+  <div class="title-sub">The Ephod of the High Priest is Complete</div>
+  <div class="verse-strip">"These are the twelve tribes of Israel." — Genesis 49:28</div>
+</div>
+
+<!-- EPHOD BREASTPLATE -->
+<div class="ephod-wrap">
+
+  <!-- Shoulder onyx stones -->
+  <div class="shoulder-stones">
+    <div class="shoulder-gem">URIM</div>
+    <div class="shoulder-gem">THUMMIM</div>
+  </div>
+
+  <!-- Gold chains -->
+  <div class="chain">
+    <svg viewBox="0 0 260 8">
+      <path d="M0,4 Q13,0 26,4 Q39,8 52,4 Q65,0 78,4 Q91,8 104,4 Q117,0 130,4 Q143,8 156,4 Q169,0 182,4 Q195,8 208,4 Q221,0 234,4 Q247,8 260,4" stroke="rgba(220,180,60,0.8)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="ephod-frame">
+    <div class="ephod-title">✦ BREASTPLATE OF JUDGMENT · EXODUS 28 ✦</div>
+
+    <!-- Row 1: Reuben Simeon Levi -->
+    <div class="gem-row">
+      <div class="gem" style="background:linear-gradient(135deg,#d42030,#7a0a18);--gc:#e04050;--gd:2.8s;--gi:0;">
+        <div class="gem-icon">❤</div>
+        <div class="gem-letter">REUBEN</div>
+      </div>
+      <div class="gem" style="background:linear-gradient(135deg,#f09028,#a85c10);--gc:#f0a040;--gd:3.2s;--gi:1;">
+        <div class="gem-icon">🌿</div>
+        <div class="gem-letter">SIMEON</div>
+      </div>
+      <div class="gem" style="background:linear-gradient(135deg,#e8d020,#a88c00);--gc:#ffe040;--gd:2.6s;--gi:2;">
+        <div class="gem-icon">✨</div>
+        <div class="gem-letter">LEVI</div>
+      </div>
+    </div>
+    <!-- Row 2: Judah Dan Naphtali -->
+    <div class="gem-row">
+      <div class="gem" style="background:linear-gradient(135deg,#c80820,#600010);--gc:#e03040;--gd:3s;--gi:3;">
+        <div class="gem-icon">💎</div>
+        <div class="gem-letter">JUDAH</div>
+      </div>
+      <div class="gem" style="background:linear-gradient(135deg,#3830a8,#1a1460);--gc:#6060e0;--gd:3.5s;--gi:4;">
+        <div class="gem-icon">🔷</div>
+        <div class="gem-letter">DAN</div>
+      </div>
+      <div class="gem" style="background:linear-gradient(135deg,#20b050,#0a5820);--gc:#40d070;--gd:2.9s;--gi:5;">
+        <div class="gem-icon">🌿</div>
+        <div class="gem-letter">NAPHTALI</div>
+      </div>
+    </div>
+    <!-- Row 3: Gad Asher Issachar -->
+    <div class="gem-row">
+      <div class="gem" style="background:linear-gradient(135deg,#c89830,#7a5a10);--gc:#e0b840;--gd:3.1s;--gi:6;">
+        <div class="gem-icon">⛰</div>
+        <div class="gem-letter">GAD</div>
+      </div>
+      <div class="gem" style="background:linear-gradient(135deg,#2878c8,#103878);--gc:#5090e0;--gd:2.7s;--gi:7;">
+        <div class="gem-icon">🌊</div>
+        <div class="gem-letter">ASHER</div>
+      </div>
+      <div class="gem" style="background:linear-gradient(135deg,#8030c0,#3a1060);--gc:#a050e0;--gd:3.4s;--gi:8;">
+        <div class="gem-icon">⭐</div>
+        <div class="gem-letter">ISSACHAR</div>
+      </div>
+    </div>
+    <!-- Row 4: Zebulun Joseph Benjamin -->
+    <div class="gem-row">
+      <div class="gem" style="background:linear-gradient(135deg,#109898,#085050);--gc:#20c0c0;--gd:3s;--gi:9;">
+        <div class="gem-icon">🌊</div>
+        <div class="gem-letter">ZEBULUN</div>
+      </div>
+      <div class="gem" style="background:linear-gradient(135deg,#404040,#181818);--gc:#808080;--gd:2.5s;--gi:10;border:1.5px solid rgba(180,180,180,0.3);">
+        <div class="gem-icon">🌾</div>
+        <div class="gem-letter">JOSEPH</div>
+      </div>
+      <div class="gem" style="background:linear-gradient(135deg,#1a8060,#0a4030);--gc:#30c080;--gd:3.3s;--gi:11;">
+        <div class="gem-icon">🏹</div>
+        <div class="gem-letter">BENJAMIN</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chains below -->
+  <div class="chain">
+    <svg viewBox="0 0 260 8">
+      <path d="M0,4 Q13,8 26,4 Q39,0 52,4 Q65,8 78,4 Q91,0 104,4 Q117,8 130,4 Q143,0 156,4 Q169,8 182,4 Q195,0 208,4 Q221,8 234,4 Q247,0 260,4" stroke="rgba(220,180,60,0.8)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+
+</div>
+
+<!-- Tribes scrolling roll -->
+<div class="tribe-roll">
+  <div class="tribe-roll-inner">
+    <span class="tribe-name-chip" style="color:#C41E3A;">✦ REUBEN</span>
+    <span class="tribe-name-chip" style="color:#FF8C00;">✦ SIMEON</span>
+    <span class="tribe-name-chip" style="color:#FFD700;">✦ LEVI</span>
+    <span class="tribe-name-chip" style="color:#8B0000;">✦ JUDAH</span>
+    <span class="tribe-name-chip" style="color:#9090ee;">✦ DAN</span>
+    <span class="tribe-name-chip" style="color:#00AA44;">✦ NAPHTALI</span>
+    <span class="tribe-name-chip" style="color:#c8a040;">✦ GAD</span>
+    <span class="tribe-name-chip" style="color:#88b8e8;">✦ ASHER</span>
+    <span class="tribe-name-chip" style="color:#b870f0;">✦ ISSACHAR</span>
+    <span class="tribe-name-chip" style="color:#40c8c8;">✦ ZEBULUN</span>
+    <span class="tribe-name-chip" style="color:#a0a0a0;">✦ JOSEPH</span>
+    <span class="tribe-name-chip" style="color:#60c888;">✦ BENJAMIN</span>
+    <!-- Duplicate for seamless scroll -->
+    <span class="tribe-name-chip" style="color:#C41E3A;">✦ REUBEN</span>
+    <span class="tribe-name-chip" style="color:#FF8C00;">✦ SIMEON</span>
+    <span class="tribe-name-chip" style="color:#FFD700;">✦ LEVI</span>
+    <span class="tribe-name-chip" style="color:#8B0000;">✦ JUDAH</span>
+    <span class="tribe-name-chip" style="color:#9090ee;">✦ DAN</span>
+    <span class="tribe-name-chip" style="color:#00AA44;">✦ NAPHTALI</span>
+    <span class="tribe-name-chip" style="color:#c8a040;">✦ GAD</span>
+    <span class="tribe-name-chip" style="color:#88b8e8;">✦ ASHER</span>
+    <span class="tribe-name-chip" style="color:#b870f0;">✦ ISSACHAR</span>
+    <span class="tribe-name-chip" style="color:#40c8c8;">✦ ZEBULUN</span>
+    <span class="tribe-name-chip" style="color:#a0a0a0;">✦ JOSEPH</span>
+    <span class="tribe-name-chip" style="color:#60c888;">✦ BENJAMIN</span>
+  </div>
+</div>
+
+<!-- Action bar -->
+<div class="action-bar">
+  <button class="btn-secondary">🔁 Play Again</button>
+  <button class="btn-primary">✦ Celebrate Together</button>
+  <button class="btn-secondary">📤 Share</button>
+</div>
+
+<script>
+// Generate stars
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 180; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*65}%;width:${Math.random()*2+1}px;height:${Math.random()*2+1}px;--dur:${Math.random()*3+1.5}s;--del:${Math.random()*4}s;`;
+  starsEl.appendChild(s);
+}
+</script>
+</body>
+</html>

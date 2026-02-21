@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>World 10 — Coastal Harbour (Zebulun)</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #1a6aaa; }
+.sky { position:absolute;inset:0; background:linear-gradient(180deg,#0a3060 0%,#1a5890 30%,#2888d0 55%,#58aae0 78%,#88ccea 100%); }
+/* Ocean waves */
+.ocean { position:absolute;bottom:0;left:0;right:0;height:220px; background:linear-gradient(180deg,#1a78c0 0%,#1060a0 40%,#0a4880 100%); overflow:hidden; }
+.wave { position:absolute;border-radius:50%;background:rgba(120,200,255,0.25); animation:wave-roll 3s ease-in-out infinite; }
+@keyframes wave-roll { 0%,100%{transform:translateX(0) scaleX(1);} 50%{transform:translateX(18px) scaleX(1.06);} }
+/* Harbour dock */
+.dock { position:absolute; background:#7a5a28; }
+/* Fishing boat */
+.boat-hull { position:absolute; }
+/* Seagulls */
+.gull { position:absolute;font-size:18px;animation:gull-fly 5s ease-in-out infinite; }
+@keyframes gull-fly { 0%,100%{transform:translate(0,0);} 30%{transform:translate(40px,-15px);} 70%{transform:translate(80px,-8px);} }
+/* Sandy shore */
+.shore { position:absolute;bottom:218px;left:0;right:0;height:30px;background:linear-gradient(180deg,#e0c878 0%,#c8a850 100%); }
+/* Cliff edge right side */
+.cliff { position:absolute;right:0;bottom:245px;width:140px;height:200px;background:linear-gradient(180deg,#9a8060,#6a5838);border-radius:10px 10px 0 0;clip-path:polygon(0% 40%,30% 0%,100% 0%,100% 100%,0% 100%); }
+/* Nets on dock -->
+.net-line { position:absolute; border-top:2px dashed rgba(200,180,100,0.5); }
+/* Ground strip behind dock -->
+.ground { position:absolute;bottom:245px;left:0;right:140px;height:40px;background:#c89840; }
+/* Beryl sea-green glow -->
+.beryl-glow { position:absolute;bottom:200px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(circle,rgba(0,200,160,0.10) 0%,transparent 65%);pointer-events:none; }
+</style>
+</head>
+<body>
+<div class="sky"></div>
+
+<!-- Sea birds -->
+<div class="gull" style="top:80px;left:120px;">🕊</div>
+<div class="gull" style="top:65px;right:200px;animation-delay:1.5s;">🕊</div>
+<div class="gull" style="top:100px;left:280px;animation-delay:3s;font-size:14px;">🕊</div>
+
+<!-- Distant horizon hills -->
+<div style="position:absolute;bottom:245px;left:-60px;width:350px;height:80px;background:linear-gradient(180deg,rgba(40,100,60,0.5),transparent);border-radius:50% 50% 0 0;"></div>
+
+<!-- Right cliff -->
+<div class="cliff"></div>
+
+<!-- Harbour dock (planks) -->
+<div class="dock" style="bottom:245px;left:80px;width:240px;height:14px;border-radius:3px 3px 0 0;z-index:5;"></div>
+<div class="dock" style="bottom:245px;left:100px;width:8px;height:50px;border-radius:2px;z-index:5;"></div>
+<div class="dock" style="bottom:245px;left:140px;width:8px;height:45px;border-radius:2px;z-index:5;"></div>
+<div class="dock" style="bottom:245px;left:180px;width:8px;height:50px;border-radius:2px;z-index:5;"></div>
+<div class="dock" style="bottom:245px;left:220px;width:8px;height:45px;border-radius:2px;z-index:5;"></div>
+<div class="dock" style="bottom:245px;left:260px;width:8px;height:50px;border-radius:2px;z-index:5;"></div>
+
+<!-- Fishing nets draped on dock -->
+<div style="position:absolute;bottom:260px;left:100px;width:160px;height:30px;z-index:6;opacity:0.6;">
+  <div class="net-line" style="top:0;left:0;right:0;"></div>
+  <div class="net-line" style="top:10px;left:0;right:0;"></div>
+  <div class="net-line" style="top:20px;left:0;right:0;"></div>
+  <div style="position:absolute;top:0;bottom:0;left:0;border-left:2px dashed rgba(200,180,100,0.5);"></div>
+  <div style="position:absolute;top:0;bottom:0;left:30px;border-left:2px dashed rgba(200,180,100,0.5);"></div>
+  <div style="position:absolute;top:0;bottom:0;left:60px;border-left:2px dashed rgba(200,180,100,0.5);"></div>
+  <div style="position:absolute;top:0;bottom:0;left:90px;border-left:2px dashed rgba(200,180,100,0.5);"></div>
+  <div style="position:absolute;top:0;bottom:0;left:120px;border-left:2px dashed rgba(200,180,100,0.5);"></div>
+  <div style="position:absolute;top:0;bottom:0;left:150px;border-left:2px dashed rgba(200,180,100,0.5);"></div>
+</div>
+
+<!-- Fishing boat (side-view hull) -->
+<div style="position:absolute;bottom:230px;left:160px;z-index:7;">
+  <svg width="130" height="75" viewBox="0 0 130 75">
+    <!-- Hull -->
+    <path d="M5 30 Q8 60 65 68 Q122 60 125 30 Z" fill="#8a5a20" stroke="#6a4010" stroke-width="2"/>
+    <!-- Deck -->
+    <rect x="15" y="24" width="100" height="10" rx="4" fill="#a87030"/>
+    <!-- Mast -->
+    <rect x="60" y="0" width="5" height="55" rx="2" fill="#7a5020"/>
+    <!-- Sail -->
+    <path d="M65 4 L65 42 L95 28 Z" fill="rgba(240,230,190,0.9)" stroke="rgba(180,160,100,0.5)" stroke-width="1"/>
+    <!-- Small flag -->
+    <polygon points="64,0 64,10 76,5" fill="#cc2020"/>
+  </svg>
+</div>
+
+<div class="beryl-glow"></div>
+
+<!-- Ocean -->
+<div class="ocean">
+  <div class="wave" style="top:20px;left:-20px;width:140%;height:60px;"></div>
+  <div class="wave" style="top:50px;left:-10px;width:130%;height:50px;animation-delay:0.8s;opacity:0.6;"></div>
+  <div class="wave" style="top:80px;left:-30px;width:140%;height:45px;animation-delay:1.5s;opacity:0.45;"></div>
+  <!-- White foam crests -->
+  <div style="position:absolute;top:15px;left:10%;width:80%;height:6px;background:rgba(255,255,255,0.25);border-radius:3px;"></div>
+  <div style="position:absolute;top:45px;left:5%;width:70%;height:5px;background:rgba(255,255,255,0.18);border-radius:3px;animation:wave-roll 3.5s ease-in-out 1s infinite;"></div>
+</div>
+
+<div class="shore"></div>
+<div class="ground"></div>
+
+<!-- Player (Zebulun — boy, 14, with fish bucket) -->
+<div style="position:absolute;bottom:258px;left:90px;z-index:10;">
+  <div style="width:28px;height:28px;background:#c8a868;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-4px;left:-3px;right:-3px;height:17px;background:#1a1008;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:10px;left:5px;width:6px;height:7px;background:#0a0808;border-radius:50%;"></div>
+    <div style="position:absolute;top:10px;right:5px;width:6px;height:7px;background:#0a0808;border-radius:50%;"></div>
+  </div>
+  <div style="width:24px;height:38px;background:linear-gradient(180deg,#1868a8,#0c4878);border-radius:5px 5px 3px 3px;margin:0 auto;margin-top:2px;"></div>
+  <!-- Bucket -->
+  <div style="position:absolute;bottom:0;right:-18px;width:16px;height:14px;background:#c87820;border-radius:2px 2px 4px 4px;border:2px solid #a86010;"></div>
+</div>
+
+<!-- Elder Elon -->
+<div style="position:absolute;bottom:255px;left:245px;z-index:10;">
+  <div style="width:34px;height:34px;background:#c09870;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-5px;left:-2px;right:-2px;height:16px;background:#ddd8c8;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:12px;left:6px;width:7px;height:8px;background:#0a0808;border-radius:50%;"></div>
+    <div style="position:absolute;top:12px;right:6px;width:7px;height:8px;background:#0a0808;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:-12px;left:3px;right:3px;height:18px;background:#d0ccbc;border-radius:0 0 50% 50%;"></div>
+  </div>
+  <div style="width:30px;height:52px;background:linear-gradient(180deg,#185898,#0c3868);border-radius:6px 6px 4px 4px;margin:0 auto;margin-top:2px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:5px;background:#40b8a0;border-radius:4px 4px 0 0;"></div>
+    <div style="position:absolute;right:-14px;top:-48px;width:5px;height:95px;background:#7a5820;border-radius:2px;"></div>
+  </div>
+</div>
+
+<!-- HUD -->
+<div class="hud-bar">
+  <div class="hud-tribe-badge" style="background:linear-gradient(135deg,#185898,#28a880);">⚓ Zebulun</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:14px;">💎 0/12</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:13px;">🚢 Coastal Harbour</div>
+</div>
+<div style="position:absolute;top:70px;left:12px;font-size:26px;letter-spacing:3px;">❤❤❤</div>
+<div class="dialogue-panel" style="bottom:20px;">
+  <div class="dlg-portrait" style="background:linear-gradient(135deg,#185898,#0c3868);font-size:24px;">👴</div>
+  <div class="dlg-body">
+    <div class="dlg-name">Elder Elon</div>
+    <div class="dlg-text">My child… Zebulun shall dwell by the seashore. Go — cast the net wide and bring the catch to those who hunger. God provides. Shalom.</div>
+  </div>
+</div>
+<div class="dpad"><div class="dpad-btn dpad-up">▲</div><div class="dpad-btn dpad-left">◄</div><div class="dpad-btn dpad-down">▼</div><div class="dpad-btn dpad-right">►</div></div>
+<div class="action-btn">✦</div>
+<div class="quest-box" style="top:70px;right:14px;">
+  <div class="quest-title">Quest: The Great Catch</div>
+  <div class="quest-step">✧ Repair the torn fishing net</div>
+  <div class="quest-step">✧ Cast net 3 times (swipe)</div>
+  <div class="quest-step">✧ Deliver fish to market 🐟</div>
+</div>
+<div class="minimap">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#FFD700;border-radius:50%;"></div>
+  <!-- Ocean dot -->
+  <div style="position:absolute;bottom:20%;left:10%;right:10%;height:6px;background:rgba(30,120,200,0.5);border-radius:3px;"></div>
+</div>
+<div class="verse-strip">"Zebulun will live by the seashore and become a haven for ships." — Genesis 49:13 | Fish navigate using the Earth's magnetic field!</div>
+</body>
+</html>

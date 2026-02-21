@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>World 7 — Mountain Stronghold (Gad)</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #3a4a2a; }
+.sky { position:absolute;inset:0; background:linear-gradient(180deg,#1a2a10 0%,#3a5020 30%,#6a8038 60%,#8a9848 80%,#a8a060 100%); }
+/* Mountain range */
+.mountain { position:absolute; clip-path:polygon(50% 0%,0% 100%,100% 100%); }
+/* Fortress walls */
+.fortress-wall { position:absolute;bottom:150px; background:linear-gradient(180deg,#a09070 0%,#706050 100%); box-shadow:inset -3px 0 12px rgba(0,0,0,0.4),inset 3px 0 8px rgba(200,180,120,0.2); }
+.battlement { position:absolute;top:-14px;background:inherit; }
+/* Olive trees */
+.olive { position:absolute;bottom:148px; }
+/* Ground — rocky highland */
+.ground { position:absolute;bottom:0;left:0;right:0;height:150px; background:linear-gradient(180deg,#7a7050 0%,#5a5038 40%,#3a3820 100%); }
+/* Amber/ligure gem glow */
+.ligure-glow { position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:350px;height:350px;background:radial-gradient(circle,rgba(200,140,0,0.12) 0%,transparent 70%);pointer-events:none; }
+</style>
+</head>
+<body>
+<div class="sky"></div>
+
+<!-- Distant mountains -->
+<div class="mountain" style="bottom:148px;left:-80px;width:480px;height:280px;background:linear-gradient(180deg,#3a4828,#2a3818);opacity:0.6;"></div>
+<div class="mountain" style="bottom:148px;right:-60px;width:400px;height:220px;background:linear-gradient(180deg,#485a30,#303820);opacity:0.5;"></div>
+<div class="mountain" style="bottom:150px;left:200px;width:280px;height:190px;background:linear-gradient(180deg,#607840,#404828);opacity:0.7;"></div>
+<!-- Snow caps -->
+<div class="mountain" style="bottom:340px;left:60px;width:120px;height:60px;background:rgba(240,238,230,0.55);"></div>
+<div class="mountain" style="bottom:316px;left:272px;width:100px;height:50px;background:rgba(240,238,230,0.45);"></div>
+
+<!-- Fortress walls -->
+<div class="fortress-wall" style="left:180px;width:260px;height:90px;">
+  <!-- Battlements row -->
+  <div class="battlement" style="left:10px;width:22px;height:14px;"></div>
+  <div class="battlement" style="left:40px;width:22px;height:14px;"></div>
+  <div class="battlement" style="left:70px;width:22px;height:14px;"></div>
+  <div class="battlement" style="left:100px;width:22px;height:14px;"></div>
+  <div class="battlement" style="left:130px;width:22px;height:14px;"></div>
+  <div class="battlement" style="left:160px;width:22px;height:14px;"></div>
+  <div class="battlement" style="left:190px;width:22px;height:14px;"></div>
+  <div class="battlement" style="left:220px;width:22px;height:14px;"></div>
+  <!-- Gate arch -->
+  <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:50px;height:65px;background:#2a2015;border-radius:25px 25px 0 0;"></div>
+</div>
+<!-- Side towers -->
+<div class="fortress-wall" style="left:160px;width:32px;height:115px;">
+  <div class="battlement" style="left:4px;width:10px;height:14px;"></div>
+  <div class="battlement" style="left:18px;width:10px;height:14px;"></div>
+</div>
+<div class="fortress-wall" style="right:158px;width:32px;height:115px;">
+  <div class="battlement" style="left:4px;width:10px;height:14px;"></div>
+  <div class="battlement" style="left:18px;width:10px;height:14px;"></div>
+</div>
+
+<!-- Torch flames on towers -->
+<div style="position:absolute;bottom:268px;left:186px;font-size:22px;animation:flicker-anim 0.3s ease-in-out infinite alternate;">🔥</div>
+<div style="position:absolute;bottom:268px;right:168px;font-size:22px;animation:flicker-anim 0.35s ease-in-out 0.1s infinite alternate;">🔥</div>
+
+<!-- Olive trees -->
+<div class="olive" style="left:80px;">
+  <div style="width:58px;height:65px;background:radial-gradient(circle,#607828 0%,#485818 100%);border-radius:45% 55% 40% 60%;"></div>
+  <div style="width:12px;height:35px;background:#5a3a18;margin:0 auto;border-radius:3px;"></div>
+</div>
+<div class="olive" style="right:75px;">
+  <div style="width:52px;height:58px;background:radial-gradient(circle,#5a7020 0%,#405018 100%);border-radius:55% 45% 60% 40%;"></div>
+  <div style="width:12px;height:30px;background:#5a3a18;margin:0 auto;border-radius:3px;"></div>
+</div>
+
+<div class="ligure-glow"></div>
+<div class="ground"></div>
+<!-- Rocks -->
+<div style="position:absolute;bottom:148px;left:130px;width:45px;height:25px;background:linear-gradient(180deg,#9a8a68,#6a6048);border-radius:50% 50% 30% 30%;"></div>
+<div style="position:absolute;bottom:148px;right:110px;width:38px;height:20px;background:linear-gradient(180deg,#928060,#625840);border-radius:50% 50% 30% 30%;"></div>
+
+<!-- Player (Gad — sturdy young man) -->
+<div style="position:absolute;bottom:162px;left:145px;">
+  <div style="width:32px;height:32px;background:#c8824a;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-5px;left:-3px;right:-3px;height:20px;background:#1e1008;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:12px;left:7px;width:6px;height:7px;background:#1a0e04;border-radius:50%;"></div>
+    <div style="position:absolute;top:12px;right:7px;width:6px;height:7px;background:#1a0e04;border-radius:50%;"></div>
+  </div>
+  <div style="width:28px;height:44px;background:linear-gradient(180deg,#486030,#283818);border-radius:5px 5px 3px 3px;margin:0 auto;margin-top:2px;"></div>
+</div>
+
+<!-- Elder Beri -->
+<div style="position:absolute;bottom:158px;right:220px;">
+  <div style="width:34px;height:34px;background:#c0784a;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-5px;left:-2px;right:-2px;height:16px;background:#ccc8b8;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:12px;left:6px;width:7px;height:8px;background:#1a0e04;border-radius:50%;"></div>
+    <div style="position:absolute;top:12px;right:6px;width:7px;height:8px;background:#1a0e04;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:-12px;left:3px;right:3px;height:18px;background:#c8c4b4;border-radius:0 0 50% 50%;"></div>
+  </div>
+  <div style="width:30px;height:52px;background:linear-gradient(180deg,#3a5a28,#1e3010);border-radius:6px 6px 4px 4px;margin:0 auto;margin-top:2px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:5px;background:#c5a030;border-radius:4px 4px 0 0;"></div>
+    <div style="position:absolute;right:-14px;top:-48px;width:5px;height:95px;background:#6a4818;border-radius:2px;"></div>
+  </div>
+</div>
+
+<!-- HUD -->
+<div class="hud-bar">
+  <div class="hud-tribe-badge" style="background:linear-gradient(135deg,#3a6028,#5a8040);">🏔 Gad</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:14px;">💎 0/12</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:13px;">🏰 Mountain Stronghold</div>
+</div>
+<div style="position:absolute;top:70px;left:12px;font-size:26px;letter-spacing:3px;">❤❤❤</div>
+<div class="dialogue-panel" style="bottom:20px;">
+  <div class="dlg-portrait" style="background:linear-gradient(135deg,#3a5a28,#1e3010);font-size:24px;">👴</div>
+  <div class="dlg-body">
+    <div class="dlg-name">Elder Ezer</div>
+    <div class="dlg-text">My child… a troop may raid us, but we shall overcome in the end. God is our fortress. Let us defend what is good. Shalom.</div>
+  </div>
+</div>
+<div class="dpad"><div class="dpad-btn dpad-up">▲</div><div class="dpad-btn dpad-left">◄</div><div class="dpad-btn dpad-down">▼</div><div class="dpad-btn dpad-right">►</div></div>
+<div class="action-btn">✦</div>
+<div class="quest-box" style="top:70px;right:14px;">
+  <div class="quest-title">Quest: Defend the Stronghold</div>
+  <div class="quest-step">✧ Light all 5 watchtower torches</div>
+  <div class="quest-step">✧ Push stone blocks to seal gaps</div>
+  <div class="quest-step">✧ Speak the watchman's word ✧</div>
+</div>
+<div class="minimap">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#FFD700;border-radius:50%;"></div>
+</div>
+<div class="verse-strip">"Gad shall be attacked by a band of raiders, but he shall attack at their heels." — Genesis 49:19</div>
+</body>
+</html>

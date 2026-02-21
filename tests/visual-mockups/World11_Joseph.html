@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>World 11 — Vineyard Valley (Joseph)</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #7a5a28; }
+.sky { position:absolute;inset:0; background:linear-gradient(180deg,#1a3860 0%,#2a6090 25%,#4890c8 55%,#70b8e8 78%,#a8d8f8 100%); }
+/* Clouds */
+.cloud { position:absolute; border-radius:50px; }
+/* Vineyard rows */
+.vine-row { position:absolute;bottom:148px;display:flex;gap:28px;align-items:flex-end; }
+.vine-post { width:10px;background:linear-gradient(180deg,#7a5020,#5a3810);border-radius:3px; }
+.vine-wire { position:absolute;height:2px;background:rgba(150,120,60,0.7); }
+.grape-cluster { position:absolute;top:0;display:grid;grid-template-columns:repeat(4,6px);gap:2px; }
+.grape { width:6px;height:7px;background:#7020a0;border-radius:50%;box-shadow:inset 1px 1px 2px rgba(255,255,255,0.3); }
+/* Grain silos -->
+.silo { position:absolute;bottom:148px;background:linear-gradient(180deg,#c8a870,#a08040); }
+/* Dream coat colours — Joseph's signature -->
+.coat-stripe { position:absolute;height:100%;width:5px; }
+/* Onyx dark gem glow -->
+.onyx-glow { position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:500px;height:400px;background:radial-gradient(circle,rgba(80,0,160,0.08) 0%,transparent 65%);pointer-events:none; }
+/* Ground -->
+.ground { position:absolute;bottom:0;left:0;right:0;height:148px;background:linear-gradient(180deg,#6a8830 0%,#488020 40%,#306010 100%); }
+</style>
+</head>
+<body>
+<div class="sky"></div>
+
+<!-- Clouds -->
+<div class="cloud" style="top:50px;left:70px;width:150px;height:45px;background:rgba(255,255,255,0.85);box-shadow:-16px 0 0 8px rgba(255,255,255,0.7),16px 0 0 7px rgba(255,255,255,0.6);"></div>
+<div class="cloud" style="top:70px;right:100px;width:110px;height:38px;background:rgba(255,255,255,0.78);box-shadow:-12px 0 0 6px rgba(255,255,255,0.6);"></div>
+
+<!-- Rolling green hills in back -->
+<div style="position:absolute;bottom:146px;left:-60px;width:400px;height:130px;background:linear-gradient(180deg,#80b840 0%,#508020 100%);border-radius:50% 50% 0 0;opacity:0.6;"></div>
+<div style="position:absolute;bottom:146px;right:-40px;width:320px;height:110px;background:linear-gradient(180deg,#70a835 0%,#487818 100%);border-radius:50% 50% 0 0;opacity:0.55;"></div>
+
+<!-- Vine trellises (3 rows) -->
+<!-- Row 1 -->
+<div class="vine-row" style="left:30px;">
+  <div class="vine-post" style="height:70px;"></div>
+  <div class="vine-post" style="height:72px;"></div>
+  <div class="vine-post" style="height:68px;"></div>
+  <div class="vine-post" style="height:75px;"></div>
+  <div class="vine-post" style="height:70px;"></div>
+</div>
+<!-- Grape clusters on row 1 -->
+<div style="position:absolute;bottom:215px;left:36px;display:grid;grid-template-columns:repeat(3,7px);gap:3px;">
+  <div class="grape"></div><div class="grape"></div><div class="grape"></div>
+  <div class="grape"></div><div class="grape"></div><div class="grape"></div>
+  <div class="grape" style="background:#500880;"></div>
+</div>
+<div style="position:absolute;bottom:210px;left:88px;display:grid;grid-template-columns:repeat(3,7px);gap:3px;">
+  <div class="grape"></div><div class="grape"></div><div class="grape"></div>
+  <div class="grape"></div><div class="grape"></div><div class="grape"></div>
+</div>
+<div style="position:absolute;bottom:218px;left:144px;display:grid;grid-template-columns:repeat(3,7px);gap:3px;">
+  <div class="grape" style="background:#6830b0;"></div><div class="grape"></div><div class="grape"></div>
+  <div class="grape"></div><div class="grape"></div>
+</div>
+<!-- Vine wire -->
+<div class="vine-wire" style="bottom:220px;left:30px;width:120px;"></div>
+<div class="vine-wire" style="bottom:195px;left:30px;width:120px;"></div>
+
+<!-- Row 2 -->
+<div class="vine-row" style="right:30px;">
+  <div class="vine-post" style="height:68px;"></div>
+  <div class="vine-post" style="height:72px;"></div>
+  <div class="vine-post" style="height:70px;"></div>
+  <div class="vine-post" style="height:65px;"></div>
+</div>
+<div style="position:absolute;bottom:212px;right:120px;display:grid;grid-template-columns:repeat(3,7px);gap:3px;">
+  <div class="grape" style="background:#5a10a0;"></div><div class="grape"></div><div class="grape"></div>
+  <div class="grape"></div><div class="grape"></div><div class="grape"></div>
+</div>
+<div class="vine-wire" style="bottom:218px;right:30px;width:110px;"></div>
+
+<!-- Grain silos (tall cylinders) -->
+<div class="silo" style="right:220px;width:36px;height:100px;border-radius:18px 18px 0 0;box-shadow:inset -4px 0 12px rgba(0,0,0,0.25);">
+  <div style="position:absolute;top:0;left:0;right:0;height:12px;background:linear-gradient(180deg,#c0a060,#908040);border-radius:18px 18px 0 0;"></div>
+</div>
+<div class="silo" style="right:185px;width:30px;height:80px;border-radius:15px 15px 0 0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:10px;background:linear-gradient(180deg,#c0a060,#908040);border-radius:15px 15px 0 0;"></div>
+</div>
+<div class="silo" style="right:157px;width:26px;height:65px;border-radius:13px 13px 0 0;">
+  <div style="position:absolute;top:0;left:0;right:0;height:8px;background:linear-gradient(180deg,#c0a060,#908040);border-radius:13px 13px 0 0;"></div>
+</div>
+
+<div class="onyx-glow"></div>
+<div class="ground"></div>
+<!-- Path through vineyard -->
+<div style="position:absolute;bottom:148px;left:50%;transform:translateX(-50%);width:40px;height:148px;background:linear-gradient(180deg,#c0a858,#a88840);border-radius:6px;"></div>
+
+<!-- Player (Joseph — boy 17, multicolour robe, dreamer look) -->
+<div style="position:absolute;bottom:162px;left:155px;">
+  <div style="width:30px;height:30px;background:#d0a870;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-5px;left:-3px;right:-3px;height:19px;background:#0e080a;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:11px;left:5px;width:6px;height:7px;background:#0a0808;border-radius:50%;"></div>
+    <div style="position:absolute;top:11px;right:5px;width:6px;height:7px;background:#0a0808;border-radius:50%;"></div>
+  </div>
+  <!-- Joseph's many-coloured coat -->
+  <div style="width:26px;height:42px;border-radius:5px 5px 3px 3px;margin:0 auto;margin-top:2px;position:relative;overflow:hidden;background:#c03020;">
+    <div style="position:absolute;top:0;left:3px;width:4px;height:100%;background:#2060c0;"></div>
+    <div style="position:absolute;top:0;left:8px;width:4px;height:100%;background:#d0c020;"></div>
+    <div style="position:absolute;top:0;left:14px;width:4px;height:100%;background:#20a840;"></div>
+    <div style="position:absolute;top:0;left:19px;width:4px;height:100%;background:#c02080;"></div>
+  </div>
+</div>
+
+<!-- Elder Manasseh (Joseph's world) -->
+<div style="position:absolute;bottom:158px;right:240px;">
+  <div style="width:34px;height:34px;background:#c09868;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-5px;left:-2px;right:-2px;height:16px;background:#e8e0c8;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:12px;left:6px;width:7px;height:8px;background:#0a0808;border-radius:50%;"></div>
+    <div style="position:absolute;top:12px;right:6px;width:7px;height:8px;background:#0a0808;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:-12px;left:3px;right:3px;height:18px;background:#d8d4c0;border-radius:0 0 50% 50%;"></div>
+  </div>
+  <div style="width:30px;height:52px;background:linear-gradient(180deg,#1a3070,#0e1c48);border-radius:6px 6px 4px 4px;margin:0 auto;margin-top:2px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:5px;background:#d0c020;border-radius:4px 4px 0 0;"></div>
+    <div style="position:absolute;right:-14px;top:-48px;width:5px;height:95px;background:#7a5820;border-radius:2px;"></div>
+  </div>
+</div>
+
+<!-- HUD -->
+<div class="hud-bar">
+  <div class="hud-tribe-badge" style="background:linear-gradient(135deg,#6020a0,#c03020);">🌾 Joseph</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:14px;">💎 0/12</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:13px;">🍇 Vineyard Valley</div>
+</div>
+<div style="position:absolute;top:70px;left:12px;font-size:26px;letter-spacing:3px;">❤❤❤</div>
+<div class="dialogue-panel" style="bottom:20px;">
+  <div class="dlg-portrait" style="background:linear-gradient(135deg,#1a3070,#0e1c48);font-size:24px;">👴</div>
+  <div class="dlg-body">
+    <div class="dlg-name">Elder Potiphera</div>
+    <div class="dlg-text">My child… what others meant for harm, God meant for good. The dreamer's coat still shines. Gather the grain for those in need. Shalom.</div>
+  </div>
+</div>
+<div class="dpad"><div class="dpad-btn dpad-up">▲</div><div class="dpad-btn dpad-left">◄</div><div class="dpad-btn dpad-down">▼</div><div class="dpad-btn dpad-right">►</div></div>
+<div class="action-btn">✦</div>
+<div class="quest-box" style="top:70px;right:14px;">
+  <div class="quest-title">Quest: The Dreamer's Harvest</div>
+  <div class="quest-step">✧ Collect 7 grape clusters</div>
+  <div class="quest-step">✧ Fill the three grain silos</div>
+  <div class="quest-step">✧ Forgive the rival (dialogue) 💜</div>
+</div>
+<div class="minimap">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#FFD700;border-radius:50%;"></div>
+</div>
+<div class="verse-strip">"You intended to harm me, but God intended it for good — to accomplish what is now being done." — Genesis 50:20</div>
+</body>
+</html>
