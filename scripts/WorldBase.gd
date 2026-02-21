@@ -1369,11 +1369,15 @@ func _wall(pos: Vector3, size: Vector3, texture: String) -> void:
 # NPC HELPERS
 # "Do not forget to show hospitality to strangers" – Hebrews 13:2
 # ─────────────────────────────────────────────────────────────────────────────
-func _build_npc(key: String, pos: Vector3, texture: String) -> void:
-	# "Do not forget to show hospitality to strangers" – Hebrews 13:2
-	# Character = collision Area3D + layered mesh (body capsule + head sphere)
+
+## Internal registry so quest scripts can animate NPCs by key.
+var _npc_registry: Dictionary = {}  # key → {area: Area3D, sprite: CharacterSprite3D}
+
+## Build a high-quality billboard NPC using CharacterSprite3D.
+## "He made them in His image" – Genesis 1:27
+func _build_npc(key: String, pos: Vector3, texture: String = "") -> void:
 	var npc := Area3D.new()
-	npc.position      = pos
+	npc.position        = pos
 	npc.collision_layer = 4   # NPC layer
 	npc.collision_mask  = 1   # Player layer
 	npc.set_meta("key", key)
@@ -1381,61 +1385,62 @@ func _build_npc(key: String, pos: Vector3, texture: String) -> void:
 	# Collision capsule
 	var shape := CollisionShape3D.new()
 	var caps  := CapsuleShape3D.new()
-	caps.radius = 0.45;  caps.height = 1.7
-	shape.shape = caps
-	shape.position = Vector3(0, 0.85, 0)
+	caps.radius = 0.45;  caps.height = 1.8
+	shape.shape  = caps
+	shape.position = Vector3(0, 0.9, 0)
 	npc.add_child(shape)
 
-	# ── Determine textures ────────────────────────────────────────────────────
-	var skin_path: String
-	var robe_path: String
-	if texture != "" and not texture.begins_with("res://"):
-		# Legacy UUID filename passed directly
-		skin_path = "res://assets/textures/" + texture
-		robe_path = AssetRegistry.tribe_robe(tribe_key)
-	else:
-		skin_path = AssetRegistry.tribe_skin(tribe_key)
-		robe_path = AssetRegistry.tribe_robe(tribe_key)
+	# ── High-quality billboard character sprite ───────────────────────────────
+	# "I will look on them with favour" – Leviticus 26:9
+	var sprite := CharacterSprite3D.new()
+	sprite.character_name = key.capitalize().replace("_", " ")
+	sprite.is_elder       = key.to_lower().begins_with("elder") or key.to_lower().contains("elder")
 
-	# ── Body (robe / tunic) – main capsule ───────────────────────────────────
-	var body_mi   := MeshInstance3D.new()
-	var body_mesh := CapsuleMesh.new()
-	body_mesh.radius = 0.42;  body_mesh.height = 1.35
-	body_mi.mesh     = body_mesh
-	body_mi.position = Vector3(0, 0.68, 0)
-	body_mi.material_override = _tex_mat(robe_path, Color(0.72, 0.58, 0.38, 1))
-	body_mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
-	npc.add_child(body_mi)
+	# Tile tribe skin / robe colours from tribe data
+	if _tribe_data.has("npc_skin"):
+		sprite.skin_color = Color(_tribe_data["npc_skin"] as String)
+	if _tribe_data.has("npc_robe"):
+		sprite.robe_color = Color(_tribe_data["npc_robe"] as String)
+	if _tribe_data.has("npc_hair"):
+		sprite.hair_color = Color(_tribe_data["npc_hair"] as String)
 
-	# ── Head (skin) – sphere on top ───────────────────────────────────────────
-	var head_mi   := MeshInstance3D.new()
-	var head_mesh := SphereMesh.new()
-	head_mesh.radius = 0.28;  head_mesh.height = 0.56
-	head_mi.mesh     = head_mesh
-	head_mi.position = Vector3(0, 1.56, 0)
-	head_mi.material_override = _tex_mat(skin_path, Color(0.88, 0.70, 0.52, 1))
-	head_mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
-	npc.add_child(head_mi)
+	# Allow legacy texture path to hint an SVG portrait to load
+	if texture != "" and (texture.ends_with(".svg") or texture.ends_with(".png")):
+		sprite.sprite_path = texture if texture.begins_with("res://") \
+			else "res://assets/textures/" + texture
 
-	# ── Gentle idle bob animation ─────────────────────────────────────────────
-	var tw := create_tween()
-	tw.set_loops()
-	tw.tween_property(npc, "position:y", pos.y + 0.12, 1.8).set_ease(Tween.EASE_IN_OUT)
-	tw.tween_property(npc, "position:y", pos.y,         1.8).set_ease(Tween.EASE_IN_OUT)
+	npc.add_child(sprite)
 
 	# ── Interaction zone ──────────────────────────────────────────────────────
 	npc.body_entered.connect(func(body: Node3D):
 		if body == _player:
 			_interaction_target = npc
-			_interaction_hint.text = "✦ Tap to speak with " + key.capitalize()
+			var neat := key.capitalize().replace("_", " ")
+			_interaction_hint.text = "✦ Speak with %s" % neat
 			_interaction_hint.visible = true
+			sprite.highlight(true)
 	)
 	npc.body_exited.connect(func(body: Node3D):
 		if body == _player and _interaction_target == npc:
 			_interaction_target = null
 			_interaction_hint.visible = false
+			sprite.highlight(false)
 	)
+
+	_npc_registry[key] = {"area": npc, "sprite": sprite}
 	add_child(npc)
+
+## Animate an NPC after dialogue — celebrate, bow, etc.
+## "Sing and make music from your heart to the Lord" – Ephesians 5:19
+func animate_npc(key: String, anim: String) -> void:
+	if not _npc_registry.has(key):
+		return
+	var sprite: CharacterSprite3D = _npc_registry[key]["sprite"]
+	match anim:
+		"celebrate": sprite.play_celebrate()
+		"pray":      sprite.play_pray()
+		"walk_left": sprite.play_walk(Vector3.LEFT)
+		"walk_right":sprite.play_walk(Vector3.RIGHT)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CHEST HELPERS
@@ -1636,7 +1641,7 @@ func build_touch_rhythm_minigame(parent: Node, beat_duration: float, beats: int,
 	container.name = "TouchRhythmMinigame"
 	container.set_anchors_preset(PRESET_FULL_RECT)
 	parent.add_child(container)
-	
+
 	var result := {
 		"root": container,
 		"hits": 0,
@@ -1646,7 +1651,7 @@ func build_touch_rhythm_minigame(parent: Node, beat_duration: float, beats: int,
 		"beat_duration": beat_duration,
 		"completed": false
 	}
-	
+
 	# Beat indicator
 	var beat_indicator := ColorRect.new()
 	beat_indicator.name = "BeatIndicator"
@@ -1654,7 +1659,7 @@ func build_touch_rhythm_minigame(parent: Node, beat_duration: float, beats: int,
 	beat_indicator.size = Vector2(200, 200)
 	beat_indicator.color = Color(0, 1, 0, 0.3)
 	container.add_child(beat_indicator)
-	
+
 	# Prompt label
 	var label := Label.new()
 	label.name = "Prompt"
@@ -1663,7 +1668,7 @@ func build_touch_rhythm_minigame(parent: Node, beat_duration: float, beats: int,
 	label.position.y = 20
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	container.add_child(label)
-	
+
 	# Progress indicator
 	var progress := ProgressBar.new()
 	progress.name = "Progress"
@@ -1673,18 +1678,18 @@ func build_touch_rhythm_minigame(parent: Node, beat_duration: float, beats: int,
 	progress.max_value = goal
 	progress.value = 0
 	container.add_child(progress)
-	
+
 	# Beat timing
 	var beat_timer := Timer.new()
 	beat_timer.wait_time = beat_duration
 	beat_timer.timeout.connect(func():
 		result.current_beat += 1
-		
+
 		# Visual beat pulse
 		var tw := create_tween()
 		tw.tween_property(beat_indicator, "scale", Vector2(1.2, 1.2), beat_duration * 0.3)
 		tw.tween_property(beat_indicator, "scale", Vector2.ONE, beat_duration * 0.7)
-		
+
 		if result.current_beat >= beats:
 			beat_timer.stop()
 			if not result.completed:
@@ -1692,7 +1697,7 @@ func build_touch_rhythm_minigame(parent: Node, beat_duration: float, beats: int,
 	)
 	container.add_child(beat_timer)
 	beat_timer.start()
-	
+
 	# Touch input handling
 	container.gui_input.connect(func(event: InputEvent):
 		if event is InputEventScreenTouch and event.pressed and result.current_beat < beats:
@@ -1700,18 +1705,18 @@ func build_touch_rhythm_minigame(parent: Node, beat_duration: float, beats: int,
 			if timing_accuracy < beat_duration * 0.3:  # Good timing window
 				result.hits += 1
 				progress.value = result.hits
-				
+
 				# Success feedback
 				var feedback := ColorRect.new()
 				feedback.size = Vector2(50, 50)
 				feedback.position = event.position - Vector2(25, 25)
 				feedback.color = Color(0, 1, 0, 0.8)
 				container.add_child(feedback)
-				
+
 				var tw := create_tween()
 				tw.tween_property(feedback, "modulate:a", 0.0, 0.5)
 				tw.tween_callback(feedback.queue_free)
-				
+
 				# Check completion
 				if result.hits >= goal:
 					result.completed = true
@@ -1724,10 +1729,474 @@ func build_touch_rhythm_minigame(parent: Node, beat_duration: float, beats: int,
 				feedback.position = event.position - Vector2(15, 15)
 				feedback.color = Color(1, 0, 0, 0.6)
 				container.add_child(feedback)
-				
+
 				var tw := create_tween()
 				tw.tween_property(feedback, "modulate:a", 0.0, 0.3)
 				tw.tween_callback(feedback.queue_free)
 	)
-	
+
 	return result
+
+# =============================================================================
+# ZELDA-QUALITY ADVENTURE MECHANICS
+# "Be strong and courageous. Do not be afraid." – Joshua 1:9
+# =============================================================================
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DASH SYSTEM  –  "They shall run and not grow weary" – Isaiah 40:31
+# Call enable_dash() in on_world_ready() to activate for this world.
+# ─────────────────────────────────────────────────────────────────────────────
+var _dash_cooldown:   float = 0.0
+var _dash_active:     bool  = false
+var _dash_velocity:   Vector3 = Vector3.ZERO
+const DASH_SPEED:     float = 22.0
+const DASH_DURATION:  float = 0.18
+const DASH_COOLDOWN:  float = 1.2
+
+## Call once during on_world_ready() to enable dash in this world.
+func enable_dash() -> void:
+	set_process(true)   # WorldBase _process handles dash timers
+
+## Override _process to count down dash cooldown.
+func _process(delta: float) -> void:
+	if _dash_cooldown > 0.0:
+		_dash_cooldown -= delta
+
+## Called by player.gd (or TouchControls) when the dash action fires.
+## "Like a deer leaping over an obstacle" – 2 Samuel 22:30
+func player_dash(direction: Vector3) -> void:
+	if _player == null or _dash_active or _dash_cooldown > 0.0:
+		return
+	_dash_active   = true
+	_dash_cooldown = DASH_COOLDOWN
+	var dash_dir: Vector3 = direction.normalized() if direction.length() > 0.01 \
+		else -_player.global_transform.basis.z
+
+	# Speed-line effect (brief OmniLight flash on player)
+	var flash := OmniLight3D.new()
+	flash.light_color  = Color(1.0, 0.95, 0.7, 1)
+	flash.omni_range   = 4.5
+	flash.light_energy = 1.8
+	_player.add_child(flash)
+
+	var tw := create_tween()
+	tw.tween_property(_player, "position",
+		_player.position + dash_dir * DASH_SPEED * DASH_DURATION,
+		DASH_DURATION).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	tw.parallel().tween_property(flash, "light_energy", 0.0, DASH_DURATION)
+	tw.tween_callback(func():
+		flash.queue_free()
+		_dash_active = false
+		# Dust cloud at landing
+		_spawn_dust_cloud(_player.position)
+	)
+
+func _spawn_dust_cloud(world_pos: Vector3) -> void:
+	# Quick particle burst at position — no GPUParticles (keeps it simple)
+	var dust := CPUParticles3D.new()
+	dust.position     = world_pos + Vector3(0, 0.1, 0)
+	dust.amount       = 18
+	dust.lifetime     = 0.55
+	dust.one_shot     = true
+	dust.explosiveness = 0.9
+	dust.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
+	dust.emission_sphere_radius = 0.35
+	dust.initial_velocity_min   = 2.0
+	dust.initial_velocity_max   = 5.0
+	dust.color = Color(0.85, 0.72, 0.50, 0.6)
+	add_child(dust)
+	dust.restart()
+	await get_tree().create_timer(0.8).timeout
+	dust.queue_free()
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PUSH-BLOCK PUZZLE SYSTEM
+# "Remove the stone" – John 11:39
+# Spawn a pushable stone/crate that the player can shove by walking into it.
+# When pushed onto a pressure plate the plate fires on_plate_triggered().
+# ─────────────────────────────────────────────────────────────────────────────
+var _push_blocks:   Array[RigidBody3D] = []
+var _plates:        Array[Area3D]      = []
+var _plates_solved: int = 0
+var _plates_needed: int = 0
+
+## Spawn a pushable stone block.  size defaults to 1 × 1 × 1 m.
+## "The Lord is my strength and my shield" – Psalm 28:7
+func spawn_push_block(pos: Vector3, block_size: Vector3 = Vector3(1, 1, 1),
+		color: Color = Color(0.55, 0.48, 0.38)) -> RigidBody3D:
+	var rb := RigidBody3D.new()
+	rb.position     = pos
+	rb.mass         = 8.0          # heavy but movable
+	rb.linear_damp  = 6.0          # stops quickly after push
+	rb.angular_damp = 99.0         # no tumbling
+
+	var col := CollisionShape3D.new()
+	col.shape = BoxShape3D.new()
+	col.shape.size = block_size
+	rb.add_child(col)
+
+	var mi   := MeshInstance3D.new()
+	var bm   := BoxMesh.new()
+	bm.size  = block_size
+	mi.mesh  = bm
+	var mat  := StandardMaterial3D.new()
+	mat.albedo_color  = color
+	mat.roughness     = 0.9
+	# Subtle carved-stone bump via emission hint
+	mat.emission_enabled = true
+	mat.emission        = color * 0.08
+	mi.material_override = mat
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	rb.add_child(mi)
+
+	# Etched cross mark on top face (thin gold line box)
+	var mark := MeshInstance3D.new()
+	var pm   := BoxMesh.new()
+	pm.size  = Vector3(block_size.x * 0.7, 0.02, block_size.z * 0.08)
+	mark.mesh = pm
+	mark.position = Vector3(0, block_size.y * 0.5 + 0.015, 0)
+	var gm := StandardMaterial3D.new()
+	gm.albedo_color  = Color(0.85, 0.72, 0.18, 1)
+	gm.emission_enabled = true
+	gm.emission = Color(0.85, 0.72, 0.18, 0.6)
+	mark.material_override = gm
+	rb.add_child(mark)
+
+	_push_blocks.append(rb)
+	add_child(rb)
+	return rb
+
+## Spawn a pressure plate.  When a push-block lands on it, fires on_plate_triggered().
+## "Blessed is the one who perseveres" – James 1:12
+func spawn_pressure_plate(pos: Vector3,
+		plate_color: Color = Color(0.82, 0.70, 0.18)) -> Area3D:
+	var plate := Area3D.new()
+	plate.position      = pos
+	plate.collision_layer = 32
+	plate.collision_mask  = 1 | 4 | 64    # player, NPC, push-blocks
+	plate.set_meta("triggered", false)
+
+	var col := CollisionShape3D.new()
+	col.shape = BoxShape3D.new()
+	col.shape.size = Vector3(1.1, 0.15, 1.1)
+	col.position   = Vector3(0, 0.075, 0)
+	plate.add_child(col)
+
+	# Visual: sunken disc with glow ring
+	var disc := MeshInstance3D.new()
+	var cyl  := CylinderMesh.new()
+	cyl.top_radius    = 0.48
+	cyl.bottom_radius = 0.50
+	cyl.height        = 0.08
+	disc.mesh         = cyl
+	disc.position     = Vector3(0, 0.04, 0)
+	var pm  := StandardMaterial3D.new()
+	pm.albedo_color     = plate_color
+	pm.emission_enabled = true
+	pm.emission         = plate_color * 0.35
+	disc.material_override = pm
+	plate.add_child(disc)
+
+	# Glow pulse when idle
+	var tw := create_tween(); tw.set_loops()
+	tw.tween_property(pm, "emission_energy_multiplier", 0.15, 1.0).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(pm, "emission_energy_multiplier", 0.8,  1.0).set_ease(Tween.EASE_IN_OUT)
+
+	plate.body_entered.connect(func(body: Node):
+		if plate.get_meta("triggered"):
+			return
+		var is_block := _push_blocks.has(body)
+		var is_player := body == _player
+		if is_block or is_player:
+			plate.set_meta("triggered", true)
+			pm.albedo_color = Color(0.3, 1.0, 0.4)  # Green: solved
+			pm.emission     = Color(0.2, 0.9, 0.3) * 0.8
+			AudioManager.play_sfx("res://assets/audio/sfx/stone_unlock.wav")
+			_plates_solved += 1
+			on_plate_triggered(plate)
+			if _plates_needed > 0 and _plates_solved >= _plates_needed:
+				on_all_plates_triggered()
+	)
+	_plates.append(plate)
+	add_child(plate)
+	return plate
+
+## Override in subclass to react when a single plate is triggered.
+func on_plate_triggered(_plate: Area3D) -> void:
+	pass
+
+## Override in subclass when ALL required plates are solved.
+## "And the gates of it shall not be shut" – Revelation 21:25
+func on_all_plates_triggered() -> void:
+	pass
+
+# ─────────────────────────────────────────────────────────────────────────────
+# HEART CONTAINER SYSTEM
+# "The Lord is close to the broken-hearted" – Psalm 34:18
+# Gentle 3-heart system: falling, puzzle failure, or time triggers gentle loss.
+# No death — player simply restores at a checkpoint with encouragement.
+# ─────────────────────────────────────────────────────────────────────────────
+var _hearts:          int = 3
+var _max_hearts:      int = 3
+var _checkpoint_pos:  Vector3 = Vector3.ZERO
+var _heart_labels:    Array[Label] = []
+var _hearts_enabled:  bool = false
+
+## Call in on_world_ready() to enable the heart system for this world.
+func enable_hearts(count: int = 3) -> void:
+	_max_hearts   = count
+	_hearts       = count
+	_hearts_enabled = true
+	_build_heart_hud()
+	if _player:
+		_checkpoint_pos = _player.position
+
+## Build the heart HUD strip (top-left below tribe badge).
+func _build_heart_hud() -> void:
+	var row := HBoxContainer.new()
+	row.name = "HeartRow"
+	row.add_theme_constant_override("separation", 4)
+	row.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	row.offset_left = 12;  row.offset_top = 96
+	_ui_canvas.add_child(row)
+	_heart_labels.clear()
+	for i in range(_max_hearts):
+		var lbl := Label.new()
+		lbl.text = "❤"
+		lbl.add_theme_font_size_override("font_size", 28)
+		lbl.add_theme_color_override("font_color", Color(0.9, 0.15, 0.15, 1))
+		row.add_child(lbl)
+		_heart_labels.append(lbl)
+
+## Lose one heart.  Encourages and restores to checkpoint.
+## "Let's try again. God is patient." – WorldBase gentle fail response
+func lose_heart() -> void:
+	if not _hearts_enabled:
+		return
+	_hearts = max(0, _hearts - 1)
+	_update_heart_display()
+	AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+
+	# Flash hearts red
+	for h in _heart_labels:
+		var tw := create_tween()
+		tw.tween_property(h, "modulate", Color(1.5, 0.3, 0.3, 1), 0.15)
+		tw.tween_property(h, "modulate", Color(1, 1, 1, 1), 0.25)
+
+	if _hearts <= 0:
+		# Gentle restore — no death screen, just encouragement
+		_hearts = _max_hearts
+		_update_heart_display()
+		show_dialogue([{
+			"name": "Elder",
+			"text": "My child… Let's try again together. God is patient. 🙏"
+		}])
+		if _player and _checkpoint_pos != Vector3.ZERO:
+			await get_tree().create_timer(0.6).timeout
+			var tw2 := create_tween()
+			tw2.tween_property(_player, "position", _checkpoint_pos, 0.45) \
+				.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+
+## Gain one heart (e.g. from eating bread, finding spring).
+func gain_heart() -> void:
+	if not _hearts_enabled:
+		return
+	_hearts = min(_max_hearts, _hearts + 1)
+	_update_heart_display()
+	AudioManager.play_sfx("res://assets/audio/sfx/heart_badge.wav")
+	# Small golden burst above player
+	if _player:
+		_spawn_dust_cloud(_player.position + Vector3(0, 1.5, 0))
+
+func _update_heart_display() -> void:
+	for i in range(_heart_labels.size()):
+		_heart_labels[i].modulate.a = 1.0 if i < _hearts else 0.25
+
+## Update checkpoint (call when player reaches a safe waypoint).
+func set_checkpoint(pos: Vector3) -> void:
+	_checkpoint_pos = pos
+	# Brief gold star burst at checkpoint
+	_spawn_dust_cloud(pos)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TORCH / LIGHT PUZZLE SYSTEM
+# "Your word is a lamp to my feet" – Psalm 119:105
+# Spawn dark rooms with torches the player must light in sequence.
+# ─────────────────────────────────────────────────────────────────────────────
+var _torches:        Array[Dictionary] = []   # {area, light, lit}
+var _torches_lit:    int = 0
+var _torches_needed: int = 0
+
+## Spawn an unlit torch at world_pos.
+## Call `enable_torches(count)` in on_world_ready() to enable the system.
+func spawn_torch(pos: Vector3, is_lit: bool = false) -> Dictionary:
+	var torch_node := Area3D.new()
+	torch_node.position      = pos
+	torch_node.collision_layer = 64
+	torch_node.collision_mask  = 1
+
+	var col := CollisionShape3D.new()
+	col.shape = CylinderShape3D.new()
+	col.shape.radius = 0.35;  col.shape.height = 1.8
+	col.position = Vector3(0, 0.9, 0)
+	torch_node.add_child(col)
+
+	# Pole
+	var pole_mi := MeshInstance3D.new()
+	var pole_m  := CylinderMesh.new()
+	pole_m.top_radius    = 0.06
+	pole_m.bottom_radius = 0.06
+	pole_m.height        = 1.6
+	pole_mi.mesh     = pole_m
+	pole_mi.position = Vector3(0, 0.8, 0)
+	pole_mi.material_override = _tex_mat(AssetRegistry.wall("cedar"), Color(0.45, 0.30, 0.15))
+	torch_node.add_child(pole_mi)
+
+	# Bowl
+	var bowl_mi := MeshInstance3D.new()
+	var bowl_m  := SphereMesh.new()
+	bowl_m.radius = 0.18;  bowl_m.height = 0.25
+	bowl_mi.mesh     = bowl_m
+	bowl_mi.position = Vector3(0, 1.65, 0)
+	var bm := StandardMaterial3D.new()
+	bm.albedo_color = Color(0.65, 0.52, 0.18, 1)
+	bowl_mi.material_override = bm
+	torch_node.add_child(bowl_mi)
+
+	# Flame (OmniLight, hidden when unlit)
+	var flame_light := OmniLight3D.new()
+	flame_light.light_color  = Color(1.0, 0.72, 0.15, 1)
+	flame_light.omni_range   = 7.0
+	flame_light.light_energy = 0.0 if not is_lit else 1.6
+	flame_light.position     = Vector3(0, 1.85, 0)
+	torch_node.add_child(flame_light)
+
+	# Flame mesh (tiny sphere, yellow → transparent when unlit)
+	var flame_mi := MeshInstance3D.new()
+	var flame_sm := SphereMesh.new()
+	flame_sm.radius = 0.09;  flame_sm.height = 0.22
+	flame_mi.mesh     = flame_sm
+	flame_mi.position = Vector3(0, 1.87, 0)
+	var fm := StandardMaterial3D.new()
+	fm.albedo_color     = Color(1.0, 0.6, 0.1, 1)
+	fm.emission_enabled = true
+	fm.emission         = Color(1.0, 0.5, 0.0, 0.9)
+	fm.flags_transparent = true
+	flame_mi.material_override = fm
+	flame_mi.visible = is_lit
+	torch_node.add_child(flame_mi)
+
+	var entry := {"area": torch_node, "light": flame_light, "flame": flame_mi, "lit": is_lit}
+
+	if is_lit:
+		_torches_lit += 1
+		_start_torch_flicker(flame_light, flame_mi)
+
+	torch_node.body_entered.connect(func(body: Node):
+		if body == _player and not entry["lit"]:
+			entry["lit"] = true
+			entry["flame"].visible = true
+			entry["light"].light_energy = 1.6
+			AudioManager.play_sfx("res://assets/audio/sfx/stone_unlock.wav")
+			_start_torch_flicker(entry["light"], entry["flame"])
+			_torches_lit += 1
+			on_torch_lit(entry)
+			if _torches_needed > 0 and _torches_lit >= _torches_needed:
+				on_all_torches_lit()
+	)
+
+	_torches.append(entry)
+	add_child(torch_node)
+	return entry
+
+func _start_torch_flicker(light: OmniLight3D, flame: MeshInstance3D) -> void:
+	# "His word burns like a flame of fire" – Jeremiah 20:9
+	var tw := create_tween(); tw.set_loops()
+	tw.tween_property(light, "light_energy",
+		1.2 + randf() * 0.6, 0.08 + randf() * 0.12).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(light, "light_energy",
+		0.9 + randf() * 0.4, 0.10 + randf() * 0.12).set_ease(Tween.EASE_IN_OUT)
+	var tw2 := create_tween(); tw2.set_loops()
+	tw2.tween_property(flame, "position:y", flame.position.y + 0.04, 0.14).set_ease(Tween.EASE_IN_OUT)
+	tw2.tween_property(flame, "position:y", flame.position.y,          0.14).set_ease(Tween.EASE_IN_OUT)
+
+func enable_torches(needed: int) -> void:
+	_torches_needed = needed
+
+## Override to react to a single torch being lit.
+func on_torch_lit(_torch: Dictionary) -> void:
+	pass
+
+## Override when ALL required torches are lit (unlock doors, reveal chest, etc.)
+func on_all_torches_lit() -> void:
+	pass
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LOCKED DOOR SYSTEM
+# "Ask and the door will be opened" – Matthew 7:7 / Luke 11:9
+# Spawn a barred door that opens when a condition is met.
+# ─────────────────────────────────────────────────────────────────────────────
+
+## Spawn a door made of cedar planks with a gold lock.
+## key_tag: metadata string — call unlock_door(key_tag) to open it.
+func spawn_locked_door(pos: Vector3, key_tag: String,
+		door_size: Vector3 = Vector3(2.0, 3.0, 0.25)) -> StaticBody3D:
+	var door := StaticBody3D.new()
+	door.position = pos
+	door.set_meta("key_tag", key_tag)
+	door.set_meta("open", false)
+
+	var col := CollisionShape3D.new()
+	col.shape = BoxShape3D.new()
+	col.shape.size = door_size
+	door.add_child(col)
+
+	# Door planks
+	var mi   := MeshInstance3D.new()
+	var bm   := BoxMesh.new()
+	bm.size  = door_size
+	mi.mesh  = bm
+	var mat  := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.48, 0.34, 0.18, 1)
+	mat.roughness    = 0.85
+	mi.material_override = mat
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	door.add_child(mi)
+
+	# Gold lock plate
+	var lock_mi := MeshInstance3D.new()
+	var lock_bm := BoxMesh.new()
+	lock_bm.size = Vector3(0.35, 0.45, 0.10)
+	lock_mi.mesh = lock_bm
+	lock_mi.position = Vector3(door_size.x * 0.36, 0, door_size.z * 0.55)
+	var lm := StandardMaterial3D.new()
+	lm.albedo_color     = Color(0.88, 0.72, 0.18, 1)
+	lm.emission_enabled = true
+	lm.emission         = Color(0.85, 0.70, 0.10, 0.5)
+	lock_mi.material_override = lm
+	door.add_child(lock_mi)
+
+	add_child(door)
+	return door
+
+## Open a door by key_tag — swings aside with a creak, removes collision.
+func unlock_door(key_tag: String) -> void:
+	for child in get_children():
+		if child is StaticBody3D and child.get_meta("key_tag", "") == key_tag:
+			if child.get_meta("open", false):
+				return
+			child.set_meta("open", true)
+			AudioManager.play_sfx("res://assets/audio/sfx/ui_open.wav")
+			# Swing open (rotate 90° and slide back)
+			var tw := create_tween()
+			tw.tween_property(child, "rotation:y",
+				child.rotation.y + PI * 0.5, 0.7).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			tw.parallel().tween_property(child, "position",
+				child.position + child.global_transform.basis.x * 1.8, 0.7)
+			# Disable collision after opening
+			tw.tween_callback(func():
+				for c in child.get_children():
+					if c is CollisionShape3D:
+						c.disabled = true
+			)
+			break

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>World 9 — Hilltop Observatory (Issachar)</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #0a0a28; }
+.sky { position:absolute;inset:0; background:linear-gradient(180deg,#02020e 0%,#06061a 25%,#0e0e2e 55%,#1a1845 75%,#261a38 100%); }
+/* Amethyst purple glow aura for Issachar */
+.amethyst-glow { position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(130,60,200,0.12) 0%,transparent 65%);pointer-events:none; }
+/* Stars — dense Issachar starfield + constellation patterns */
+.star-c { position:absolute;background:#e8f0ff;border-radius:50%;animation:pulse-opac 2s ease-in-out infinite alternate; }
+/* Stone observatory circle */
+.stone-ring { position:absolute;bottom:165px;left:50%;transform:translateX(-50%); }
+/* Rolling dark hills */
+.hill { position:absolute;bottom:155px;border-radius:50% 50% 0 0; }
+/* Ground */
+.ground { position:absolute;bottom:0;left:0;right:0;height:155px;background:linear-gradient(180deg,#1a1a30 0%,#0e0e20 50%,#080818 100%); }
+/* Constellation connector lines */
+.c-line { position:absolute;height:1px;background:rgba(170,140,255,0.3); }
+/* Shooting star */
+.shoot { position:absolute;background:linear-gradient(90deg,rgba(255,255,255,0.8),transparent);height:2px;border-radius:2px;animation:shoot-anim 4s linear infinite; }
+@keyframes shoot-anim { 0%{opacity:0;transform:translateX(-80px) translateY(-40px);} 10%{opacity:1;} 30%{opacity:0;transform:translateX(120px) translateY(60px);} 100%{opacity:0;} }
+</style>
+</head>
+<body>
+<div class="sky"></div>
+<div class="amethyst-glow"></div>
+
+<!-- Dense starfield -->
+<div style="position:absolute;inset:0;pointer-events:none;z-index:1;">
+  <div class="star-c" style="top:5%;left:12%;width:2px;height:2px;animation-delay:0.1s;"></div>
+  <div class="star-c" style="top:8%;left:28%;width:3px;height:3px;animation-delay:0.4s;"></div>
+  <div class="star-c" style="top:4%;left:45%;width:2px;height:2px;animation-delay:0.7s;"></div>
+  <div class="star-c" style="top:10%;left:62%;width:2px;height:2px;animation-delay:0.2s;"></div>
+  <div class="star-c" style="top:6%;left:78%;width:3px;height:3px;animation-delay:0.9s;"></div>
+  <div class="star-c" style="top:15%;left:18%;width:2px;height:2px;animation-delay:0.3s;"></div>
+  <div class="star-c" style="top:18%;left:35%;width:2px;height:2px;animation-delay:0.6s;"></div>
+  <div class="star-c" style="top:12%;left:52%;width:3px;height:3px;animation-delay:0.5s;"></div>
+  <div class="star-c" style="top:22%;left:70%;width:2px;height:2px;animation-delay:1.1s;"></div>
+  <div class="star-c" style="top:9%;left:88%;width:2px;height:2px;animation-delay:0.8s;"></div>
+  <div class="star-c" style="top:25%;left:8%;width:2px;height:2px;animation-delay:1.3s;"></div>
+  <div class="star-c" style="top:28%;left:24%;width:3px;height:3px;animation-delay:0.15s;"></div>
+  <div class="star-c" style="top:32%;left:42%;width:2px;height:2px;animation-delay:1.6s;"></div>
+  <div class="star-c" style="top:20%;left:58%;width:2px;height:2px;animation-delay:0.45s;"></div>
+  <div class="star-c" style="top:30%;left:75%;width:3px;height:3px;animation-delay:1.2s;"></div>
+  <div class="star-c" style="top:35%;left:90%;width:2px;height:2px;animation-delay:0.85s;"></div>
+  <!-- Bright "cluster" for Pleiades reference -->
+  <div class="star-c" style="top:16%;left:55%;width:4px;height:4px;animation-delay:0.2s;box-shadow:0 0 8px rgba(200,180,255,0.7);"></div>
+  <div class="star-c" style="top:14%;left:57%;width:3px;height:3px;animation-delay:0.3s;"></div>
+  <div class="star-c" style="top:18%;left:57%;width:3px;height:3px;animation-delay:0.5s;"></div>
+  <div class="star-c" style="top:16%;left:59%;width:3px;height:3px;animation-delay:0.4s;"></div>
+  <div class="star-c" style="top:14%;left:61%;width:2px;height:2px;animation-delay:0.7s;"></div>
+  <div class="star-c" style="top:19%;left:59%;width:2px;height:2px;animation-delay:0.6s;"></div>
+  <div class="star-c" style="top:17%;left:62%;width:2px;height:2px;animation-delay:0.8s;"></div>
+</div>
+
+<!-- Shooting star -->
+<div class="shoot" style="top:12%;left:20%;width:100px;animation-delay:2s;"></div>
+<div class="shoot" style="top:22%;left:60%;width:80px;animation-delay:6s;"></div>
+
+<!-- Constellation: Big Dipper shape -->
+<div class="c-line" style="top:20%;left:18%;width:60px;transform:rotate(-15deg);"></div>
+<div class="c-line" style="top:19%;left:26%;width:55px;transform:rotate(8deg);"></div>
+<div class="c-line" style="top:17%;left:33%;width:70px;transform:rotate(-5deg);"></div>
+<div class="star-c" style="top:21%;left:17%;width:5px;height:5px;box-shadow:0 0 10px rgba(200,200,255,0.8);animation-delay:0s;"></div>
+<div class="star-c" style="top:19%;left:22%;width:4px;height:4px;box-shadow:0 0 8px rgba(200,200,255,0.7);animation-delay:0.3s;"></div>
+<div class="star-c" style="top:21%;left:27%;width:5px;height:5px;box-shadow:0 0 10px rgba(200,200,255,0.8);animation-delay:0.6s;"></div>
+<div class="star-c" style="top:18%;left:33%;width:4px;height:4px;box-shadow:0 0 8px rgba(200,200,255,0.7);animation-delay:0.9s;"></div>
+
+<!-- Dark hilltops -->
+<div class="hill" style="left:-80px;width:400px;height:200px;background:linear-gradient(180deg,#18183a,#0c0c20);opacity:0.9;"></div>
+<div class="hill" style="right:-60px;width:320px;height:160px;background:linear-gradient(180deg,#14143a,#0a0a1c);opacity:0.85;"></div>
+
+<!-- Stone observatory ring (standing stones) -->
+<div class="stone-ring">
+  <svg width="260" height="130" viewBox="0 0 260 130" fill="none">
+    <!-- Ring of stones in semicircle, Stonehenge-like -->
+    <rect x="10"  y="40" width="18" height="80" rx="4" fill="#4a4460"/>
+    <rect x="38"  y="25" width="16" height="85" rx="4" fill="#504870"/>
+    <rect x="66"  y="15" width="18" height="90" rx="4" fill="#4a4460"/>
+    <rect x="96"  y="10" width="20" height="95" rx="4" fill="#504870"/>
+    <rect x="128" y="10" width="20" height="95" rx="4" fill="#4a4460"/>
+    <rect x="158" y="15" width="18" height="90" rx="4" fill="#504870"/>
+    <rect x="186" y="25" width="16" height="85" rx="4" fill="#4a4460"/>
+    <rect x="212" y="40" width="18" height="80" rx="4" fill="#504870"/>
+    <!-- Horizontal capstones -->
+    <rect x="30"  y="22" width="30" height="8" rx="3" fill="#383460"/>
+    <rect x="58"  y="12" width="32" height="8" rx="3" fill="#383460"/>
+    <rect x="90"  y="6"  width="44" height="8" rx="3" fill="#383460"/>
+    <rect x="138" y="6"  width="44" height="8" rx="3" fill="#383460"/>
+    <rect x="182" y="12" width="32" height="8" rx="3" fill="#383460"/>
+    <!-- Altar stone centre -->
+    <rect x="110" y="70" width="40" height="18" rx="4" fill="#5a5278"/>
+    <!-- Amethyst glint on altar -->
+    <circle cx="130" cy="70" r="6" fill="rgba(170,100,255,0.7)" filter="url(#a)"/>
+    <defs><filter id="a"><feGaussianBlur stdDeviation="3"/></filter></defs>
+  </svg>
+</div>
+
+<div class="ground"></div>
+
+<!-- Player (Issachar — pensive girl, 15, looking at stars) -->
+<div style="position:absolute;bottom:168px;left:140px;">
+  <div style="width:28px;height:28px;background:#c89858;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-5px;left:-3px;right:-3px;height:18px;background:#0e0808;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:10px;left:5px;width:6px;height:7px;background:#0a090a;border-radius:50%;"></div>
+    <div style="position:absolute;top:10px;right:5px;width:6px;height:7px;background:#0a090a;border-radius:50%;"></div>
+  </div>
+  <div style="width:24px;height:38px;background:linear-gradient(180deg,#6a58a0,#3a3060);border-radius:5px 5px 3px 3px;margin:0 auto;margin-top:2px;"></div>
+</div>
+
+<!-- Elder Issachar (Tola) — deep purple robe, white hair -->
+<div style="position:absolute;bottom:164px;right:225px;">
+  <div style="width:34px;height:34px;background:#c08858;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-5px;left:-2px;right:-2px;height:16px;background:#e8e4d8;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:12px;left:6px;width:7px;height:8px;background:#0a090a;border-radius:50%;"></div>
+    <div style="position:absolute;top:12px;right:6px;width:7px;height:8px;background:#0a090a;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:-12px;left:3px;right:3px;height:18px;background:#e0dcd0;border-radius:0 0 50% 50%;"></div>
+  </div>
+  <div style="width:30px;height:52px;background:linear-gradient(180deg,#6840a0,#3a2068);border-radius:6px 6px 4px 4px;margin:0 auto;margin-top:2px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:5px;background:#aa80e0;border-radius:4px 4px 0 0;"></div>
+    <div style="position:absolute;right:-14px;top:-48px;width:5px;height:95px;background:#7a5a28;border-radius:2px;"></div>
+  </div>
+</div>
+
+<!-- HUD -->
+<div class="hud-bar">
+  <div class="hud-tribe-badge" style="background:linear-gradient(135deg,#603890,#9060c0);">⭐ Issachar</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:14px;">💎 0/12</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:13px;">🔭 Observatory</div>
+</div>
+<div style="position:absolute;top:70px;left:12px;font-size:26px;letter-spacing:3px;">❤❤❤</div>
+<div class="dialogue-panel" style="bottom:20px;">
+  <div class="dlg-portrait" style="background:linear-gradient(135deg,#6840a0,#3a2068);font-size:24px;">👴</div>
+  <div class="dlg-body">
+    <div class="dlg-name">Elder Tola</div>
+    <div class="dlg-text">My child… Issachar understands the times. The stars above were placed for signs and seasons by God Himself. Look with me. Shalom.</div>
+  </div>
+</div>
+<div class="dpad"><div class="dpad-btn dpad-up">▲</div><div class="dpad-btn dpad-left">◄</div><div class="dpad-btn dpad-down">▼</div><div class="dpad-btn dpad-right">►</div></div>
+<div class="action-btn">✦</div>
+<div class="quest-box" style="top:70px;right:14px;">
+  <div class="quest-title">Quest: Read the Heavens</div>
+  <div class="quest-step">✧ Match 4 constellation patterns</div>
+  <div class="quest-step">✧ Trace the harvest star path</div>
+  <div class="quest-step">✧ Place the amethyst on altar ✦</div>
+</div>
+<div class="minimap">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#FFD700;border-radius:50%;"></div>
+</div>
+<div class="verse-strip">"He made the Pleiades and Orion… who calls for the waters of the sea and pours them out over the land — the Lord is his name." — Amos 5:8</div>
+</body>
+</html>

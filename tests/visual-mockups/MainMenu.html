@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, initial-scale=1">
+<title>Twelve Stones — Main Menu</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #0a0614; }
+
+/* Sky gradient — twilight deep indigo to amber */
+.sky {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    #060a1a 0%, #0d1b3e 25%, #1a2e66 45%,
+    #4a2a6e 60%, #8b3a62 75%, #c4601f 88%, #f0a040 100%);
+}
+
+/* Glowing horizon band */
+.horizon-glow {
+  position: absolute; bottom: 260px; left: 0; right: 0;
+  height: 80px;
+  background: radial-gradient(ellipse at 50% 100%, #FFD700 0%, #FF8C00 40%, transparent 75%);
+  opacity: 0.55;
+  animation: horizon-pulse 4s ease-in-out infinite alternate;
+}
+@keyframes horizon-pulse { from { opacity: 0.4; } to { opacity: 0.7; } }
+
+/* Hill silhouettes */
+.hills { position: absolute; bottom: 200px; left: 0; right: 0; height: 200px; }
+.hill-1 { position: absolute; bottom: 0; left: -5%; width: 45%; height: 180px;
+  background: #0d1a0a; border-radius: 50% 50% 0 0; }
+.hill-2 { position: absolute; bottom: 0; left: 20%; width: 60%; height: 220px;
+  background: #111f0d; border-radius: 50% 50% 0 0; }
+.hill-3 { position: absolute; bottom: 0; right: -5%; width: 50%; height: 160px;
+  background: #0d1a0a; border-radius: 50% 50% 0 0; }
+.hill-4 { position: absolute; bottom: 0; left: 40%; width: 35%; height: 140px;
+  background: #162610; border-radius: 50% 50% 0 0; }
+
+/* Ground */
+.ground-strip {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+  background: linear-gradient(180deg, #1a2e0a 0%, #2d4a12 40%, #8B6F47 100%);
+}
+
+/* 12 tribe silhouette figures on horizon */
+.tribe-figures {
+  position: absolute; bottom: 195px; left: 0; right: 0;
+  display: flex; justify-content: space-around; align-items: flex-end;
+  padding: 0 40px;
+}
+.tribe-fig {
+  display: flex; flex-direction: column; align-items: center;
+  animation: figure-bob 2s ease-in-out infinite;
+  filter: brightness(0.12) sepia(0.3);
+}
+.tribe-fig:nth-child(odd)  { animation-delay: 0.3s; }
+.tribe-fig:nth-child(even) { animation-delay: 0s; }
+@keyframes figure-bob {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-5px); }
+}
+.fig-head { width: 16px; height: 16px; border-radius: 50%; background: #C4A882; }
+.fig-body { width: 11px; height: 24px; background: #8B6F47; border-radius: 4px 4px 0 0; margin-top: 1px; }
+
+/* Central title block */
+.title-block {
+  position: absolute; top: 58px; left: 50%;
+  transform: translateX(-50%);
+  text-align: center; z-index: 20; white-space: nowrap;
+}
+.title-main {
+  font-size: 72px; font-weight: 900;
+  background: linear-gradient(180deg, #fff8e0 0%, #FFD700 40%, #C5A572 80%, #8B6914 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 18px rgba(255,215,0,0.7)) drop-shadow(0 4px 10px rgba(0,0,0,0.9));
+  letter-spacing: 0.12em; line-height: 1;
+}
+.title-sub {
+  font-size: 20px; color: #E9D5B3; letter-spacing: 0.25em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+  margin-top: 8px; text-transform: uppercase;
+}
+
+/* 12-gem dot row under title */
+.gem-dots {
+  display: flex; gap: 10px; justify-content: center;
+  margin-top: 10px;
+}
+.gdot {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  box-shadow: 0 0 8px currentColor;
+  animation: gem-twinkle 2s ease-in-out infinite alternate;
+}
+.gdot:nth-child(odd) { animation-delay: 0.4s; }
+
+/* Ephod breastplate center-right */
+.ephod-display {
+  position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+  z-index: 20;
+}
+.ephod-chain { width: 80px; height: 20px; border-radius: 0 0 40px 40px;
+  border: 3px solid #C5A572; border-top: none;
+  margin: 0 auto; margin-bottom: -3px;
+}
+.ephod-shoulder {
+  display: flex; gap: 6px; justify-content: center; margin-bottom: 4px;
+}
+.ephod-shoulder-stone {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #444; border: 2px solid var(--gold);
+  box-shadow: 0 0 6px var(--gold);
+}
+.ephod-body {
+  background: linear-gradient(135deg, #6B4F10, #C5A572, #8B6914, #FFD700);
+  border: 3px solid #FFD700;
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 0 0 24px rgba(255,215,0,0.5), inset 0 0 10px rgba(255,255,255,0.15);
+  width: 120px;
+}
+.gem-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.gem-cell {
+  width: 30px; height: 30px;
+  border-radius: 5px;
+  border: 2px solid rgba(255,255,255,0.4);
+  box-shadow: 0 0 10px currentColor, inset 0 0 6px rgba(255,255,255,0.25);
+  position: relative;
+  animation: gem-glow 2.5s ease-in-out infinite alternate;
+}
+.gem-cell::after { 
+  content: ''; position: absolute; top: 4px; left: 4px;
+  width: 6px; height: 6px; 
+  background: rgba(255,255,255,0.5); border-radius: 50%; 
+}
+@keyframes gem-glow {
+  from { box-shadow: 0 0 6px currentColor; }
+  to   { box-shadow: 0 0 14px currentColor, 0 0 4px rgba(255,255,255,0.3); }
+}
+
+/* Buttons */
+.menu-buttons {
+  position: absolute; left: 80px; top: 50%; transform: translateY(-44%);
+  display: flex; flex-direction: column; gap: 14px; z-index: 20;
+}
+.menu-btn {
+  width: 260px; padding: 14px 24px;
+  background: rgba(10,6,2,0.78);
+  border-radius: 12px; border: 2px solid #C5A572;
+  color: #E9D5B3; font-family: Georgia, serif; font-size: 18px;
+  display: flex; align-items: center; gap: 12px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  cursor: pointer; position: relative; overflow: hidden;
+}
+.menu-btn::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+  border-radius: 12px 0 0 12px;
+}
+.btn-start::before  { background: var(--gem-judah); }
+.btn-multi::before  { background: var(--gem-reuben); }
+.btn-vault::before  { background: var(--gem-issachar); }
+.btn-cont::before   { background: var(--gem-zebulun); }
+.btn-quit::before   { background: #666; }
+
+.menu-btn:hover {
+  background: rgba(197,165,114,0.2);
+  border-color: var(--gold);
+  transform: translateX(6px);
+  color: var(--gold);
+}
+.btn-icon { font-size: 20px; }
+.btn-label { font-size: 18px; }
+
+/* Verse strip */
+.verse-strip {
+  position: absolute; bottom: 8px; left: 0; right: 0;
+  text-align: center; z-index: 20;
+  padding: 6px;
+  background: rgba(0,0,0,0.5);
+  border-top: 1px solid rgba(197,165,114,0.3);
+  font-size: 14px; color: var(--gold-ant);
+  font-style: italic; letter-spacing: 0.04em;
+}
+
+/* Golden motes */
+.motes-layer { position: absolute; inset: 0; z-index: 5; pointer-events: none; overflow: hidden; }
+</style>
+</head>
+<body>
+<!-- Sky + atmosphere -->
+<div class="sky"></div>
+<div class="stars"></div>
+<div class="horizon-glow"></div>
+
+<!-- Hills -->
+<div class="hills">
+  <div class="hill-1"></div>
+  <div class="hill-2"></div>
+  <div class="hill-3"></div>
+  <div class="hill-4"></div>
+</div>
+
+<!-- 12 Tribe Figures -->
+<div class="tribe-figures">
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+  <div class="tribe-fig"><div class="fig-head"></div><div class="fig-body"></div></div>
+</div>
+
+<!-- Ground -->
+<div class="ground-strip"></div>
+
+<!-- Floating motes -->
+<div class="motes-layer">
+  <div class="mote" style="left:8%;bottom:15%;--dur:5s;--dx:12px;animation-delay:0s;"></div>
+  <div class="mote" style="left:22%;bottom:10%;--dur:4.5s;--dx:-8px;animation-delay:0.8s;"></div>
+  <div class="mote" style="left:37%;bottom:20%;--dur:6s;--dx:15px;animation-delay:1.2s;"></div>
+  <div class="mote" style="left:52%;bottom:12%;--dur:4s;--dx:-11px;animation-delay:0.3s;"></div>
+  <div class="mote" style="left:68%;bottom:18%;--dur:5.5s;--dx:9px;animation-delay:1.7s;"></div>
+  <div class="mote" style="left:80%;bottom:14%;--dur:3.8s;--dx:-13px;animation-delay:0.6s;"></div>
+  <div class="mote" style="left:92%;bottom:22%;--dur:5s;--dx:7px;animation-delay:2s;"></div>
+</div>
+
+<!-- TITLE -->
+<div class="title-block">
+  <div class="title-main">TWELVE STONES</div>
+  <div class="title-sub">Twelve Tribes · One Ephod · One Story</div>
+  <div class="gem-dots">
+    <div class="gdot" style="color:var(--gem-reuben);background:var(--gem-reuben);"></div>
+    <div class="gdot" style="color:var(--gem-simeon);background:var(--gem-simeon);"></div>
+    <div class="gdot" style="color:var(--gem-levi);background:var(--gem-levi);"></div>
+    <div class="gdot" style="color:var(--gem-judah);background:var(--gem-judah);"></div>
+    <div class="gdot" style="color:var(--gem-dan);background:var(--gem-dan);"></div>
+    <div class="gdot" style="color:var(--gem-naphtali);background:var(--gem-naphtali);animation-delay:0.2s;"></div>
+    <div class="gdot" style="color:var(--gem-gad);background:var(--gem-gad);"></div>
+    <div class="gdot" style="color:var(--gem-asher);background:var(--gem-asher);"></div>
+    <div class="gdot" style="color:var(--gem-issachar);background:var(--gem-issachar);"></div>
+    <div class="gdot" style="color:var(--gem-zebulun);background:var(--gem-zebulun);"></div>
+    <div class="gdot" style="color:var(--gem-joseph);background:#888;"></div>
+    <div class="gdot" style="color:var(--gem-benjamin);background:var(--gem-benjamin);animation-delay:0.5s;"></div>
+  </div>
+</div>
+
+<!-- Left side: menu buttons -->
+<div class="menu-buttons">
+  <div class="menu-btn btn-cont"><span class="btn-icon">📖</span><span class="btn-label">Continue Journey</span></div>
+  <div class="menu-btn btn-start" style="border-color:var(--gold);"><span class="btn-icon">✨</span><span class="btn-label">Begin Your Quest</span></div>
+  <div class="menu-btn btn-multi"><span class="btn-icon">👥</span><span class="btn-label">Gather the Tribes</span></div>
+  <div class="menu-btn btn-vault"><span class="btn-icon">📜</span><span class="btn-label">Verse Vault</span></div>
+  <div class="menu-btn btn-quit"><span class="btn-icon">🌙</span><span class="btn-label">Rest for Tonight</span></div>
+</div>
+
+<!-- Right side: Ephod breastplate -->
+<div class="ephod-display">
+  <div class="ephod-chain"></div>
+  <div class="ephod-shoulder">
+    <div class="ephod-shoulder-stone"></div>
+    <div class="ephod-shoulder-stone"></div>
+  </div>
+  <div class="ephod-body">
+    <div class="gem-grid">
+      <div class="gem-cell" style="color:var(--gem-reuben);background:var(--gem-reuben);"></div>
+      <div class="gem-cell" style="color:var(--gem-simeon);background:var(--gem-simeon);"></div>
+      <div class="gem-cell" style="color:var(--gem-levi);background:var(--gem-levi);"></div>
+      <div class="gem-cell" style="color:var(--gem-judah);background:var(--gem-judah);"></div>
+      <div class="gem-cell" style="color:var(--gem-dan);background:var(--gem-dan);"></div>
+      <div class="gem-cell" style="color:var(--gem-naphtali);background:var(--gem-naphtali);"></div>
+      <div class="gem-cell" style="color:var(--gem-gad);background:var(--gem-gad);"></div>
+      <div class="gem-cell" style="color:var(--gem-asher);background:var(--gem-asher);"></div>
+      <div class="gem-cell" style="color:var(--gem-issachar);background:var(--gem-issachar);"></div>
+      <div class="gem-cell" style="color:var(--gem-zebulun);background:var(--gem-zebulun);"></div>
+      <div class="gem-cell" style="color:#888;background:#888;"></div>
+      <div class="gem-cell" style="color:var(--gem-benjamin);background:var(--gem-benjamin);"></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:8px;font-size:11px;color:var(--gold-ant);letter-spacing:0.08em;">Exodus 28:17-21</div>
+</div>
+
+<!-- Verse strip -->
+<div class="verse-strip">
+  "Trust in the LORD with all your heart, and lean not on your own understanding." — Proverbs 3:5
+</div>
+
+<!-- Gold UI border -->
+<div class="ui-frame"></div>
+
+</body>
+</html>
