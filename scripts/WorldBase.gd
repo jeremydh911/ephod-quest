@@ -1,4 +1,5 @@
 extends Node3D
+class_name WorldBase
 # ─────────────────────────────────────────────────────────────────────────────
 # WorldBase.gd  –  Twelve Stones / Ephod Quest
 # Zelda-like top-down adventure world base class.
