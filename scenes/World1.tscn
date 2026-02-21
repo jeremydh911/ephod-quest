@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bworld1reuben"]
+
+[ext_resource type="Script" uid="uid://c4mt5spacrasf" path="res://scripts/Quest1.gd" id="1_q1script"]
+[ext_resource type="Script" uid="uid://bg7028u281fmi" path="res://scripts/PlayerBody.gd" id="2_pbscript"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 14.0
+height = 28.0
+
+[node name="World1" type="Node3D" unique_id=246324024]
+script = ExtResource("1_q1script")
+
+[node name="PlayerBody" type="CharacterBody3D" parent="." unique_id=1621276751]
+script = ExtResource("2_pbscript")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBody" unique_id=1841415293]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1160241626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+current = true

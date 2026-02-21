@@ -78,12 +78,13 @@ func _on_beat_timeout() -> void:
 		if _score >= goal_score:
 			minigame_complete.emit({"root": self, "score_label": _score_lbl})
 		else:
+			AudioManager.play_sfx("res://assets/audio/sfx/timeout_gentle.wav")
 			minigame_timeout.emit({"root": self, "score_label": _score_lbl})
 
 func _on_beat_pressed() -> void:
 	if _on_beat:
 		_score += 1
 		_score_lbl.text = "Score: %d" % _score
-		AudioManager.play_sfx("res://assets/audio/sfx/tap.wav")
+		AudioManager.play_sfx("res://assets/audio/sfx/rhythm_beat.wav")
 	else:
-		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		AudioManager.play_sfx("res://assets/audio/sfx/rhythm_miss.wav")

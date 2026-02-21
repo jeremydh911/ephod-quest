@@ -1,6 +1,8 @@
-extends Node2D
+extends Control
 # ─────────────────────────────────────────────────────────────────────────────
 # QuestBase.gd  –  Twelve Stones / Ephod Quest
+
+const VisualEnvironment := preload("res://scripts/VisualEnvironment.gd")
 # Shared quest framework. All 12 quest scripts extend this class.
 #
 # Flow per quest:
@@ -19,7 +21,7 @@ extends Node2D
 @export var tribe_key:        String = ""        # "reuben", "judah" …
 @export var quest_id:         String = ""        # "reuben_main", "judah_main" …
 @export var next_scene:       String = ""        # path to next scene
-@export var music_path:       String = "res://assets/audio/music/quest_theme.ogg"
+@export var music_path:       String = "res://assets/audio/music/sacred_spark.wav"
 
 # ── UI nodes (built here; subclass may add more) ──────────────────────────────
 var _canvas:          CanvasLayer
@@ -40,15 +42,34 @@ var _stone_label:     Label
 var _fade_rect:       ColorRect
 
 # ── Internal state ────────────────────────────────────────────────────────────
-var _dialogue_queue:  Array[Dictionary] = []
+var _dialogue_queue:  Array = []
 var _tribe_data:      Dictionary = {}
 var _stone_collected: bool = false
-var _verse_queue:     Array[Dictionary] = []
+var _verse_queue:     Array = []
+var _mini_game_container: Control  # cached ref – never null after _ready()
 
 # ─────────────────────────────────────────────────────────────────────────────
+var _dialogue_portrait: Control   # portrait panel updated per speaker
+
 func _ready() -> void:
 	_tribe_data = Global.get_tribe_data(tribe_key)
+	# Build atmospheric visual environment first (sky, terrain, glow, particles)
+	# "The whole earth is full of his glory" – Isaiah 6:3
+	if tribe_key != "":
+		VisualEnvironment.build(self, tribe_key)
 	_build_ui()
+	# Cache (or create) the MiniGameContainer – Philippians 4:13
+	var _existing := get_node_or_null("MiniGameContainer")
+	if _existing != null:
+		_mini_game_container = _existing as Control
+	else:
+		var _vb := VBoxContainer.new()
+		_vb.name = "MiniGameContainer"
+		_vb.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_vb.add_theme_constant_override("separation", 14)
+		_vb.visible = false
+		add_child(_vb)
+		_mini_game_container = _vb as Control
 	AudioManager.play_music(music_path)
 	_fade_in()
 	await get_tree().create_timer(0.6).timeout
@@ -73,28 +94,80 @@ func _build_ui() -> void:
 	_canvas.add_child(_fade_rect)
 
 	# ── Dialogue panel ───────────────────────────────────────────────────────
-	_dialogue_panel = _make_panel(Color(0.18, 0.12, 0.06, 0.93), Vector2(900, 180))
+	# Rich card with parchment texture, tribe-coloured portrait, name + text + button
+	# "Let your conversation be always full of grace" – Colossians 4:6
+	var tribe_hex: String = (_tribe_data.get("color", "8B6F47") as String)
+	_dialogue_panel = PanelContainer.new()
 	_dialogue_panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	_dialogue_panel.offset_top    = -200.0
-	_dialogue_panel.offset_bottom = -16.0
-	_dialogue_panel.offset_left   =  80.0
-	_dialogue_panel.offset_right  = -80.0
+	_dialogue_panel.offset_top    = -210.0
+	_dialogue_panel.offset_bottom = -12.0
+	_dialogue_panel.offset_left   =  60.0
+	_dialogue_panel.offset_right  = -60.0
+
+	# Parchment texture panel — warm, tactile, biblical
+	# "Your word is a lamp to my feet" – Psalm 119:105
+	const PARCHMENT_TEX := "res://assets/sprites/ui/panel_parchment.jpg"
+	if ResourceLoader.exists(PARCHMENT_TEX):
+		var dp_tex := StyleBoxTexture.new()
+		dp_tex.texture               = load(PARCHMENT_TEX) as Texture2D
+		dp_tex.texture_margin_left   = 130.0
+		dp_tex.texture_margin_right  = 130.0
+		dp_tex.texture_margin_top    =  70.0
+		dp_tex.texture_margin_bottom =  70.0
+		dp_tex.content_margin_left   =  18.0
+		dp_tex.content_margin_right  =  18.0
+		dp_tex.content_margin_top    =  14.0
+		dp_tex.content_margin_bottom =  14.0
+		_dialogue_panel.add_theme_stylebox_override("panel", dp_tex)
+	else:
+		# Fallback: warm cream flat box
+		var dp_style := StyleBoxFlat.new()
+		var tribe_col := Color("#" + tribe_hex)
+		dp_style.bg_color                   = Color(0.96, 0.90, 0.76, 0.97)
+		dp_style.corner_radius_top_left     = 14
+		dp_style.corner_radius_top_right    = 14
+		dp_style.corner_radius_bottom_left  = 14
+		dp_style.corner_radius_bottom_right = 14
+		dp_style.border_width_left   = 2
+		dp_style.border_width_top    = 2
+		dp_style.border_width_right  = 2
+		dp_style.border_width_bottom = 2
+		dp_style.border_color = tribe_col.lightened(0.3)
+		dp_style.shadow_size  = 6
+		dp_style.shadow_offset = Vector2(0, 3)
+		dp_style.shadow_color  = Color(0, 0, 0, 0.30)
+		dp_style.content_margin_left   = 18
+		dp_style.content_margin_right  = 18
+		dp_style.content_margin_top    = 14
+		dp_style.content_margin_bottom = 14
+		_dialogue_panel.add_theme_stylebox_override("panel", dp_style)
 	_canvas.add_child(_dialogue_panel)
 	_dialogue_panel.visible = false
 
+	# HBox: portrait left | content right
+	var dhbox := HBoxContainer.new()
+	dhbox.add_theme_constant_override("separation", 14)
+	_dialogue_panel.add_child(dhbox)
+
+	# Tribal initial badge — animated, gem-coloured, tribe-specific
+	# "Each stone engraved like a seal with one of the twelve tribes" – Exodus 28:21
+	_dialogue_portrait = VisualEnvironment.make_tribe_initial(tribe_key, 72.0)
+	dhbox.add_child(_dialogue_portrait)
+
 	var dvb := VBoxContainer.new()
-	dvb.add_theme_constant_override("separation", 8)
-	_dialogue_panel.add_child(dvb)
+	dvb.add_theme_constant_override("separation", 6)
+	dvb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	dhbox.add_child(dvb)
 
 	_dialogue_name = Label.new()
 	_dialogue_name.add_theme_font_size_override("font_size", 16)
-	_dialogue_name.modulate = Color(1.0, 0.85, 0.3, 1)   # gold
+	_dialogue_name.modulate = Color(0.35, 0.18, 0.04, 1)   # dark brown — readable on parchment
 	dvb.add_child(_dialogue_name)
 
 	_dialogue_text = Label.new()
 	_dialogue_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_dialogue_text.add_theme_font_size_override("font_size", 18)
-	_dialogue_text.modulate = Color(0.97, 0.94, 0.88, 1)
+	_dialogue_text.modulate = Color(0.12, 0.08, 0.04, 1)   # near-black — readable on parchment
 	dvb.add_child(_dialogue_text)
 
 	_dialogue_btn = Button.new()
@@ -117,6 +190,12 @@ func _build_ui() -> void:
 	var vvb := VBoxContainer.new()
 	vvb.add_theme_constant_override("separation", 12)
 	_verse_panel.add_child(vvb)
+
+	# Tribe initial badge centered above verse title
+	var _vi_row := HBoxContainer.new()
+	_vi_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	vvb.add_child(_vi_row)
+	_vi_row.add_child(VisualEnvironment.make_tribe_initial(tribe_key, 56.0))
 
 	var scroll_title := Label.new()
 	scroll_title.text = "✦ A Word for You ✦"
@@ -217,10 +296,21 @@ func _build_ui() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 ## Queue up and play elder dialogue lines.
 ## Each entry: { "name": String, "text": String, "callback": Callable (optional) }
-func show_dialogue(lines: Array[Dictionary]) -> void:
+func show_dialogue(lines: Array) -> void:
 	_dialogue_queue = lines.duplicate()
 	_dialogue_panel.visible = true
+	_slide_dialogue_in()
 	_advance_dialogue()
+
+func _slide_dialogue_in() -> void:
+	# Panel slides up from below screen edge — inviting, not jarring
+	_dialogue_panel.offset_top    = 80.0
+	_dialogue_panel.offset_bottom = 280.0
+	var tw := create_tween()
+	tw.tween_property(_dialogue_panel, "offset_top",    -210.0, 0.38) \
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tw.parallel().tween_property(_dialogue_panel, "offset_bottom", -12.0, 0.38) \
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 
 func _advance_dialogue() -> void:
 	AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
@@ -228,9 +318,18 @@ func _advance_dialogue() -> void:
 		_dialogue_panel.visible = false
 		return
 	var line: Dictionary = _dialogue_queue.pop_front()
-	_dialogue_name.text = line.get("name", "")
-	_dialogue_text.text = line.get("text", "")
+	var speaker: String = line.get("name", "") as String
+	_dialogue_name.text = speaker
+	_dialogue_text.text = line.get("text", "") as String
 	_dialogue_btn.text  = "Continue…" if _dialogue_queue.size() > 0 else "I understand ✦"
+	# Lofi voice murmur – elder warmth vs child brightness
+	# "A gentle answer turns away wrath" – Proverbs 15:1
+	AudioManager.play_voice(speaker)
+	# Update portrait emoji: elder = 👴, player/you = 🧒
+	if _dialogue_portrait != null:
+		var lbl: Label = _dialogue_portrait.get_child(0) as Label
+		if lbl != null:
+			lbl.text = "👴" if speaker.to_lower() != "you" else "🧒"
 	if line.has("callback") and line["callback"] is Callable:
 		# Fire callback after this line is dismissed
 		var cb: Callable = line["callback"]
@@ -272,9 +371,10 @@ func _on_verse_done() -> void:
 	if typed.length() >= 8 and verse_start.begins_with(typed.substr(0, min(typed.length(), 8))):
 		# Close enough — award memorisation
 		Global.add_verse(tribe_key, _verse_ref.text)
-		AudioManager.play_sfx("res://assets/audio/sfx/verse_reveal.wav")
+		AudioManager.play_sfx("res://assets/audio/sfx/heart_badge.wav")
 		_verse_btn.text = "✦ Memorised! Well done ✦"
 		await get_tree().create_timer(1.2).timeout
+	AudioManager.play_sfx("res://assets/audio/sfx/ui_close.wav")
 	_verse_panel.visible = false
 	_show_next_verse()
 
@@ -287,6 +387,7 @@ func show_nature_fact() -> void:
 	var nv:  String    = _tribe_data.get("nature_verse", "")
 	_nature_verse.text = ref + "  —  \"" + nv + "\""
 	_nature_panel.visible = true
+	AudioManager.play_sfx("res://assets/audio/sfx/ui_open.wav")
 	_nature_panel.modulate.a = 0.0
 	var tw := create_tween()
 	tw.tween_property(_nature_panel, "modulate:a", 1.0, 0.5)
@@ -295,6 +396,7 @@ func _show_nature_or_collect() -> void:
 	show_nature_fact()
 
 func _on_nature_done() -> void:
+	AudioManager.play_sfx("res://assets/audio/sfx/ui_close.wav")
 	_nature_panel.visible = false
 	_collect_stone()
 
@@ -382,26 +484,6 @@ func build_sorting_minigame(parent: Node, goal: int,
 ## Returns result dict. on_minigame_complete called when all choices made.
 func build_dialogue_choice_minigame(parent: Node, goal: int,
 		prompt: String) -> Dictionary:
-	var root := VBoxContainer.new()
-	root.add_theme_constant_override("separation", 12)
-	parent.add_child(root)
-
-	var prompt_lbl := Label.new()
-	prompt_lbl.text = prompt
-	prompt_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	prompt_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	prompt_lbl.add_theme_font_size_override("font_size", 18)
-	root.add_child(prompt_lbl)
-
-	var scenario_display := Label.new()
-	scenario_display.text = "Two travelers argue over water rights..."
-	scenario_display.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	scenario_display.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	scenario_display.add_theme_font_size_override("font_size", 16)
-	root.add_child(scenario_display)
-
-func build_dialogue_choice_minigame(parent: Node, goal: int,
-		prompt: String) -> Dictionary:
 	var minigame = preload("res://scenes/minigames/DialogueChoiceMinigame.tscn").instantiate()
 	minigame.goal = goal
 	minigame.prompt = prompt
@@ -470,7 +552,7 @@ func build_tower_defense_minigame(parent: Node, goal: int,
 
 	var check_defense := func():
 		if done[0]: return
-		var defended := towers[0] > 0  # Simple: having towers helps
+		var defended: bool = (towers[0] as int) > 0  # Simple: having towers helps
 		if defended:
 			waves_defeated[0] += 1
 			prog.value = waves_defeated[0]
@@ -770,7 +852,7 @@ func build_honey_dance_minigame(parent: Node, goal: int,
 	var generate_pattern := func():
 		current_pattern.clear()
 		player_pattern.clear()
-		var length := dances_completed[0] + 2  # Patterns get longer
+		var length: int = (dances_completed[0] as int) + 2  # Patterns get longer
 		for i in range(length):
 			current_pattern.append(directions.pick_random())
 		show_pattern.call(current_pattern)
@@ -1012,7 +1094,7 @@ func build_time_management_minigame(parent: Node, goal: int,
 		var btn := Button.new()
 		btn.text = slot
 		btn.custom_minimum_size = Vector2(80, 50)
-		var time_slot := slot
+		var time_slot: String = slot as String
 		btn.pressed.connect(func(): check_schedule.call(time_slot))
 		btn_container.add_child(btn)
 
@@ -1241,8 +1323,8 @@ func build_hospitality_minigame(parent: Node, prompt: String, time_limit: float)
 		if not game_active:
 			return
 
-		var current_need = travelers[current_traveler]["need"]
-		var correct_gift = ""
+		var current_need: String = travelers[current_traveler]["need"] as String
+		var correct_gift: String = ""
 		match current_need:
 			"Food": correct_gift = "🍞"
 			"Shelter": correct_gift = "🏠"
@@ -1285,7 +1367,7 @@ func build_hospitality_minigame(parent: Node, prompt: String, time_limit: float)
 
 	# Connect buttons
 	for i in range(gift_buttons.size()):
-		var gift := gifts[i]
+		var gift: String = gifts[i]
 		gift_buttons[i].pressed.connect(func(): check_match.call(gift))
 
 	var timer := Timer.new()
@@ -1400,8 +1482,8 @@ func build_growth_minigame(parent: Node, prompt: String, time_limit: float) -> C
 
 		if action == "water":
 			for i in range(plants.size()):
-				var plant = plants[i]
-				if plant["pos"].distance_to(target_pos) < 30:
+				var plant: Dictionary = plants[i]
+				if (plant["pos"] as Vector2).distance_to(target_pos) < 30:
 					if not plant["watered"]:
 						plant["watered"] = true
 						status_lbl.text = "💧 Plant watered!"
@@ -1409,8 +1491,8 @@ func build_growth_minigame(parent: Node, prompt: String, time_limit: float) -> C
 						break
 		elif action == "weed":
 			for i in range(weeds.size()):
-				var weed = weeds[i]
-				if weed["pos"].distance_to(target_pos) < 20:
+				var weed: Dictionary = weeds[i]
+				if (weed["pos"] as Vector2).distance_to(target_pos) < 20:
 					weeds.remove_at(i)
 					weed_rects[i].queue_free()
 					weed_rects.remove_at(i)
@@ -1433,7 +1515,7 @@ func build_growth_minigame(parent: Node, prompt: String, time_limit: float) -> C
 
 		# Grow plants that are watered and weeded
 		for i in range(plants.size()):
-			var plant = plants[i]
+			var plant: Dictionary = plants[i]
 			if plant["watered"] and plant["weeded"]:
 				plant["growth"] += delta * 0.5
 				plant_rects[i].size.y = 20 + plant["growth"] * 30
@@ -1449,7 +1531,7 @@ func build_growth_minigame(parent: Node, prompt: String, time_limit: float) -> C
 
 		# Grow weeds
 		for i in range(weeds.size()):
-			var weed = weeds[i]
+			var weed: Dictionary = weeds[i]
 			weed["size"] += delta * 0.2
 			weed_rects[i].size = Vector2(12 + weed["size"] * 8, 12 + weed["size"] * 8)
 
@@ -1683,11 +1765,11 @@ func build_precision_minigame(parent: Node, prompt: String, time_limit: float) -
 			return
 
 		for i in range(targets.size()):
-			var target = targets[i]
+			var target: Dictionary = targets[i]
 			if target["hit"]:
 				continue
 
-			var distance = target["center_pos"].distance_to(click_pos)
+			var distance: float = (target["center_pos"] as Vector2).distance_to(click_pos)
 			if distance <= 8:  # Within 8 pixels of center
 				target["hit"] = true
 				targets_hit += 1
@@ -1858,7 +1940,7 @@ func build_protection_minigame(parent: Node, prompt: String, time_limit: float) 
 
 		# Move threats
 		for i in range(threats.size() - 1, -1, -1):
-			var threat = threats[i]
+			var threat: Dictionary = threats[i]
 			threat["pos"] += threat["direction"] * threat["speed"]
 			threat_rects[i].position = threat["pos"]
 
@@ -1909,7 +1991,7 @@ func on_minigame_complete(_result: Dictionary) -> void:
 	pass
 
 func on_minigame_timeout(_result: Dictionary) -> void:
-	pass
+	AudioManager.play_sfx("res://assets/audio/sfx/timeout_gentle.wav")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # FADE HELPERS

@@ -18,9 +18,16 @@ extends Control
 @onready var _back_btn:      Button         = $Margin/VBoxContainer/BottomBar/Back
 @onready var _start_btn:     Button         = $Margin/VBoxContainer/BottomBar/StartBtn
 
+const VisualEnvironment := preload("res://scripts/VisualEnvironment.gd")
+
 # ─────────────────────────────────────────────────────────────────────────────
 func _ready() -> void:
-	AudioManager.play_music("res://assets/audio/music/lobby.ogg")
+	# "Two are better than one" – Ecclesiastes 4:9
+	VisualEnvironment.add_scene_background(self, "lobby")
+
+	# "Gather the Tribes" — all twelve drawn together  (Isaiah 43:5-6)
+	const LOBBY_MUSIC := "res://assets/audio/music/gather_the_tribes.wav"
+	AudioManager.play_music(LOBBY_MUSIC if ResourceLoader.exists(LOBBY_MUSIC) else "res://assets/audio/music/lobby.ogg")
 
 	_host_btn.pressed.connect(_on_host)
 	_join_btn.pressed.connect(_on_join)
@@ -67,6 +74,7 @@ func _on_start_game() -> void:
 	if MultiplayerLobby.get_player_count() < 1:
 		_set_status("Wait for at least one other player to join, please.")
 		return
+	AudioManager.play_sfx("res://assets/audio/sfx/lobby_ready.wav")
 	MultiplayerLobby.start_game()
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -83,9 +91,10 @@ func _on_join_failed(reason: String) -> void:
 	_set_status(reason)
 
 func _on_player_joined(peer_id: int, tribe: String, avatar: String, p_name: String) -> void:
+	AudioManager.play_sfx("res://assets/audio/sfx/lobby_join.wav")
 	var tribe_data := Global.get_tribe_data(tribe)
 	var col := Color(tribe_data.get("color", "#888888"))
-	var display := tribe_data.get("display", tribe.capitalize())
+	var display: String = tribe_data.get("display", tribe.capitalize())
 
 	_add_player_row(peer_id, p_name, display, col)
 	_set_status("%s of %s has joined. Shalom!" % [p_name if p_name != "" else "A child", display])
@@ -107,7 +116,7 @@ func _on_game_started() -> void:
 func _add_self_to_list() -> void:
 	var tribe_data := Global.get_tribe_data(Global.selected_tribe)
 	var col := Color(tribe_data.get("color", "#888888"))
-	var display := tribe_data.get("display", "(no tribe)")
+	var display: String = tribe_data.get("display", "(no tribe)")
 	_add_player_row(multiplayer.get_unique_id(), Global.player_name, display, col, true)
 
 func _add_player_row(peer_id: int, p_name: String, tribe_display: String,

@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://avatarpick"]
-[ext_resource type="Script" path="res://scripts/AvatarPick.gd" id="1"]
+[gd_scene format=3 uid="uid://vatarpick"]
 
-; Root ─────────────────────────────────────────────────────────────────────
-[node name="AvatarPick" type="Control"]
+[ext_resource type="Script" uid="uid://ba742xdiwv3ev" path="res://scripts/AvatarPick.gd" id="1"]
+
+[node name="AvatarPick" type="Control" unique_id=1344253652]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,146 +11,158 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
 
-; Background — Desert Sand #F7EDD8 ─────────────────────────────────────────
-[node name="BG" type="ColorRect" parent="."]
+[node name="BG" type="ColorRect" parent="." unique_id=922114985]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.969, 0.929, 0.847, 1)
 
-; Outer margin ──────────────────────────────────────────────────────────────
-[node name="Margin" type="MarginContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="." unique_id=106269240]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 40
-theme_override_constants/margin_right = 40
 theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 20
 
-; Main vertical stack ────────────────────────────────────────────────────────
-[node name="VBox" type="VBoxContainer" parent="Margin"]
+[node name="VBox" type="VBoxContainer" parent="Margin" unique_id=792482185]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-; Header row ────────────────────────────────────────────────────────────────
-[node name="Header" type="HBoxContainer" parent="Margin/VBox"]
+[node name="Header" type="HBoxContainer" parent="Margin/VBox" unique_id=2030829382]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="BackMenuBtn" type="Button" parent="Margin/VBox/Header"]
+[node name="BackMenuBtn" type="Button" parent="Margin/VBox/Header" unique_id=1623073169]
+custom_minimum_size = Vector2(110, 48)
 layout_mode = 2
 text = "← Menu"
-custom_minimum_size = Vector2(110, 48)
 
-[node name="TitleLabel" type="Label" parent="Margin/VBox/Header"]
+[node name="TitleLabel" type="Label" parent="Margin/VBox/Header" unique_id=2073231617]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "Choose Your Tribe & Avatar"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 32
 
-[node name="HeaderSpacer" type="Control" parent="Margin/VBox/Header"]
-layout_mode = 2
+[node name="HeaderSpacer" type="Control" parent="Margin/VBox/Header" unique_id=466544171]
 custom_minimum_size = Vector2(110, 0)
-
-; Separator ──────────────────────────────────────────────────────────────────
-[node name="HSep" type="HSeparator" parent="Margin/VBox"]
 layout_mode = 2
 
-; Content: left tribe grid + right avatar panel ──────────────────────────────
-[node name="Content" type="HBoxContainer" parent="Margin/VBox"]
+[node name="HSep" type="HSeparator" parent="Margin/VBox" unique_id=500584188]
+layout_mode = 2
+
+[node name="Content" type="HBoxContainer" parent="Margin/VBox" unique_id=1430672092]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-; ── Left panel: tribe selection ─────────────────────────────────────────────
-[node name="LeftPanel" type="PanelContainer" parent="Margin/VBox/Content"]
+[node name="LeftPanel" type="PanelContainer" parent="Margin/VBox/Content" unique_id=1946014649]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.42
 
-[node name="LeftVBox" type="VBoxContainer" parent="Margin/VBox/Content/LeftPanel"]
+[node name="LeftVBox" type="VBoxContainer" parent="Margin/VBox/Content/LeftPanel" unique_id=1881132090]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TribeHint" type="Label" parent="Margin/VBox/Content/LeftPanel/LeftVBox"]
+[node name="TribeHint" type="Label" parent="Margin/VBox/Content/LeftPanel/LeftVBox" unique_id=112340112]
+modulate = Color(0.5, 0.38, 0.2, 1)
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Tap a tribe to meet its people:"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 16
-modulate = Color(0.5, 0.38, 0.2, 1)
 
-[node name="TribeScroll" type="ScrollContainer" parent="Margin/VBox/Content/LeftPanel/LeftVBox"]
+[node name="TribeScroll" type="ScrollContainer" parent="Margin/VBox/Content/LeftPanel/LeftVBox" unique_id=1528185624]
 layout_mode = 2
 size_flags_vertical = 3
 
-; Script populates this grid with tribe buttons ──────────────────────────────
-[node name="TribeGrid" type="GridContainer" parent="Margin/VBox/Content/LeftPanel/LeftVBox/TribeScroll"]
+[node name="TribeGrid" type="GridContainer" parent="Margin/VBox/Content/LeftPanel/LeftVBox/TribeScroll" unique_id=1729731149]
 layout_mode = 2
-columns = 3
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
+columns = 3
 
-; ── Right panel: avatar display (hidden until tribe selected) ────────────────
-[node name="RightPanel" type="PanelContainer" parent="Margin/VBox/Content"]
+[node name="RightPanel" type="PanelContainer" parent="Margin/VBox/Content" unique_id=682826880]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.58
-visible = false
 
-[node name="RightScroll" type="ScrollContainer" parent="Margin/VBox/Content/RightPanel"]
+[node name="RightScroll" type="ScrollContainer" parent="Margin/VBox/Content/RightPanel" unique_id=979094216]
 layout_mode = 2
 
-[node name="RightVBox" type="VBoxContainer" parent="Margin/VBox/Content/RightPanel/RightScroll"]
+[node name="RightVBox" type="VBoxContainer" parent="Margin/VBox/Content/RightPanel/RightScroll" unique_id=1945133049]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 14
 
-; Tribe title + trait ────────────────────────────────────────────────────────
-[node name="TribeTitleLabel" type="Label" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox"]
+[node name="TribeTitleLabel" type="Label" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox" unique_id=699835931]
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 horizontal_alignment = 1
 
-[node name="TribeTraitLabel" type="Label" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox"]
+[node name="TribeTraitLabel" type="Label" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox" unique_id=1978255034]
+modulate = Color(0.35, 0.27, 0.1, 1)
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
 autowrap_mode = 3
-modulate = Color(0.35, 0.27, 0.1, 1)
 
-; Avatar 2x2 grid — script fills this ────────────────────────────────────────
-[node name="AvatarGrid" type="GridContainer" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox"]
+[node name="AvatarGrid" type="GridContainer" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox" unique_id=645961915]
 layout_mode = 2
-columns = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 12
 theme_override_constants/v_separation = 12
+columns = 2
 
-; Verse preview box ──────────────────────────────────────────────────────────
-[node name="VersePanel" type="PanelContainer" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox"]
+[node name="VersePanel" type="PanelContainer" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox" unique_id=1419017226]
 layout_mode = 2
 
-[node name="VerseVBox" type="VBoxContainer" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox/VersePanel"]
+[node name="VerseVBox" type="VBoxContainer" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox/VersePanel" unique_id=207118282]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="VerseRefLabel" type="Label" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox/VersePanel/VerseVBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
+[node name="VerseRefLabel" type="Label" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox/VersePanel/VerseVBox" unique_id=937615206]
 modulate = Color(0.6, 0.45, 0.1, 1)
-
-[node name="VerseTextLabel" type="Label" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox/VersePanel/VerseVBox"]
 layout_mode = 2
-autowrap_mode = 3
 theme_override_font_sizes/font_size = 14
 
-; Back-to-tribes button (inside right panel) ────────────────────────────────
-[node name="BackTribeBtn" type="Button" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox"]
+[node name="VerseTextLabel" type="Label" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox/VersePanel/VerseVBox" unique_id=1437819283]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+autowrap_mode = 3
+
+[node name="BackTribeBtn" type="Button" parent="Margin/VBox/Content/RightPanel/RightScroll/RightVBox" unique_id=2043892293]
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 text = "← All Tribes"
-custom_minimum_size = Vector2(0, 44)
+
+[node name="Footer" type="HBoxContainer" parent="Margin/VBox" unique_id=472065619]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="FooterSpacer" type="Control" parent="Margin/VBox/Footer" unique_id=1401909801]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SelectionLabel" type="Label" parent="Margin/VBox/Footer" unique_id=1839852497]
+modulate = Color(0.4, 0.3, 0.1, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+
+[node name="ConfirmBtn" type="Button" parent="Margin/VBox/Footer" unique_id=756737859]
+visible = false
+custom_minimum_size = Vector2(200, 52)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Begin Journey →"

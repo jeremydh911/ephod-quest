@@ -1,4 +1,4 @@
-extends "res://scripts/QuestBase.gd"
+extends "res://scripts/WorldBase.gd"
 # ─────────────────────────────────────────────────────────────────────────────
 # Quest6.gd  –  Tribe of Simeon
 # Map: Desert border crossing / arbiter's tent.
@@ -12,8 +12,48 @@ func _ready() -> void:
 	tribe_key  = "simeon"
 	quest_id   = "simeon_main"
 	next_scene = "res://scenes/Quest7.tscn"
-	music_path = "res://assets/audio/music/quest_theme.ogg"
+	# Lamentations 3:23 – Great is His faithfulness; new every morning
+	music_path = "res://assets/audio/music/simeon_theme.wav"
 	super._ready()
+
+func on_world_ready() -> void:
+	super.on_world_ready()  # 3D sky + directional light – Psalm 19:1
+	_build_terrain()
+	_place_npcs()
+	_place_chests()
+	_show_world_intro()
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TERRAIN
+# "Be still, and know that I am God" – Psalm 46:10
+# ─────────────────────────────────────────────────────────────────────────────
+func _build_terrain() -> void:
+	# Desert border crossing / arbiter's tent
+	# "Simeon and Levi are brothers" – Genesis 49:5
+	# Ground: sandy desert
+	_tr(Vector3(-50, 0, -50), Vector3(100, 0, 100), "sand.jpg")
+	
+	# Arbiter's tent in center
+	_wall(Vector3(-10, 0, -10), Vector3(20, 8, 0), "tent_canvas.jpg")  # Tent walls
+	_wall(Vector3(-10, 0, 10), Vector3(20, 8, 0), "tent_canvas.jpg")
+	_wall(Vector3(-10, 0, -10), Vector3(0, 8, 20), "tent_canvas.jpg")
+	_wall(Vector3(10, 0, -10), Vector3(0, 8, 20), "tent_canvas.jpg")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NPCs
+# "I will be exalted among the nations" – Psalm 46:10
+# ─────────────────────────────────────────────────────────────────────────────
+func _place_npcs() -> void:
+	# Elder Nemuel in the arbiter's tent
+	_build_npc("nemuel", Vector3(0, 0, 0), "elder_nemuel.jpg")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CHESTS
+# "I will be exalted in the earth" – Psalm 46:10
+# ─────────────────────────────────────────────────────────────────────────────
+func _place_chests() -> void:
+	# Verse chest near the tent
+	_chest(Vector3(15, 0, 15), "psalm_46_10", "Psalm 46:10")
 
 func on_quest_ready() -> void:
 	var elder: String = Global.get_tribe_data(tribe_key).get("elder", "Elder")
@@ -44,7 +84,7 @@ var _scales_result: Dictionary = {}
 var _negotiation_result: Dictionary = {}
 
 func _start_justice_scales() -> void:
-	var container: Node = $MiniGameContainer
+	var container: Control = _mini_game_container
 	container.visible = true
 	_scales_result = build_sorting_minigame(
 		container, 8,
@@ -67,7 +107,7 @@ func _continue_after_scales() -> void:
 # MINI-GAME 2 — PEACE NEGOTIATION (dialogue choices)
 # ─────────────────────────────────────────────────────────────────────────────
 func _start_peace_negotiation() -> void:
-	var container: Node = $MiniGameContainer
+	var container: Control = _mini_game_container
 	container.visible = true
 	for child in container.get_children():
 		child.queue_free()
@@ -77,7 +117,7 @@ func _start_peace_negotiation() -> void:
 	)
 
 func _on_negotiation_complete() -> void:
-	$MiniGameContainer.visible = false
+	_mini_game_container.visible = false
 	var elder: String = _tribe_data.get("elder", "Elder")
 	show_dialogue([{
 		"name": elder,
@@ -86,27 +126,22 @@ func _on_negotiation_complete() -> void:
 	}])
 
 func _show_quest_verse() -> void:
-	var ref:  String = _tribe_data.get("quest_verse_ref", "")
-	var text: String = _tribe_data.get("quest_verse_text", "")
-	show_verse_scroll(ref, text)
-
-func _show_nature_fact() -> void:
-	show_nature_fact()
-
-func _collect_stone() -> void:
-	_collect_stone()
+	show_verse_scroll(
+		_tribe_data.get("quest_verse_ref", ""),
+		_tribe_data.get("quest_verse", "")
+	)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # QUEST COMPLETE — fade out and change scene
 # ─────────────────────────────────────────────────────────────────────────────
 func on_minigame_complete(result: Dictionary) -> void:
-	if result == _scales_result:
+	if result.get("root") == _scales_result.get("root"):
 		_continue_after_scales()
-	elif result == _negotiation_result:
+	elif result.get("root") == _negotiation_result.get("root"):
 		_on_negotiation_complete()
 
 func on_minigame_timeout(result: Dictionary) -> void:
-	if result == _scales_result:
+	if result.get("root") == _scales_result.get("root"):
 		_continue_after_scales()
-	elif result == _negotiation_result:
+	elif result.get("root") == _negotiation_result.get("root"):
 		_on_negotiation_complete()

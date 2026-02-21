@@ -1,15 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://duqqb77wytmf3"]
+[gd_scene format=3 uid="uid://duqqb77wytmf3"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_8y3wr"]
+[ext_resource type="Script" uid="uid://c16bruxrxsb6n" path="res://scripts/player.gd" id="1_8y3wr"]
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="BoxMesh" id="BoxMesh_abcde"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_abcde"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1125368063]
 script = ExtResource("1_8y3wr")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-color = Color(0.129412, 0.588235, 0.952941, 1)
+[node name="MeshInstance" type="MeshInstance3D" parent="." unique_id=57284802]
+mesh = SubResource("BoxMesh_abcde")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1388630409]
+shape = SubResource("BoxShape3D_abcde")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=454543247]

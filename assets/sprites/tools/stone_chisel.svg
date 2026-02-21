@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Category: tools | Tool: Stone Chisel and Mallet -->
+<!-- Exodus 28:11 — "Engrave the names...like a gem cutter engraves a seal" -->
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <!-- Mallet head (wood) -->
+  <rect x="10" y="8" width="32" height="20" rx="5" fill="#8B5E18"/>
+  <rect x="12" y="10" width="28" height="16" rx="4" fill="#A07028" opacity="0.5"/>
+  <!-- Mallet handle -->
+  <rect x="22" y="28" width="8" height="38" rx="4" fill="#6B4010"/>
+  <rect x="23" y="28" width="3" height="38" rx="2" fill="#8B5020" opacity="0.4"/>
+  <!-- Steel chisel (angled) -->
+  <rect x="46" y="16" width="10" height="44" rx="3" fill="#A0A0B0"/>
+  <rect x="47" y="16" width="4" height="44" rx="2" fill="#D0D0E0" opacity="0.5"/>
+  <!-- Chisel tip (cutting edge, angled) -->
+  <path d="M46 60 L56 60 L52 70 L50 70 Z" fill="#C0C0D0"/>
+  <path d="M50 60 L52 70" fill="none" stroke="#909098" stroke-width="1"/>
+  <!-- Chisel head (struck by mallet) -->
+  <rect x="45" y="12" width="12" height="8" rx="2" fill="#808090"/>
+  <!-- Sparks / stone chips (action detail) -->
+  <circle cx="60" cy="64" r="2" fill="#FFD700" opacity="0.8"/>
+  <circle cx="66" cy="58" r="1.5" fill="#FFD700" opacity="0.6"/>
+  <circle cx="64" cy="70" r="1.2" fill="#E0E0E0" opacity="0.7"/>
+  <!-- Small stone fragment -->
+  <polygon points="68,62 74,60 72,66" fill="#A0B0B8" opacity="0.8"/>
+</svg>

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b18lh0bw2rbls"]
+
+[ext_resource type="Script" uid="uid://cqkgmojjqdi2b" path="res://scripts/TouchControls.gd" id="1"]
+
+[node name="TouchControls" type="Control" unique_id=1458493861]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_right = 200.0
+grow_vertical = 0
+script = ExtResource("1")

@@ -1,7 +1,0 @@
-fix: resolve 5 GDScript 4.x syntax and logic errors
-
-- QuestBase: convert nested func _pulse to lambda (var _pulse := func)
-- QuestBase: fix _advance_dialogue callback — remove unreliable get_connections() disconnect
-- Quest2: remove duplicate function block (~160 lines) appended in error
-- Quest3: fix result dict collision (lamp→lamp_done, scroll→scroll_done)
-- Quest4: remove duplicate function block (~235 lines) appended in error
