@@ -5,9 +5,11 @@ This directory contains comprehensive documentation for the **Twelve Stones** bi
 ## Documentation Files
 
 ### 1. [GDD.md](GDD.md) - Game Design Document
+
 **Purpose:** Complete game design roadmap and vision
 
 **Contents:**
+
 - ✅ Detailed project roadmap with development phases
 - ✅ Core gameplay loop: Explore → Meet Elder → Challenge → Memorize → Collect → Build
 - ✅ Victory conditions and achievement system
@@ -19,9 +21,11 @@ This directory contains comprehensive documentation for the **Twelve Stones** bi
 - ✅ Success metrics and future expansion plans
 
 ### 2. [BIBLICAL_PROMPTS.md](BIBLICAL_PROMPTS.md) - Biblical Verification Guidelines
+
 **Purpose:** Ensure biblical accuracy and theological soundness
 
 **Contents:**
+
 - ✅ General verification prompt for AI/human experts
 - ✅ Tribe-specific verification prompts for all 12 tribes
 - ✅ Criteria for tribal history accuracy
@@ -33,9 +37,11 @@ This directory contains comprehensive documentation for the **Twelve Stones** bi
 - ✅ Recommended biblical resources and translations
 
 ### 3. [DEPLOYMENT.md](DEPLOYMENT.md) - Platform Deployment Guide
+
 **Purpose:** Technical deployment specifications for all platforms
 
 **Contents:**
+
 - ✅ iOS export settings and App Store submission
 - ✅ Android export settings and Google Play submission
 - ✅ macOS deployment and notarization process
@@ -47,9 +53,11 @@ This directory contains comprehensive documentation for the **Twelve Stones** bi
 - ✅ Performance requirements and optimization
 
 ### 4. [QUEST_CONCEPTS.md](QUEST_CONCEPTS.md) - 12 Tribes Mini-Games
+
 **Purpose:** Detailed design for all tribal quest mini-games
 
 **Contents:**
+
 - ✅ **Reuben:** Ladder/Trust (Tap/Reflex game)
 - ✅ **Simeon:** Justice/Scales (Sorting game)
 - ✅ **Levi:** Praise/Rhythm (Rhythm game)
@@ -64,6 +72,7 @@ This directory contains comprehensive documentation for the **Twelve Stones** bi
 - ✅ **Benjamin:** Protection (Precision game)
 
 Each tribe includes:
+
 - Biblical theme and characteristics
 - Specific game mechanics
 - Controls and objectives
@@ -72,9 +81,11 @@ Each tribe includes:
 - Key scripture verses
 
 ### 5. [CONTENT_GUIDELINES.md](CONTENT_GUIDELINES.md) - Content Standards
+
 **Purpose:** Age-appropriate content boundaries and biblical accuracy
 
 **Contents:**
+
 - ✅ Age rating target (ESRB E / PEGI 3 / Apple 4+)
 - ✅ All Ages content framework (allowed and prohibited)
 - ✅ Guidelines for handling difficult biblical topics
@@ -88,10 +99,12 @@ Each tribe includes:
 - ✅ 18+ expansion considerations (future)
 
 ### 6. [TECHNICAL_SPECS.md](TECHNICAL_SPECS.md) - Technical Requirements
+
 **Purpose:** Asset specifications and code standards
 
 **Contents:**
-- ✅ 2D graphics requirements (PNG/SVG formats)
+
+- ✅ 3D graphics requirements (PNG/SVG/GLB formats)
 - ✅ 3D assets specifications (GLB format for memorial stones)
 - ✅ Audio requirements (OGG/WAV formats)
 - ✅ Sound specifications for music, SFX, and voice
@@ -104,9 +117,11 @@ Each tribe includes:
 - ✅ Version control guidelines
 
 ### 7. [STYLE_GUIDE.md](STYLE_GUIDE.md) - Visual & Audio Style
+
 **Purpose:** Unified artistic vision and implementation
 
 **Contents:**
+
 - ✅ "Earth & Gold" color palette with hex codes
 - ✅ Art direction and visual style guidelines
 - ✅ Character design (player and tribal elders)
@@ -123,18 +138,21 @@ Each tribe includes:
 ## Quick Start for Developers
 
 ### New to the Project?
+
 1. Start with **GDD.md** to understand the overall vision
 2. Read **CONTENT_GUIDELINES.md** to understand boundaries
 3. Check **TECHNICAL_SPECS.md** for implementation standards
 4. Review **STYLE_GUIDE.md** for visual consistency
 
 ### Implementing a Tribal Quest?
+
 1. Reference **QUEST_CONCEPTS.md** for your specific tribe
 2. Use code templates from **TECHNICAL_SPECS.md**
 3. Follow visual guidelines in **STYLE_GUIDE.md**
 4. Verify content with **BIBLICAL_PROMPTS.md**
 
 ### Preparing for Release?
+
 1. Follow **DEPLOYMENT.md** for platform-specific builds
 2. Complete checklist in **CONTENT_GUIDELINES.md**
 3. Verify biblical accuracy with **BIBLICAL_PROMPTS.md**
@@ -178,6 +196,7 @@ Each tribe includes:
 ## Contributing to Documentation
 
 When updating documentation:
+
 1. Maintain consistent formatting
 2. Update version numbers and dates
 3. Keep cross-references accurate
@@ -187,6 +206,7 @@ When updating documentation:
 ## Key Themes
 
 The documentation reflects these core principles:
+
 - **Biblical Accuracy:** All content must be scripturally sound
 - **Age Appropriateness:** Suitable for all ages (primarily children)
 - **Educational Value:** Players should learn while having fun
@@ -196,12 +216,13 @@ The documentation reflects these core principles:
 
 ## Project Vision
 
-> "Just as the Israelites set up stones to remember God's faithfulness, 
+> "Just as the Israelites set up stones to remember God's faithfulness,
 > players will build their own memorial of faith through this interactive journey."
 
 ---
 
 **For Questions or Clarification:**
+
 - Review the specific documentation file
 - Check cross-references to related documents
 - Consult with project lead or biblical scholars

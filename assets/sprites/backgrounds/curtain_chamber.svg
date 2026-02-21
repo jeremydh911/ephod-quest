@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Category: backgrounds | Scene: Curtain Chamber (linen curtains, divine light) -->
+<!-- Identified from reference art — purple/gold draped curtains, divine light streaming -->
+<!-- Exodus 26:31 — "Make a curtain of blue, purple and scarlet yarn" -->
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <defs>
+    <linearGradient id="darkbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A0830"/>
+      <stop offset="100%" stop-color="#0A0418"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="30%" r="40%">
+      <stop offset="0%" stop-color="#FFF4C0" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#FFD700" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Dark background -->
+  <rect width="480" height="320" fill="url(#darkbg)"/>
+  <!-- Divine light source from above-center -->
+  <rect width="480" height="320" fill="url(#glow)"/>
+  <!-- Left curtain (blue/purple draped) -->
+  <path d="M0 0 Q40 60 20 130 Q0 200 30 320 L120 320 Q90 200 110 130 Q130 60 80 0 Z" fill="#3040A0"/>
+  <!-- Left curtain highlight folds -->
+  <path d="M40 0 Q60 70 50 150 Q40 230 60 320" fill="none" stroke="#5060D0" stroke-width="4" opacity="0.5"/>
+  <path d="M70 0 Q80 60 72 140 Q64 220 80 320" fill="none" stroke="#5060D0" stroke-width="3" opacity="0.4"/>
+  <!-- Left curtain scarlet trim -->
+  <path d="M0 0 Q40 60 20 130 Q0 200 30 320" fill="none" stroke="#C02020" stroke-width="8" opacity="0.7"/>
+  <!-- Left curtain gold border line -->
+  <path d="M0 0 Q40 60 20 130 Q0 200 30 320" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.9"/>
+  <!-- Right curtain (purple/scarlet) -->
+  <path d="M480 0 Q440 60 460 130 Q480 200 450 320 L360 320 Q390 200 370 130 Q350 60 400 0 Z" fill="#6020A0"/>
+  <path d="M440 0 Q420 70 430 150 Q440 230 420 320" fill="none" stroke="#8040C0" stroke-width="4" opacity="0.5"/>
+  <path d="M410 0 Q400 60 408 140 Q416 220 400 320" fill="none" stroke="#8040C0" stroke-width="3" opacity="0.4"/>
+  <path d="M480 0 Q440 60 460 130 Q480 200 450 320" fill="none" stroke="#C02020" stroke-width="8" opacity="0.7"/>
+  <path d="M480 0 Q440 60 460 130 Q480 200 450 320" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.9"/>
+  <!-- Central floor (warm stone) -->
+  <rect x="100" y="260" width="280" height="60" rx="8" fill="#C8A050" opacity="0.5"/>
+  <!-- Gold top valance bar -->
+  <rect x="0" y="0" width="480" height="14" fill="#B08020"/>
+  <rect x="0" y="2" width="480" height="6" fill="#FFD700" opacity="0.8"/>
+  <!-- Curtain rings (gold) -->
+  <circle cx="60" cy="6" r="5" fill="#FFD700" stroke="#A06010" stroke-width="1"/>
+  <circle cx="120" cy="6" r="5" fill="#FFD700" stroke="#A06010" stroke-width="1"/>
+  <circle cx="240" cy="6" r="5" fill="#FFD700" stroke="#A06010" stroke-width="1"/>
+  <circle cx="360" cy="6" r="5" fill="#FFD700" stroke="#A06010" stroke-width="1"/>
+  <circle cx="420" cy="6" r="5" fill="#FFD700" stroke="#A06010" stroke-width="1"/>
+  <!-- Cherubim motif embroidery (hint, subtle) — "smiling" as per copilot instructions -->
+  <circle cx="150" cy="160" r="18" fill="#5060A8" opacity="0.4"/>
+  <circle cx="147" cy="156" r="4" fill="#FFE0C0" opacity="0.4"/>
+  <circle cx="154" cy="156" r="4" fill="#FFE0C0" opacity="0.4"/>
+  <path d="M146 163 Q150 167 155 163" fill="none" stroke="#FFD0A0" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="330" cy="160" r="18" fill="#7040A0" opacity="0.4"/>
+  <circle cx="327" cy="156" r="4" fill="#FFE0C0" opacity="0.4"/>
+  <circle cx="334" cy="156" r="4" fill="#FFE0C0" opacity="0.4"/>
+  <path d="M326 163 Q330 167 335 163" fill="none" stroke="#FFD0A0" stroke-width="1.5" opacity="0.4"/>
+</svg>

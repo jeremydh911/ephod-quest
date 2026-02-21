@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Category: tools | Tool: Sealed Scroll (Torah/scripture) -->
+<!-- Psalm 119:105 — "Your word is a lamp to my feet and a light to my path" -->
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="56" viewBox="0 0 96 56">
+  <!-- Scroll body (rolled parchment) -->
+  <rect x="18" y="12" width="60" height="32" rx="2" fill="#E8D8A0"/>
+  <!-- Parchment texture / writing lines -->
+  <line x1="22" y1="20" x2="74" y2="20" stroke="#C0A870" stroke-width="0.8"/>
+  <line x1="22" y1="25" x2="74" y2="25" stroke="#C0A870" stroke-width="0.8"/>
+  <line x1="22" y1="30" x2="74" y2="30" stroke="#C0A870" stroke-width="0.8"/>
+  <line x1="22" y1="35" x2="74" y2="35" stroke="#C0A870" stroke-width="0.8"/>
+  <!-- Left roll cap -->
+  <ellipse cx="18" cy="28" rx="7" ry="16" fill="#5C3C18"/>
+  <ellipse cx="18" cy="28" rx="5" ry="14" fill="#7A5028"/>
+  <!-- Right roll cap -->
+  <ellipse cx="78" cy="28" rx="7" ry="16" fill="#5C3C18"/>
+  <ellipse cx="78" cy="28" rx="5" ry="14" fill="#7A5028"/>
+  <!-- Ribbon tie (red, around middle) -->
+  <path d="M42 12 Q48 8 54 12" fill="none" stroke="#C02020" stroke-width="3" stroke-linecap="round"/>
+  <path d="M42 44 Q48 48 54 44" fill="none" stroke="#C02020" stroke-width="3" stroke-linecap="round"/>
+  <rect x="45" y="10" width="6" height="36" rx="3" fill="#C02020" opacity="0.7"/>
+  <!-- Wax seal -->
+  <circle cx="48" cy="28" r="8" fill="#8B1020" stroke="#601010" stroke-width="1.5"/>
+  <circle cx="48" cy="28" r="5" fill="#A82030" opacity="0.7"/>
+  <!-- Star of David on seal -->
+  <polygon points="48,22 50,26 46,26" fill="#FFD700" opacity="0.8"/>
+  <polygon points="48,34 50,30 46,30" fill="#FFD700" opacity="0.8"/>
+  <!-- End caps decorative rings -->
+  <circle cx="18" cy="12" r="3" fill="#C08030"/>
+  <circle cx="18" cy="44" r="3" fill="#C08030"/>
+  <circle cx="78" cy="12" r="3" fill="#C08030"/>
+  <circle cx="78" cy="44" r="3" fill="#C08030"/>
+</svg>

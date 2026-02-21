@@ -271,6 +271,10 @@ func get_bonus_verses(tribe: String) -> Array:
 				result.append(entry)
 	return result
 
+## Check if a verse reference has been memorised
+func is_memorized(ref: String) -> bool:
+	return ref in Global.memorized_verses
+
 ## Return ALL entries (used by VerseVaultScene journal — shows even locked entries)
 func get_all_entries() -> Array:
 	var result: Array = []

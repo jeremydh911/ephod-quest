@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="120" viewBox="0 0 96 120">
+  <defs>
+    <radialGradient id="face_g" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#9A6840" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#9A6840" stop-opacity="0.82"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="0.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur"/>
+    </filter>
+  </defs>
+
+  <!-- Robe body -->
+  <ellipse cx="48" cy="108" rx="36" ry="20" fill="#8B4513" opacity="0.9"/>
+  <rect x="16" y="78" width="64" height="36" rx="14" fill="#8B4513" opacity="0.92"/>
+  <!-- Robe collar detail -->
+  <ellipse cx="48" cy="80" rx="18" ry="8" fill="#8B4513" stroke="#FFFFFF30" stroke-width="1"/>
+
+  <!-- Neck -->
+  <rect x="40" y="68" width="16" height="16" rx="4" fill="#9A6840" opacity="0.9"/>
+
+  <!-- Head -->
+  <ellipse cx="48" cy="50" rx="30" ry="32" fill="url(#face_g)"/>
+
+  <!-- Hair / head covering -->
+  <ellipse cx="48" cy="25" rx="30" ry="14" fill="#808070" opacity="0.88"/>
+  <ellipse cx="48" cy="20" rx="26" ry="10" fill="#808070" opacity="0.7"/>
+  <!-- Sidelocks -->
+  <ellipse cx="20" cy="48" rx="7" ry="14" fill="#808070" opacity="0.7"/>
+  <ellipse cx="76" cy="48" rx="7" ry="14" fill="#808070" opacity="0.7"/>
+
+  <!-- Beard — silver-warm, wide, gentle -->
+  <ellipse cx="48" cy="73" rx="22" ry="14" fill="#808070" opacity="0.65"/>
+  <ellipse cx="48" cy="78" rx="18" ry="10" fill="#808070" opacity="0.5"/>
+  <!-- Beard strands -->
+  <line x1="36" y1="66" x2="34" y2="82" stroke="#FFFFFF" stroke-width="0.6" opacity="0.4"/>
+  <line x1="42" y1="66" x2="40" y2="84" stroke="#FFFFFF" stroke-width="0.6" opacity="0.4"/>
+  <line x1="48" y1="66" x2="48" y2="86" stroke="#FFFFFF" stroke-width="0.6" opacity="0.4"/>
+  <line x1="54" y1="66" x2="56" y2="84" stroke="#FFFFFF" stroke-width="0.6" opacity="0.4"/>
+  <line x1="60" y1="66" x2="62" y2="82" stroke="#FFFFFF" stroke-width="0.6" opacity="0.4"/>
+
+  <!-- Eyes — large, soft, cartoon style -->
+  <!-- Left eye -->
+  <ellipse cx="35" cy="49" rx="8" ry="7" fill="white"/>
+  <ellipse cx="35" cy="50" rx="5" ry="5" fill="#5A3A1A"/>
+  <ellipse cx="35" cy="50" rx="3.5" ry="3.5" fill="#1A1A1A"/>
+  <ellipse cx="33" cy="48" rx="1.4" ry="1.1" fill="white" opacity="0.9"/>
+  <!-- Left eyelid / lash -->
+  <path d="M27 47 Q35 42 43 47" fill="none" stroke="#3A2A1A" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Right eye -->
+  <ellipse cx="61" cy="49" rx="8" ry="7" fill="white"/>
+  <ellipse cx="61" cy="50" rx="5" ry="5" fill="#5A3A1A"/>
+  <ellipse cx="61" cy="50" rx="3.5" ry="3.5" fill="#1A1A1A"/>
+  <ellipse cx="59" cy="48" rx="1.4" ry="1.1" fill="white" opacity="0.9"/>
+  <!-- Right eyelid / lash -->
+  <path d="M53 47 Q61 42 69 47" fill="none" stroke="#3A2A1A" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Eyebrows — gentle arch -->
+  <path d="M27 40 Q35 36 43 39" fill="none" stroke="#808070" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  <path d="M53 39 Q61 36 69 40" fill="none" stroke="#808070" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- Nose — soft small -->
+  <ellipse cx="48" cy="57" rx="3.5" ry="2.8" fill="#9A6840" stroke="#C0906040" stroke-width="0.8"/>
+
+  <!-- Gentle smile -->
+  <path d="M38 66 Q48 72 58 66" fill="none" stroke="#8B5A2A" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Ear left -->
+  <ellipse cx="18" cy="51" rx="5" ry="7" fill="#9A6840" opacity="0.9"/>
+  <!-- Ear right -->
+  <ellipse cx="78" cy="51" rx="5" ry="7" fill="#9A6840" opacity="0.9"/>
+
+  <!-- Forehead wrinkle lines (elder wisdom) -->
+  <path d="M36 35 Q48 32 60 35" fill="none" stroke="#9A6840" stroke-width="0.8" opacity="0.4" filter="none"/>
+  <path d="M38 31 Q48 29 58 31" fill="none" stroke="#9A6840" stroke-width="0.6" opacity="0.3"/>
+
+  <!-- Name tag -->
+  <rect x="8" y="108" width="80" height="14" rx="4" fill="#00000040"/>
+  <text x="48" y="119" font-family="serif" font-size="9" fill="#FFE88A" font-weight="bold" text-anchor="middle">Ziphion</text>
+</svg>

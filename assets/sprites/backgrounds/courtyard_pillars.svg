@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <!-- Warm golden courtyard — gold-plated cedar pillars, blue/purple/scarlet curtains -->
+  <!-- Sky gradient -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A2440"/>
+      <stop offset="60%" stop-color="#3A4870"/>
+      <stop offset="100%" stop-color="#6A5030"/>
+    </linearGradient>
+    <linearGradient id="gfloor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D4A840"/>
+      <stop offset="100%" stop-color="#8B6F20"/>
+    </linearGradient>
+    <radialGradient id="lampglow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFE080" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FF8800" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Sky -->
+  <rect width="480" height="320" fill="url(#sky)"/>
+  <!-- Star field -->
+  <circle cx="60" cy="30" r="1.2" fill="white" opacity="0.8"/>
+  <circle cx="120" cy="18" r="1.5" fill="white" opacity="0.9"/>
+  <circle cx="200" cy="10" r="1.1" fill="white" opacity="0.7"/>
+  <circle cx="280" cy="25" r="1.4" fill="white" opacity="0.85"/>
+  <circle cx="360" cy="12" r="1.2" fill="white" opacity="0.8"/>
+  <circle cx="420" cy="35" r="1.3" fill="white" opacity="0.75"/>
+  <circle cx="160" cy="40" r="1" fill="white" opacity="0.6"/>
+  <circle cx="320" cy="45" r="1" fill="white" opacity="0.7"/>
+  <!-- Stone floor -->
+  <rect x="0" y="220" width="480" height="100" fill="url(#gfloor)"/>
+  <!-- Floor tiles -->
+  <line x1="0" y1="240" x2="480" y2="240" stroke="#A88020" stroke-width="0.8" opacity="0.4"/>
+  <line x1="0" y1="260" x2="480" y2="260" stroke="#A88020" stroke-width="0.8" opacity="0.4"/>
+  <line x1="0" y1="280" x2="480" y2="280" stroke="#A88020" stroke-width="0.8" opacity="0.4"/>
+  <line x1="80" y1="220" x2="80" y2="320" stroke="#A88020" stroke-width="0.8" opacity="0.4"/>
+  <line x1="160" y1="220" x2="160" y2="320" stroke="#A88020" stroke-width="0.8" opacity="0.4"/>
+  <line x1="240" y1="220" x2="240" y2="320" stroke="#A88020" stroke-width="0.8" opacity="0.4"/>
+  <line x1="320" y1="220" x2="320" y2="320" stroke="#A88020" stroke-width="0.8" opacity="0.4"/>
+  <line x1="400" y1="220" x2="400" y2="320" stroke="#A88020" stroke-width="0.8" opacity="0.4"/>
+  <!-- Gold-plated cedar pillars — back row (smaller, receding) -->
+  <rect x="30"  y="100" width="22" height="124" rx="4" fill="#C5A572"/>
+  <rect x="140" y="100" width="22" height="124" rx="4" fill="#C5A572"/>
+  <rect x="250" y="100" width="22" height="124" rx="4" fill="#C5A572"/>
+  <rect x="360" y="100" width="22" height="124" rx="4" fill="#C5A572"/>
+  <rect x="434" y="100" width="22" height="124" rx="4" fill="#C5A572"/>
+  <!-- Pillar capitals (back row) -->
+  <rect x="24" y="96" width="34" height="10" rx="3" fill="#FFD700" opacity="0.85"/>
+  <rect x="134" y="96" width="34" height="10" rx="3" fill="#FFD700" opacity="0.85"/>
+  <rect x="244" y="96" width="34" height="10" rx="3" fill="#FFD700" opacity="0.85"/>
+  <rect x="354" y="96" width="34" height="10" rx="3" fill="#FFD700" opacity="0.85"/>
+  <rect x="428" y="96" width="34" height="10" rx="3" fill="#FFD700" opacity="0.85"/>
+  <!-- Blue/purple/scarlet curtains between pillars (back) -->
+  <rect x="52" y="100" width="88" height="110" rx="3" fill="#2A2A8A" opacity="0.5"/>
+  <rect x="162" y="100" width="88" height="110" rx="3" fill="#6A1A8A" opacity="0.5"/>
+  <rect x="272" y="100" width="88" height="110" rx="3" fill="#8A1A1A" opacity="0.5"/>
+  <rect x="382" y="100" width="52" height="110" rx="3" fill="#2A2A8A" opacity="0.5"/>
+  <!-- Curtain drape lines -->
+  <path d="M52 100 Q96 108 140 100" fill="none" stroke="#6060CC" stroke-width="1.2" opacity="0.6"/>
+  <path d="M162 100 Q206 106 250 100" fill="none" stroke="#9040C0" stroke-width="1.2" opacity="0.6"/>
+  <path d="M272 100 Q316 106 360 100" fill="none" stroke="#C04040" stroke-width="1.2" opacity="0.6"/>
+  <!-- Front pillars (larger, foreground) -->
+  <rect x="0"   y="80" width="28" height="142" rx="5" fill="#D4B882"/>
+  <rect x="2"   y="80" width="6"  height="142" rx="3" fill="#FFD700" opacity="0.35"/>
+  <rect x="200" y="60" width="32" height="162" rx="5" fill="#D4B882"/>
+  <rect x="202" y="60" width="8"  height="162" rx="4" fill="#FFD700" opacity="0.35"/>
+  <rect x="452" y="80" width="28" height="142" rx="5" fill="#D4B882"/>
+  <rect x="454" y="80" width="6"  height="142" rx="3" fill="#FFD700" opacity="0.35"/>
+  <!-- Front pillar capitals -->
+  <rect x="0"   y="76" width="32" height="12" rx="4" fill="#FFD700"/>
+  <rect x="196" y="56" width="40" height="12" rx="4" fill="#FFD700"/>
+  <rect x="448" y="76" width="32" height="12" rx="4" fill="#FFD700"/>
+  <!-- Leaf carvings on front pillars (cedar motif) -->
+  <path d="M8 120 Q14 112 20 120 Q14 128 8 120" fill="#6B8040" opacity="0.6"/>
+  <path d="M8 150 Q14 142 20 150 Q14 158 8 150" fill="#6B8040" opacity="0.6"/>
+  <path d="M208 110 Q216 100 224 110 Q216 120 208 110" fill="#6B8040" opacity="0.6"/>
+  <path d="M208 145 Q216 135 224 145 Q216 155 208 145" fill="#6B8040" opacity="0.6"/>
+  <!-- Seven-flame lampstand (menorah) — centre -->
+  <rect x="232" y="185" width="16" height="40" rx="3" fill="#C5A572"/>
+  <rect x="228" y="222" width="24" height="6" rx="3" fill="#C5A572"/>
+  <!-- Arms -->
+  <path d="M240 190 Q226 185 222 170" fill="none" stroke="#C5A572" stroke-width="3" stroke-linecap="round"/>
+  <path d="M240 190 Q254 185 258 170" fill="none" stroke="#C5A572" stroke-width="3" stroke-linecap="round"/>
+  <path d="M240 193 Q230 190 228 178" fill="none" stroke="#C5A572" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M240 193 Q250 190 252 178" fill="none" stroke="#C5A572" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M240 196 Q234 194 234 184" fill="none" stroke="#C5A572" stroke-width="2" stroke-linecap="round"/>
+  <path d="M240 196 Q246 194 246 184" fill="none" stroke="#C5A572" stroke-width="2" stroke-linecap="round"/>
+  <!-- Flames (7) -->
+  <ellipse cx="240" cy="187" rx="3" ry="5" fill="#FFD700"/>
+  <ellipse cx="222" cy="168" rx="3" ry="5" fill="#FFD700"/>
+  <ellipse cx="258" cy="168" rx="3" ry="5" fill="#FFD700"/>
+  <ellipse cx="228" cy="176" rx="2.5" ry="4" fill="#FFD700"/>
+  <ellipse cx="252" cy="176" rx="2.5" ry="4" fill="#FFD700"/>
+  <ellipse cx="234" cy="182" rx="2" ry="3.5" fill="#FFD700"/>
+  <ellipse cx="246" cy="182" rx="2" ry="3.5" fill="#FFD700"/>
+  <!-- Lampstand glow -->
+  <circle cx="240" cy="185" r="30" fill="url(#lampglow)"/>
+  <!-- Thick veil with embroidered cherubim (hint) -->
+  <rect x="110" y="60" width="260" height="8" rx="3" fill="#800080" opacity="0.55"/>
+  <text x="240" y="67" font-family="serif" font-size="6" fill="#FFD700" text-anchor="middle" opacity="0.7">✦ ✦ ✦</text>
+</svg>

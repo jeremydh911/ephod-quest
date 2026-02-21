@@ -1,5 +1,8 @@
 extends Control
 # Finale.gd  –  Closing courtyard ephod-weave sequence
+# "Sing to the LORD, for he has done glorious things" – Isaiah 12:5
+
+const VisualEnvironment := preload("res://scripts/VisualEnvironment.gd")
 
 const TRIBE_ORDER: Array[String] = [
 	"reuben","simeon","levi","judah","dan","naphtali",
@@ -14,7 +17,16 @@ const GEM_COLORS: Array[Color] = [
 ]
 
 func _ready() -> void:
-	AudioManager.play_music("res://assets/audio/music/finale_theme.ogg")
+	# Background artwork (img_17) behind the night sky / stars
+	# "The heavens declare the glory of God" – Psalm 19:1
+	VisualEnvironment.add_scene_background(self, "finale")
+
+	# Finale music cascade: finale_main → inspired_by_my_best → finale_theme fallback
+	const FINALE_MAIN     := "res://assets/audio/music/finale_main.wav"
+	const FINALE_ALT      := "res://assets/audio/music/inspired_by_my_best.wav"
+	const FINALE_FALLBACK := "res://assets/audio/music/finale_theme.ogg"
+	var finale_track: String = FINALE_MAIN if ResourceLoader.exists(FINALE_MAIN) else (FINALE_ALT if ResourceLoader.exists(FINALE_ALT) else FINALE_FALLBACK)
+	AudioManager.play_music(finale_track)
 	_generate_stars()
 	var fr := $FadeRect as ColorRect
 	fr.modulate = Color(0, 0, 0, 1)

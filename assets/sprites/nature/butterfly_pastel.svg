@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Category: nature | Item: Butterfly (pastel teal/blue, side view) -->
+<!-- Identified from reference art — translucent blue/teal wings -->
+<svg xmlns="http://www.w3.org/2000/svg" width="76" height="64" viewBox="0 0 76 64">
+  <defs>
+    <radialGradient id="tw1" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#DFFFFF"/>
+      <stop offset="50%" stop-color="#80E0E8"/>
+      <stop offset="100%" stop-color="#40A0C0"/>
+    </radialGradient>
+    <radialGradient id="tw2" cx="40%" cy="55%" r="65%">
+      <stop offset="0%" stop-color="#E8F8FF"/>
+      <stop offset="50%" stop-color="#A0D0F0"/>
+      <stop offset="100%" stop-color="#6090C0"/>
+    </radialGradient>
+  </defs>
+  <!-- Upper wings (folded slightly — side view) -->
+  <ellipse cx="28" cy="24" rx="26" ry="20" fill="url(#tw1)" opacity="0.88"/>
+  <ellipse cx="50" cy="26" rx="20" ry="18" fill="url(#tw1)" opacity="0.75" transform="rotate(8 50 26)"/>
+  <!-- Lower wings -->
+  <ellipse cx="24" cy="48" rx="20" ry="14" fill="url(#tw2)" opacity="0.85"/>
+  <ellipse cx="50" cy="48" rx="16" ry="13" fill="url(#tw2)" opacity="0.72"/>
+  <!-- Translucent vein network -->
+  <path d="M38 32 Q22 20 8 12" fill="none" stroke="#40A0C0" stroke-width="0.7" opacity="0.5"/>
+  <path d="M38 32 Q24 40 10 52" fill="none" stroke="#40A0C0" stroke-width="0.7" opacity="0.4"/>
+  <!-- Lavender accent spots -->
+  <circle cx="22" cy="20" r="4" fill="#C0A0E8" opacity="0.6"/>
+  <circle cx="20" cy="46" r="3.5" fill="#E8C0F8" opacity="0.5"/>
+  <!-- Wing border -->
+  <ellipse cx="28" cy="24" rx="26" ry="20" fill="none" stroke="#2080A0" stroke-width="0.9" opacity="0.5"/>
+  <!-- Body -->
+  <ellipse cx="38" cy="34" rx="3" ry="15" fill="#1A0C08"/>
+  <circle cx="38" cy="18" r="3.5" fill="#1A0C08"/>
+  <!-- Antennae -->
+  <path d="M37 15 Q32 8 28 4" fill="none" stroke="#1A0C08" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M39 15 Q44 8 48 4" fill="none" stroke="#1A0C08" stroke-width="1.1" stroke-linecap="round"/>
+  <circle cx="28" cy="4" r="1.8" fill="#1A0C08"/>
+  <circle cx="48" cy="4" r="1.8" fill="#1A0C08"/>
+</svg>

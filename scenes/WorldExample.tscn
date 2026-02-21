@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://world_example"]
+
+[ext_resource type="Script" path="res://scripts/WorldGenerator.gd" id="1"]
+[ext_resource type="TileSet" uid="uid://tileset_desert" path="res://assets/tiles/desert_tileset.tres" id="2"]
+[ext_resource type="Script" path="res://scripts/Character.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/Inventory.gd" id="4"]
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 32.0
+
+[node name="WorldExample" type="Node2D"]
+script = ExtResource("1")
+
+[node name="WorldTileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2")
+
+[node name="WorldParallax" type="ParallaxBackground" parent="."]
+
+[node name="JerichoWallsArea" type="Area2D" parent="WorldTileMap"]
+position = Vector2(100, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JerichoWallsArea"]
+shape = SubResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="JerichoWallsArea"]
+texture = ExtResource("2")
+
+[node name="Character" type="Node2D" parent="."]
+script = ExtResource("3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Character"]
+
+[node name="PetSprite" type="Sprite2D" parent="Character"]
+
+[node name="GlowEffect" type="ColorRect" parent="Character"]
+
+[node name="SardiusPickup" type="RigidBody2D" parent="."]
+position = Vector2(200, 100)
+script = ExtResource("4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SardiusPickup"]
+
+[node name="Sprite2D" type="Sprite2D" parent="SardiusPickup"]

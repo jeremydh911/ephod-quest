@@ -23,6 +23,8 @@ var memorized_verses:  Array[String] = []          # verse keys memorized
 var completed_quests:  Array[String] = []          # "reuben_main", "judah_side1" …
 var journal_entries:   Dictionary   = {}           # tribe → Array[String notes]
 var heart_badges:      Array[String] = []          # verse keys with badge glow
+var treasures_found:   Array[String] = []          # chest IDs opened across all worlds
+var world_positions:   Dictionary   = {}           # tribe → Vector2 last player pos
 
 # Derived from stones — tribes that have completed their main quest.
 # Used by Finale.gd to populate the tribe circle.
@@ -299,19 +301,50 @@ func _ready() -> void:
 	load_game()
 
 func _input(event: InputEvent) -> void:
-	# Touch-swipe detection → inject directional input events
+	# Enhanced touch-swipe detection → inject directional input events
 	if event is InputEventScreenDrag:
 		var delta: Vector2 = event.relative
+		var threshold: float = 15.0  # More sensitive threshold
+		
+		# Clear previous actions first
+		Input.action_release("move_left")
+		Input.action_release("move_right")
+		Input.action_release("move_up")
+		Input.action_release("move_down")
+		
+		# Determine primary direction
 		if abs(delta.x) > abs(delta.y):
-			if delta.x < -20:
+			if delta.x < -threshold:
 				Input.action_press("move_left")
-			elif delta.x > 20:
+			elif delta.x > threshold:
 				Input.action_press("move_right")
 		else:
-			if delta.y < -20:
+			if delta.y < -threshold:
 				Input.action_press("move_up")
-			elif delta.y > 20:
+			elif delta.y > threshold:
 				Input.action_press("move_down")
+	
+	# Touch tap detection for interaction
+	elif event is InputEventScreenTouch:
+		var touch := event as InputEventScreenTouch
+		if touch.pressed:
+			# Store touch start for potential tap
+			_touch_start_pos = touch.position
+			_touch_start_time = Time.get_ticks_msec()
+		else:
+			# Check for tap (quick touch release)
+			var touch_duration = Time.get_ticks_msec() - _touch_start_time
+			var touch_distance = touch.position.distance_to(_touch_start_pos)
+			
+			if touch_duration < 300 and touch_distance < 20:  # 300ms, 20px threshold
+				Input.action_press("ui_accept")
+				# Release after a frame to simulate button press
+				await get_tree().process_frame
+				Input.action_release("ui_accept")
+
+# Touch tracking variables
+var _touch_start_pos: Vector2 = Vector2.ZERO
+var _touch_start_time: int = 0
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PUBLIC API
@@ -373,7 +406,9 @@ func save_game() -> void:
 		"memorized_verses": memorized_verses,
 		"completed_quests": completed_quests,
 		"journal_entries":  journal_entries,
-		"heart_badges":     heart_badges
+		"heart_badges":     heart_badges,
+		"treasures_found":  treasures_found,
+		"world_positions":  world_positions
 	}
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
@@ -405,6 +440,10 @@ func load_game() -> void:
 	completed_quests = Array(data.get("completed_quests", []), TYPE_STRING, "", null)
 	journal_entries  = data.get("journal_entries",  {})
 	heart_badges     = Array(data.get("heart_badges",     []), TYPE_STRING, "", null)
+	var tf_raw = data.get("treasures_found", [])
+	if tf_raw is Array:
+		treasures_found = Array(tf_raw, TYPE_STRING, "", null)
+	world_positions  = data.get("world_positions",  {})
 
 # ─────────────────────────────────────────────────────────────────────────────
 # MULTIPLAYER SYNC  –  "May they be brought to complete unity" – John 17:23

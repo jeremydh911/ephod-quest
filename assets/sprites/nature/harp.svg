@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="68" height="88" viewBox="0 0 68 88">
+  <!-- Ancient harp — Judah/Asher music, 1 Samuel 16:23 -->
+  <!-- Resonator box (bottom) -->
+  <rect x="14" y="56" width="26" height="28" rx="6" fill="#8B6F47"/>
+  <rect x="16" y="58" width="22" height="24" rx="4" fill="#A07848" opacity="0.7"/>
+  <!-- Neck/pillar (curved outer) -->
+  <path d="M14 56 Q10 28 22 8" fill="none" stroke="#C5A572" stroke-width="7" stroke-linecap="round"/>
+  <path d="M14 56 Q10 28 22 8" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+  <!-- Forepillar (straight) -->
+  <line x1="40" y1="62" x2="22" y2="8" stroke="#8B6F47" stroke-width="5" stroke-linecap="round"/>
+  <!-- Strings -->
+  <line x1="22" y1="58" x2="22.5" y2="12" stroke="#FFD700" stroke-width="0.9" opacity="0.8"/>
+  <line x1="24" y1="58" x2="24.5" y2="12.5" stroke="#FFD700" stroke-width="0.9" opacity="0.8"/>
+  <line x1="26" y1="59" x2="26" y2="13" stroke="#FFD700" stroke-width="0.9" opacity="0.8"/>
+  <line x1="28" y1="60" x2="27.5" y2="14" stroke="#FFD700" stroke-width="0.9" opacity="0.8"/>
+  <line x1="30" y1="61" x2="29" y2="15" stroke="#C5A572" stroke-width="0.9" opacity="0.8"/>
+  <line x1="32" y1="62" x2="30" y2="16" stroke="#C5A572" stroke-width="0.9" opacity="0.8"/>
+  <line x1="34" y1="62" x2="31" y2="17" stroke="#C5A572" stroke-width="0.9" opacity="0.8"/>
+  <line x1="36" y1="62" x2="32" y2="18" stroke="#E8D080" stroke-width="0.9" opacity="0.8"/>
+  <line x1="38" y1="62" x2="33" y2="20" stroke="#E8D080" stroke-width="0.9" opacity="0.8"/>
+  <!-- Tuning pins (gold dots) -->
+  <circle cx="22" cy="12" r="2" fill="#FFD700"/>
+  <circle cx="25" cy="12.5" r="2" fill="#FFD700"/>
+  <circle cx="28" cy="14" r="2" fill="#FFD700"/>
+  <circle cx="31" cy="15" r="2" fill="#C5A572"/>
+  <circle cx="34" cy="17" r="2" fill="#C5A572"/>
+  <!-- Sound hole rosette -->
+  <circle cx="27" cy="70" r="5.5" fill="none" stroke="#FFD700" stroke-width="1.2" opacity="0.8"/>
+  <circle cx="27" cy="70" r="2" fill="#FFD700" opacity="0.5"/>
+</svg>

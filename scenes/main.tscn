@@ -1,13 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8ajqgcpvtbu5"]
+[gd_scene format=3 uid="uid://c8ajqgcpvtbu5"]
 
 [ext_resource type="PackedScene" uid="uid://duqqb77wytmf3" path="res://scenes/player.tscn" id="1_g8qno"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=726381621]
 
-[node name="Player" parent="." instance=ExtResource("1_g8qno")]
-position = Vector2(640, 360)
+[node name="Player" parent="." unique_id=2098438039 instance=ExtResource("1_g8qno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 640, 360, 0)
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=681614091]
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.141176, 0.184314, 0.254902, 1)
