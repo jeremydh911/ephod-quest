@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Avatar Pick — Twelve Stones</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #1a1208; }
+.bg { position:fixed;inset:0; background:linear-gradient(160deg,#0e0a04 0%,#1e1408 30%,#281c0e 60%,#221808 100%); }
+/* Parchment header */
+.header { position:fixed;top:0;left:0;right:0;height:70px;background:linear-gradient(180deg,rgba(30,18,6,0.98),rgba(20,12,4,0));z-index:20;display:flex;align-items:center;padding:0 20px;gap:14px; }
+.header-title { font-size:22px;font-weight:bold;color:#FFD700;text-shadow:0 0 18px rgba(255,200,50,0.7),0 2px 4px rgba(0,0,0,0.8); letter-spacing:2px; }
+/* Tribe tabs */
+.tribe-tabs { position:fixed;top:70px;left:0;right:0;height:52px;background:rgba(10,8,4,0.95);display:flex;align-items:center;padding:0 12px;gap:8px;overflow-x:auto;z-index:18; }
+.tribe-tab { padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid;white-space:nowrap;transition:all 0.2s; }
+.tribe-tab.active { color:#0a0806;font-weight:800; }
+/* Avatar grid */
+.avatar-grid { position:fixed;top:122px;left:0;right:0;bottom:80px;overflow-y:auto;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:14px; }
+/* Avatar card */
+.avatar-card { background:rgba(30,20,10,0.9);border:1.5px solid rgba(180,140,50,0.3);border-radius:14px;padding:14px;cursor:pointer;transition:all 0.25s;position:relative; }
+.avatar-card:hover,.avatar-card.selected { border-color:#FFD700;box-shadow:0 0 20px rgba(255,210,0,0.3);transform:scale(1.03); }
+.avatar-card.selected::after { content:'✦';position:absolute;top:8px;right:10px;color:#FFD700;font-size:18px; }
+/* Avatar portrait circle */
+.avatar-portrait { width:80px;height:80px;border-radius:50%;margin:0 auto 10px;position:relative;overflow:hidden; }
+.avatar-name { font-size:15px;font-weight:700;color:#e8d090;text-align:center;margin-bottom:4px; }
+.avatar-age { font-size:11px;color:#a08050;text-align:center;margin-bottom:6px; }
+.avatar-edge { font-size:11px;color:#90b860;text-align:center;font-style:italic;line-height:1.4; }
+.avatar-tribe-dot { position:absolute;bottom:10px;right:10px;width:10px;height:10px;border-radius:50%; }
+/* Backstory panel (right side on wide screens) */
+.backstory-panel { position:fixed;top:122px;right:0;width:280px;bottom:0;background:rgba(22,14,6,0.97);border-left:1.5px solid rgba(180,140,50,0.25);padding:20px;display:none;z-index:15; }
+/* Bottom confirm bar */
+.confirm-bar { position:fixed;bottom:0;left:0;right:0;height:80px;background:linear-gradient(180deg,transparent,rgba(10,8,4,0.98));display:flex;align-items:center;justify-content:center;gap:16px;z-index:20; }
+.confirm-btn { padding:14px 48px;border-radius:30px;background:linear-gradient(135deg,#b89030,#FFD700);color:#0a0806;font-size:17px;font-weight:800;letter-spacing:1px;cursor:pointer;box-shadow:0 0 24px rgba(255,200,50,0.5);border:none; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<div class="header">
+  <div style="font-size:26px;">⛩</div>
+  <div class="header-title">CHOOSE YOUR AVATAR</div>
+  <div style="margin-left:auto;font-size:13px;color:#a08050;">12 Tribes · 48 Avatars</div>
+</div>
+
+<!-- Tribe tabs -->
+<div class="tribe-tabs">
+  <div class="tribe-tab active" style="background:#C41E3A;border-color:#C41E3A;color:#fff;">Reuben</div>
+  <div class="tribe-tab" style="border-color:#FF8C00;color:#FF8C00;">Simeon</div>
+  <div class="tribe-tab" style="border-color:#FFD700;color:#FFD700;">Levi</div>
+  <div class="tribe-tab" style="border-color:#8B0000;color:#8B0000;background:rgba(139,0,0,0.15);">Judah</div>
+  <div class="tribe-tab" style="border-color:#483D8B;color:#9090ee;">Dan</div>
+  <div class="tribe-tab" style="border-color:#00AA44;color:#00AA44;">Naphtali</div>
+  <div class="tribe-tab" style="border-color:#8B6914;color:#c8a040;">Gad</div>
+  <div class="tribe-tab" style="border-color:#4682B4;color:#88b8e8;">Asher</div>
+  <div class="tribe-tab" style="border-color:#7B2FBE;color:#b870f0;">Issachar</div>
+  <div class="tribe-tab" style="border-color:#008B8B;color:#40c8c8;">Zebulun</div>
+  <div class="tribe-tab" style="border-color:#1C1C1C;color:#a0a0a0;background:rgba(80,80,80,0.15);">Joseph</div>
+  <div class="tribe-tab" style="border-color:#2E8B57;color:#60c888;">Benjamin</div>
+</div>
+
+<!-- Avatar grid — showing Reuben (4 avatars) -->
+<div class="avatar-grid">
+
+  <!-- Avatar 1: Miriam -->
+  <div class="avatar-card selected">
+    <div class="avatar-portrait" style="background:radial-gradient(circle at 40% 35%,#e8c088,#c09048);">
+      <!-- Cartoon face -->
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:46px;height:46px;background:radial-gradient(circle at 40%35%,#e8c080,#c09040);border-radius:50%;">
+        <div style="position:absolute;top:-6px;left:-3px;right:-3px;height:22px;background:#1a0808;border-radius:50% 50% 0 0;"></div>
+        <div style="position:absolute;top:14px;left:8px;width:9px;height:10px;background:#0a080a;border-radius:50%;"></div>
+        <div style="position:absolute;top:14px;right:8px;width:9px;height:10px;background:#0a080a;border-radius:50%;"></div>
+        <div style="position:absolute;bottom:6px;left:12px;width:22px;height:5px;border-bottom:2px solid #a06020;border-radius:0 0 8px 8px;"></div>
+      </div>
+      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:52px;height:28px;background:linear-gradient(180deg,#c84820,#8a2e10);border-radius:6px 6px 0 0;"></div>
+    </div>
+    <div class="avatar-name">Miriam</div>
+    <div class="avatar-age">Age 16 · Olive Skin · Dark Hair</div>
+    <div class="avatar-edge">Hears the river's secrets — navigates streams faster</div>
+    <div class="avatar-tribe-dot" style="background:#C41E3A;"></div>
+  </div>
+
+  <!-- Avatar 2: Hananel -->
+  <div class="avatar-card">
+    <div class="avatar-portrait" style="background:radial-gradient(circle at 40% 35%,#d4a870,#a87840);">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:46px;height:46px;background:radial-gradient(circle at 40%35%,#d4a870,#a87840);border-radius:50%;">
+        <div style="position:absolute;top:-6px;left:-3px;right:-3px;height:22px;background:#2a1a08;border-radius:50% 50% 0 0;"></div>
+        <div style="position:absolute;top:14px;left:8px;width:9px;height:10px;background:#0a0808;border-radius:50%;"></div>
+        <div style="position:absolute;top:14px;right:8px;width:9px;height:10px;background:#0a0808;border-radius:50%;"></div>
+        <div style="position:absolute;bottom:6px;left:12px;width:22px;height:5px;border-bottom:2px solid #986420;border-radius:0 0 8px 8px;"></div>
+      </div>
+      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:52px;height:28px;background:linear-gradient(180deg,#a86020,#784010);border-radius:6px 6px 0 0;"></div>
+    </div>
+    <div class="avatar-name">Hananel</div>
+    <div class="avatar-age">Age 14 · Medium Skin · Curly Hair</div>
+    <div class="avatar-edge">Steady as a rock — puzzle trials take less time</div>
+    <div class="avatar-tribe-dot" style="background:#C41E3A;"></div>
+  </div>
+
+  <!-- Avatar 3: Devorah -->
+  <div class="avatar-card">
+    <div class="avatar-portrait" style="background:radial-gradient(circle at 40% 35%,#f0c898,#d09060);">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:46px;height:46px;background:radial-gradient(circle at 40%35%,#f0c898,#d09060);border-radius:50%;">
+        <div style="position:absolute;top:-7px;left:-4px;right:-4px;height:24px;background:#0e0608;border-radius:50% 50% 0 0;box-shadow:5px -3px 0 2px #0e0608,-5px -3px 0 2px #0e0608;"></div>
+        <div style="position:absolute;top:14px;left:8px;width:9px;height:10px;background:#0a0808;border-radius:50%;"></div>
+        <div style="position:absolute;top:14px;right:8px;width:9px;height:10px;background:#0a0808;border-radius:50%;"></div>
+        <div style="position:absolute;bottom:6px;left:14px;width:18px;height:5px;border-bottom:2px solid #b07030;border-radius:0 0 6px 6px;"></div>
+      </div>
+      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:52px;height:28px;background:linear-gradient(180deg,#c87028,#886018);border-radius:6px 6px 0 0;"></div>
+    </div>
+    <div class="avatar-name">Devorah</div>
+    <div class="avatar-age">Age 19 · Light Brown · Long Waves</div>
+    <div class="avatar-edge">Speaks with grace — dialogue branches open early</div>
+    <div class="avatar-tribe-dot" style="background:#C41E3A;"></div>
+  </div>
+
+  <!-- Avatar 4: Yonah -->
+  <div class="avatar-card">
+    <div class="avatar-portrait" style="background:radial-gradient(circle at 40% 35%,#c08858,#906040);">
+      <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:46px;height:46px;background:radial-gradient(circle at 40%35%,#c08858,#906040);border-radius:50%;">
+        <div style="position:absolute;top:-5px;left:-3px;right:-3px;height:19px;background:#180c04;border-radius:50% 50% 0 0;"></div>
+        <div style="position:absolute;top:14px;left:8px;width:9px;height:10px;background:#0a0808;border-radius:50%;"></div>
+        <div style="position:absolute;top:14px;right:8px;width:9px;height:10px;background:#0a0808;border-radius:50%;"></div>
+        <div style="position:absolute;bottom:6px;left:12px;width:22px;height:5px;border-bottom:2px solid #906030;border-radius:0 0 8px 8px;"></div>
+      </div>
+      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:52px;height:28px;background:linear-gradient(180deg,#c08850,#887030);border-radius:6px 6px 0 0;"></div>
+    </div>
+    <div class="avatar-name">Yonah</div>
+    <div class="avatar-age">Age 22 · Dark Olive · Short Coils</div>
+    <div class="avatar-edge">Patient under pressure — timer mini-games are calmer</div>
+    <div class="avatar-tribe-dot" style="background:#C41E3A;"></div>
+  </div>
+
+  <!-- Locked/other tribe placeholder cards -->
+  <div style="background:rgba(20,14,8,0.6);border:1.5px dashed rgba(100,80,40,0.3);border-radius:14px;padding:14px;opacity:0.4;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;">
+    <div style="font-size:32px;margin-bottom:8px;">🔒</div>
+    <div style="font-size:12px;color:#806040;text-align:center;">Choose Simeon to unlock</div>
+  </div>
+  <div style="background:rgba(20,14,8,0.6);border:1.5px dashed rgba(100,80,40,0.3);border-radius:14px;padding:14px;opacity:0.4;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;">
+    <div style="font-size:32px;margin-bottom:8px;">🔒</div>
+    <div style="font-size:12px;color:#806040;text-align:center;">Choose Levi to unlock</div>
+  </div>
+</div>
+
+<!-- Confirm bar -->
+<div class="confirm-bar">
+  <div style="font-size:14px;color:#a08060;">Selected: <strong style="color:#FFD700;">Miriam · Tribe of Reuben</strong></div>
+  <button class="confirm-btn">Begin Journey ✦</button>
+</div>
+</body>
+</html>

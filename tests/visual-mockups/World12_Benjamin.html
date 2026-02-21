@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>World 12 — Moonlit Forest (Benjamin)</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #0a1a10; }
+.sky { position:absolute;inset:0; background:linear-gradient(180deg,#020e06 0%,#061808 25%,#0e2010 50%,#162818 70%,#1e300e 100%); }
+/* Full moon (Benjamin — wolf howls at moon) */
+.moon { position:absolute;top:45px;left:200px;width:85px;height:85px;background:radial-gradient(circle at 38% 32%,#fffff4,#ece8d8,#c8c4a8);border-radius:50%;box-shadow:0 0 50px 25px rgba(220,220,180,0.3),0 0 100px 50px rgba(180,200,150,0.1); }
+.moonbeam { position:absolute;top:100px;left:180px;width:130px;height:600px;background:linear-gradient(180deg,rgba(220,220,180,0.15) 0%,transparent 100%);transform:rotate(-5deg);pointer-events:none; }
+/* Dense dark forest trees */
+.pine { position:absolute;bottom:148px;display:flex;flex-direction:column;align-items:center; }
+.pine-layer { clip-path:polygon(50% 0%,0% 100%,100% 100%);background:linear-gradient(180deg,#0e2010,#060e08);position:relative; }
+/* Ground — dark forest floor with moonlit patches -->
+.ground { position:absolute;bottom:0;left:0;right:0;height:148px;background:linear-gradient(180deg,#162010 0%,#0c1608 50%,#080e04 100%); }
+/* Moonlit grass patches -->
+.moonpatch { position:absolute;bottom:148px;border-radius:50%;background:rgba(200,220,160,0.12);pointer-events:none; }
+/* Wolf */
+.wolf-silhouette { position:absolute;bottom:155px; }
+/* Arrows (Benjamin archer) */
+.arrow { position:absolute;animation:arrow-fly 2.5s ease-in-out infinite;pointer-events:none; }
+@keyframes arrow-fly { 0%,100%{opacity:0;transform:translateX(-20px);} 20%{opacity:1;} 80%{opacity:0.8;transform:translateX(80px);} }
+/* Fireflies (sparse, forest version) */
+.ff { position:absolute;width:4px;height:4px;background:#b8e050;border-radius:50%;box-shadow:0 0 6px #90c030;animation:ff-float var(--ffd,3s) ease-in-out infinite alternate; }
+@keyframes ff-float { from{transform:translate(0,0);opacity:0.8;} to{transform:translate(var(--dx,12px),var(--dy,-18px));opacity:0.2;} }
+/* Jasper green gem glow */
+.jasper-glow { position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:450px;height:400px;background:radial-gradient(circle,rgba(0,160,60,0.10) 0%,transparent 65%);pointer-events:none; }
+/* Stars */
+.star-n { position:absolute;background:rgba(200,230,200,0.7);border-radius:50%;animation:pulse-opac 2.5s ease-in-out infinite alternate; }
+</style>
+</head>
+<body>
+<div class="sky"></div>
+<div class="moon"></div>
+<div class="moonbeam"></div>
+
+<!-- Stars -->
+<div style="position:absolute;inset:0;pointer-events:none;z-index:1;">
+  <div class="star-n" style="top:6%;left:10%;width:2px;height:2px;animation-delay:0.2s;"></div>
+  <div class="star-n" style="top:10%;left:25%;width:3px;height:3px;animation-delay:0.5s;"></div>
+  <div class="star-n" style="top:5%;left:40%;width:2px;height:2px;animation-delay:0.8s;"></div>
+  <div class="star-n" style="top:12%;left:55%;width:2px;height:2px;animation-delay:0.3s;"></div>
+  <div class="star-n" style="top:8%;left:75%;width:3px;height:3px;animation-delay:1.0s;"></div>
+  <div class="star-n" style="top:15%;left:88%;width:2px;height:2px;animation-delay:0.7s;"></div>
+  <div class="star-n" style="top:20%;left:5%;width:2px;height:2px;animation-delay:1.2s;"></div>
+  <div class="star-n" style="top:22%;left:32%;width:2px;height:2px;animation-delay:0.4s;"></div>
+  <div class="star-n" style="top:18%;left:70%;width:2px;height:2px;animation-delay:0.9s;"></div>
+</div>
+
+<!-- Dense pine forest -->
+<!-- Left cluster -->
+<div class="pine" style="left:-30px;">
+  <div class="pine-layer" style="width:100px;height:80px;margin-top:-30px;"></div>
+  <div class="pine-layer" style="width:120px;height:90px;margin-top:-20px;"></div>
+  <div class="pine-layer" style="width:140px;height:100px;margin-top:-20px;"></div>
+  <div style="width:16px;height:30px;background:#18100a;border-radius:2px;"></div>
+</div>
+<div class="pine" style="left:55px;">
+  <div class="pine-layer" style="width:85px;height:70px;margin-top:-25px;"></div>
+  <div class="pine-layer" style="width:105px;height:80px;margin-top:-18px;"></div>
+  <div class="pine-layer" style="width:125px;height:90px;margin-top:-18px;"></div>
+  <div style="width:14px;height:28px;background:#18100a;border-radius:2px;"></div>
+</div>
+
+<!-- Right cluster -->
+<div class="pine" style="right:-25px;">
+  <div class="pine-layer" style="width:105px;height:85px;margin-top:-28px;"></div>
+  <div class="pine-layer" style="width:125px;height:95px;margin-top:-22px;"></div>
+  <div class="pine-layer" style="width:145px;height:110px;margin-top:-22px;"></div>
+  <div style="width:16px;height:32px;background:#18100a;border-radius:2px;"></div>
+</div>
+<div class="pine" style="right:70px;">
+  <div class="pine-layer" style="width:80px;height:65px;margin-top:-22px;"></div>
+  <div class="pine-layer" style="width:100px;height:78px;margin-top:-18px;"></div>
+  <div class="pine-layer" style="width:118px;height:88px;margin-top:-18px;"></div>
+  <div style="width:14px;height:26px;background:#18100a;border-radius:2px;"></div>
+</div>
+<!-- Mid background pine -->
+<div class="pine" style="left:240px;">
+  <div class="pine-layer" style="width:70px;height:60px;opacity:0.6;margin-top:-20px;"></div>
+  <div class="pine-layer" style="width:88px;height:72px;opacity:0.6;margin-top:-16px;"></div>
+  <div style="width:12px;height:24px;background:#0c0806;border-radius:2px;opacity:0.6;"></div>
+</div>
+
+<!-- Moonlit ground patches -->
+<div class="moonpatch" style="left:140px;width:180px;height:50px;"></div>
+<div class="moonpatch" style="left:280px;width:120px;height:35px;"></div>
+
+<!-- Wolf silhouette (at distance, howling) -->
+<div class="wolf-silhouette" style="right:170px;">
+  <svg width="80" height="55" viewBox="0 0 80 55" fill="none">
+    <!-- Body -->
+    <ellipse cx="35" cy="38" rx="28" ry="14" fill="#0a1208"/>
+    <!-- Legs -->
+    <rect x="12" y="46" width="7" height="12" rx="3" fill="#0a1208"/>
+    <rect x="22" y="46" width="7" height="12" rx="3" fill="#0a1208"/>
+    <rect x="42" y="46" width="7" height="12" rx="3" fill="#0a1208"/>
+    <rect x="52" y="46" width="7" height="12" rx="3" fill="#0a1208"/>
+    <!-- Neck + head angled up (howling) -->
+    <ellipse cx="55" cy="25" rx="10" ry="12" fill="#0a1208" transform="rotate(-15 55 25)"/>
+    <!-- Snout -->
+    <polygon points="60,18 68,10 72,20" fill="#0a1208"/>
+    <!-- Ear -->
+    <polygon points="48,14 52,4 58,14" fill="#0a1208"/>
+    <!-- Tail curled up -->
+    <path d="M8 38 Q-5 20 5 12" stroke="#0a1208" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <!-- White eye glint -->
+    <circle cx="62" cy="22" r="2" fill="rgba(200,230,200,0.4)"/>
+  </svg>
+</div>
+
+<!-- Fireflies -->
+<div class="ff" style="left:160px;bottom:220px;--ffd:2.8s;--dx:8px;--dy:-15px;"></div>
+<div class="ff" style="left:200px;bottom:240px;--ffd:3.5s;--dx:-10px;--dy:-20px;"></div>
+<div class="ff" style="right:210px;bottom:200px;--ffd:4.0s;--dx:12px;--dy:-12px;"></div>
+
+<!-- Arrow flying (Benjamin the archer) -->
+<div class="arrow" style="top:40%;left:40%;color:#c0a050;font-size:20px;">➤</div>
+
+<div class="jasper-glow"></div>
+<div class="ground"></div>
+<!-- Roots / mossy rocks -->
+<div style="position:absolute;bottom:148px;left:165px;width:40px;height:20px;background:linear-gradient(180deg,#2a3815,#18280c);border-radius:50% 50% 30% 30%;"></div>
+<div style="position:absolute;bottom:148px;right:195px;width:32px;height:16px;background:linear-gradient(180deg,#263213,#162308);border-radius:50% 50% 30% 30%;"></div>
+
+<!-- Player (Benjamin — athletic teen with bow) -->
+<div style="position:absolute;bottom:162px;left:165px;">
+  <div style="width:28px;height:28px;background:#c8a858;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-4px;left:-3px;right:-3px;height:18px;background:#0e0808;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:10px;left:5px;width:6px;height:7px;background:#0a0808;border-radius:50%;"></div>
+    <div style="position:absolute;top:10px;right:5px;width:6px;height:7px;background:#0a0808;border-radius:50%;"></div>
+  </div>
+  <div style="width:24px;height:38px;background:linear-gradient(180deg,#1e4020,#0e2810);border-radius:5px 5px 3px 3px;margin:0 auto;margin-top:2px;position:relative;">
+    <!-- Quiver hint -->
+    <div style="position:absolute;left:-10px;top:-20px;width:5px;height:35px;background:#7a5820;border-radius:2px;transform:rotate(10deg);"></div>
+  </div>
+</div>
+
+<!-- Elder Ahiram (Benjamin) -->
+<div style="position:absolute;bottom:158px;left:280px;">
+  <div style="width:34px;height:34px;background:#c09860;border-radius:50%;margin:0 auto;position:relative;">
+    <div style="position:absolute;top:-5px;left:-2px;right:-2px;height:16px;background:#e8e4d0;border-radius:50% 50% 0 0;"></div>
+    <div style="position:absolute;top:12px;left:6px;width:7px;height:8px;background:#0a0808;border-radius:50%;"></div>
+    <div style="position:absolute;top:12px;right:6px;width:7px;height:8px;background:#0a0808;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:-12px;left:3px;right:3px;height:18px;background:#d8d4c0;border-radius:0 0 50% 50%;"></div>
+  </div>
+  <div style="width:30px;height:52px;background:linear-gradient(180deg,#183820,#0c2210);border-radius:6px 6px 4px 4px;margin:0 auto;margin-top:2px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:5px;background:#60a840;border-radius:4px 4px 0 0;"></div>
+    <div style="position:absolute;right:-14px;top:-48px;width:5px;height:95px;background:#6a4818;border-radius:2px;"></div>
+  </div>
+</div>
+
+<!-- HUD -->
+<div class="hud-bar">
+  <div class="hud-tribe-badge" style="background:linear-gradient(135deg,#183820,#308040);">🐺 Benjamin</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:14px;">💎 0/12</div>
+  <div class="hud-tribe-badge" style="background:rgba(0,0,0,0.5);font-size:13px;">🌲 Moonlit Forest</div>
+</div>
+<div style="position:absolute;top:70px;left:12px;font-size:26px;letter-spacing:3px;">❤❤❤</div>
+<div class="dialogue-panel" style="bottom:20px;">
+  <div class="dlg-portrait" style="background:linear-gradient(135deg,#183820,#0c2210);font-size:24px;">👴</div>
+  <div class="dlg-body">
+    <div class="dlg-name">Elder Ahiram</div>
+    <div class="dlg-text">My child… Benjamin is a ravenous wolf, swift and certain — but God gives swiftness for good, not for harm. Go with courage. Shalom, shalom.</div>
+  </div>
+</div>
+<div class="dpad"><div class="dpad-btn dpad-up">▲</div><div class="dpad-btn dpad-left">◄</div><div class="dpad-btn dpad-down">▼</div><div class="dpad-btn dpad-right">►</div></div>
+<div class="action-btn">✦</div>
+<div class="quest-box" style="top:70px;right:14px;">
+  <div class="quest-title">Quest: Swift as the Wind</div>
+  <div class="quest-step">✧ Track the lost lamb (swipe + tap)</div>
+  <div class="quest-step">✧ Howl back to guide the way (rhythm)</div>
+  <div class="quest-step">✧ Place jasper on the altar stone 🐺</div>
+</div>
+<div class="minimap">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#FFD700;border-radius:50%;"></div>
+  <!-- Forest outline on minimap -->
+  <div style="position:absolute;top:20%;left:10%;width:20%;height:60%;background:rgba(30,60,20,0.7);border-radius:3px;"></div>
+  <div style="position:absolute;top:20%;right:10%;width:20%;height:60%;background:rgba(30,60,20,0.7);border-radius:3px;"></div>
+</div>
+<div class="verse-strip">"Benjamin is a ravenous wolf; in the morning he devours the prey, in the evening he divides the plunder." — Genesis 49:27 | Wolves can hear sounds up to 10 miles away!</div>
+</body>
+</html>
