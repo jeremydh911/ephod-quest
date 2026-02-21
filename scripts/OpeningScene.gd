@@ -66,8 +66,8 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if not _skip_ok:
 		return
-	var pressed := (event is InputEventKey and event.pressed) \
-		or (event is InputEventScreenTouch and event.pressed) \
+	var pressed: bool = (event is InputEventKey and (event as InputEventKey).pressed) \
+		or (event is InputEventScreenTouch and (event as InputEventScreenTouch).pressed) \
 		or event.is_action_pressed("ui_accept")
 	if pressed:
 		_transition_now()
