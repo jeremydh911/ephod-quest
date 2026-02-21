@@ -25,8 +25,8 @@ func _show_return_button() -> void:
 	btn.text = "← Return to Tribe Selection"
 	btn.custom_minimum_size = Vector2(0, 56)
 	btn.add_theme_font_size_override("font_size", 18)
-	$MiniGameContainer.visible = true
-	$MiniGameContainer.add_child(btn)
+	_mini_game_container.visible = true
+	_mini_game_container.add_child(btn)
 	btn.pressed.connect(func():
 		var res := get_tree().change_scene_to_file("res://scenes/AvatarPick.tscn")
 		if res != OK:

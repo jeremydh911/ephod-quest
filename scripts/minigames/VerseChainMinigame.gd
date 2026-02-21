@@ -72,7 +72,7 @@ func _start_chain() -> void:
 
 func _load_random_verse() -> void:
 	var all_entries = VerseVault.get_all_entries()
-	_current_verse = all_entries.pick_random()
+	_current_verse = all_entries.pick_random() as Dictionary
 	_verse_display.text = "%s (%s)\n\"%s\"" % [_current_verse.get("ref", ""), _current_verse.get("tribe", "").capitalize(), _current_verse.get("text", "")]
 
 func _load_options() -> void:
@@ -88,14 +88,15 @@ func _load_options() -> void:
 	
 	for i in _option_buttons.size():
 		if i < _options.size():
-			var opt = _options[i]
+			var opt: Dictionary = _options[i] as Dictionary
 			_option_buttons[i].text = "%s (%s)" % [opt.get("ref", ""), opt.get("tribe", "").capitalize()]
 			_option_buttons[i].visible = true
 		else:
 			_option_buttons[i].visible = false
 
 func _get_theme(verse: Dictionary) -> String:
-	var text = verse.get("text", "").to_lower()
+	var text: String = verse.get("text", "") as String
+	text = text.to_lower()
 	if "trust" in text or "heart" in text: return "trust"
 	if "peace" in text or "still" in text: return "peace"
 	if "light" in text or "shine" in text: return "light"
@@ -105,28 +106,29 @@ func _get_theme(verse: Dictionary) -> String:
 
 func _on_option_selected(button: Button) -> void:
 	if _done: return
-	var selected_index = _option_buttons.find(button)
+	var selected_index: int = _option_buttons.find(button)
 	if selected_index == -1: return
-	var selected_verse = _options[selected_index]
-	var is_correct = _get_theme(selected_verse) == _get_theme(_current_verse)
+	var selected_verse: Dictionary = _options[selected_index] as Dictionary
+	var is_correct: bool = _get_theme(selected_verse) == _get_theme(_current_verse)
 	
 	if is_correct:
 		_chains_made += 1
 		_prog.value = _chains_made
 		_count_lbl.text = "Chains: %d / %d" % [_chains_made, goal]
-		AudioManager.play_sfx("res://assets/audio/sfx/tap.wav")
+		AudioManager.play_sfx("res://assets/audio/sfx/chain_link.wav")
 		_verse_display.text = "✨ Connected! %s" % _verse_display.text
 		if _chains_made >= goal:
 			_done = true
 			for btn in _option_buttons:
 				btn.disabled = true
 			_verse_display.text = "🎉 All chains complete! Scripture weaves together!"
+			AudioManager.play_sfx("res://assets/audio/sfx/chain_complete.wav")
 			minigame_complete.emit({"root": self, "chains": _chains_made})
 		else:
 			await get_tree().create_timer(1.5).timeout
 			_start_chain()
 	else:
-		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		AudioManager.play_sfx("res://assets/audio/sfx/sort_wrong.wav")
 		_verse_display.text = "❌ Not a match. Try another verse."
 		await get_tree().create_timer(1.0).timeout
 		_load_options()

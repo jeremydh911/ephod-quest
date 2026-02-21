@@ -1,52 +1,62 @@
-[gd_scene load_steps=3 format=3 uid="uid://quest6_simeon"]
+[gd_scene format=3 uid="uid://bqn6g7de1cauq"]
 
-[ext_resource type="Script" path="res://scripts/Quest6.gd" id="1_quest6"]
-[ext_resource type="FontFile" path="res://assets/fonts/default_font.ttf" id="2_font"]
+[ext_resource type="Script" uid="uid://cm7uqr47ixk3g" path="res://scripts/Quest6.gd" id="1_quest6"]
+[ext_resource type="Script" uid="uid://bg7028u281fmi" path="res://scripts/PlayerBody.gd" id="2_pbscript"]
 
-[node name="Quest6" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 14.0
+height = 28.0
+
+[node name="Quest6" type="Node3D" unique_id=284222788]
 script = ExtResource("1_quest6")
 tribe_key = "simeon"
 quest_id = "simeon_main"
 next_scene = "res://scenes/Quest7.tscn"
-music_path = "res://assets/audio/music/quest_theme.ogg"
+music_path = "res://assets/audio/music/sacred_spark.wav"
 
-[node name="BG" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0.8, 0.7, 0.5, 1)
+[node name="PlayerBody" type="CharacterBody3D" parent="." unique_id=2142630880]
+script = ExtResource("2_pbscript")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBody" unique_id=1345908418]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1452817711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+current = true
+
+[node name="BG" type="ColorRect" parent="." unique_id=1630523230]
 z_index = -10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8, 0.7, 0.5, 1)
 
-[node name="Desert" type="ColorRect" parent="BG"]
+[node name="Desert" type="ColorRect" parent="BG" unique_id=518602359]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.9, 0.8, 0.6, 1)
 
-[node name="Dune1" type="ColorRect" parent="Desert"]
-layout_mode = 0
+[node name="Desert#Dune1" type="ColorRect" parent="." unique_id=130817492]
 offset_left = 100.0
 offset_top = 200.0
 offset_right = 200.0
 offset_bottom = 250.0
 color = Color(0.85, 0.75, 0.55, 1)
 
-[node name="Dune2" type="ColorRect" parent="Desert"]
-layout_mode = 0
+[node name="Desert#Dune2" type="ColorRect" parent="." unique_id=2050151588]
 offset_left = 400.0
 offset_top = 180.0
 offset_right = 500.0
 offset_bottom = 230.0
 color = Color(0.87, 0.77, 0.57, 1)
 
-[node name="Tent" type="ColorRect" parent="."]
-layout_mode = 1
+[node name="Tent" type="ColorRect" parent="." unique_id=25713958]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -56,42 +66,31 @@ offset_left = -150.0
 offset_top = -100.0
 offset_right = 150.0
 offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.7, 0.6, 0.4, 1)
 
-[node name="TentRoof" type="ColorRect" parent="Tent"]
+[node name="TentRoof" type="ColorRect" parent="Tent" unique_id=938995396]
 layout_mode = 0
 offset_left = -20.0
 offset_top = -30.0
 offset_right = 170.0
-offset_bottom = 0.0
 color = Color(0.75, 0.65, 0.45, 1)
 
-[node name="BorderMarker" type="ColorRect" parent="."]
-layout_mode = 1
+[node name="BorderMarker" type="ColorRect" parent="." unique_id=479132467]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -50.0
+grow_horizontal = 2
+grow_vertical = 0
 color = Color(0.6, 0.5, 0.3, 1)
 
-[node name="TribeBar" type="Label" parent="."]
-layout_mode = 1
-offset_left = 0.0
-offset_top = 8.0
-offset_right = 640.0
-offset_bottom = 42.0
-text = "✦ Tribe of Simeon  ·  Justice & Transformation"
-horizontal_alignment = 1
-add_theme_color_override("font_color", Color(0.4, 0.3, 0.2, 1))
-add_theme_font_override("font", ExtResource("2_font"))
-add_theme_font_size_override("font_size", 16)
-
-[node name="MiniGameContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
+[node name="TribeBar" type="Label" parent="." unique_id=501524997]
 offset_left = 60.0
 offset_top = 90.0
 offset_right = 580.0
 offset_bottom = 510.0
-add_theme_constant_override("separation", 14)
-visible = false
+text = "✦ Tribe of Simeon  ·  Justice & Transformation"
+horizontal_alignment = 1

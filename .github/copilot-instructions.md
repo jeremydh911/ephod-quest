@@ -1,7 +1,7 @@
 # Copilot Instructions for Twelve Stones — Ephod Quest
 
 ## Project Overview
-"Twelve Stones" (Ephod Quest) is a mobile-first 2D biblical co-operative adventure built
+"Twelve Stones" (Ephod Quest) is a mobile-first 3D biblical co-operative adventure built
 with Godot Engine 4.3. Players choose one of 48 avatars across 12 tribes of Israel,
 complete tribal quests, collect gemstones matching the high-priest's ephod
 (Exodus 28), and memorise scripture. The finale is a courtyard scene where all

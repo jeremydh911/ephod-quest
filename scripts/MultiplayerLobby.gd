@@ -44,8 +44,7 @@ func host() -> void:
 	_register_local_player()
 	var code := _get_local_ip()
 	host_ready.emit(code)
-	AudioManager.play_sfx("res://assets/audio/sfx/join_success.wav")
-	return OK
+	AudioManager.play_sfx("res://assets/audio/sfx/lobby_join.wav")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # JOIN
@@ -62,7 +61,7 @@ func join(code: String) -> void:
 		join_failed.emit("Could not connect to \"%s\". Check the code and try again." % ip)
 		return
 	multiplayer.multiplayer_peer = _peer
-	AudioManager.play_sfx("res://assets/audio/sfx/join_success.wav")
+	AudioManager.play_sfx("res://assets/audio/sfx/lobby_join.wav")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # DISCONNECT
@@ -130,8 +129,8 @@ func get_active_coop_action() -> Dictionary:
 		var t: String = players[pid].get("tribe", "")
 		if t != "" and t not in tribes_online:
 			tribes_online.append(t)
-	for key in Global.COOP_ACTIONS:
-		var parts := key.split("+")
+	for key: String in Global.COOP_ACTIONS:
+		var parts: PackedStringArray = key.split("+")
 		if parts.size() == 2:
 			if parts[0] in tribes_online and parts[1] in tribes_online:
 				return Global.COOP_ACTIONS[key]

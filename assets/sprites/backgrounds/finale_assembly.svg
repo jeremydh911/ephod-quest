@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <!-- Finale: 12 children in a circle, each raising their stone, golden light converging -->
+  <defs>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFE800" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#FFD700" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FF8800" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#2A2060"/>
+      <stop offset="100%" stop-color="#0A0820"/>
+    </radialGradient>
+  </defs>
+  <!-- Night sky background (courtyard) -->
+  <rect width="480" height="320" fill="url(#bgGrad)"/>
+  <!-- Stars -->
+  <circle cx="50" cy="20" r="1.2" fill="white" opacity="0.9"/>
+  <circle cx="100" cy="10" r="1.5" fill="white" opacity="0.8"/>
+  <circle cx="200" cy="5" r="1.1" fill="white" opacity="0.85"/>
+  <circle cx="310" cy="12" r="1.3" fill="white"/>
+  <circle cx="390" cy="8" r="1.2" fill="white" opacity="0.8"/>
+  <circle cx="450" cy="22" r="1.4" fill="white" opacity="0.75"/>
+  <!-- Central golden glow -->
+  <circle cx="240" cy="160" r="80" fill="url(#centerGlow)"/>
+  <!-- Floating ephod in centre -->
+  <rect x="210" y="132" width="60" height="56" rx="8" fill="#C5A572" opacity="0.9"/>
+  <rect x="214" y="136" width="52" height="48" rx="6" fill="#D4A012" opacity="0.75"/>
+  <!-- 12 mini gem dots on centro ephod -->
+  <circle cx="224" cy="146" r="4" fill="#C01E3B"/><circle cx="240" cy="146" r="4" fill="#D4A012"/>
+  <circle cx="256" cy="146" r="4" fill="#0D6B3E"/><circle cx="224" cy="158" r="4" fill="#1845B8"/>
+  <circle cx="240" cy="158" r="4" fill="#D5D5F0"/><circle cx="256" cy="158" r="4" fill="#C44800"/>
+  <circle cx="224" cy="170" r="4" fill="#222230"/><circle cx="240" cy="170" r="4" fill="#6A12A0"/>
+  <circle cx="256" cy="170" r="4" fill="#147878"/><circle cx="224" cy="182" r="4" fill="#C09060"/>
+  <circle cx="240" cy="182" r="4" fill="#882008"/>  
+  <!-- Gold threads radiating from ephod to each child position (12 directions) -->
+  <!-- Children arranged in a circle of radius ~120 around centre (240,160) -->
+  <!-- Each child has a coloured stone glowing above their raised hand -->
+  <!-- Child positions (12 o'clock going clockwise) -->
+  <!-- Child 1 (Reuben, top) -->
+  <line x1="240" y1="132" x2="240" y2="40" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="240" cy="32" r="22" fill="#2A1A30" opacity="0.7"/>
+  <circle cx="240" cy="38" r="5" fill="#C01E3B" opacity="0.9"/>
+  <ellipse cx="240" cy="50" rx="10" ry="10" fill="#D4956A"/>
+  <!-- Child 2 (Simeon, top-right) -->
+  <line x1="256" y1="136" x2="330" y2="64" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="336" cy="58" r="5" fill="#D4A012" opacity="0.9"/>
+  <ellipse cx="330" cy="68" rx="10" ry="10" fill="#C07840"/>
+  <!-- Child 3 (Levi, right) -->
+  <line x1="270" y1="160" x2="388" y2="132" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="395" cy="128" r="5" fill="#0D6B3E" opacity="0.9"/>
+  <ellipse cx="390" cy="138" rx="10" ry="10" fill="#C8906A"/>
+  <!-- Child 4 (Judah, lower-right) -->
+  <line x1="265" y1="182" x2="368" y2="234" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="374" cy="228" r="5" fill="#D4A012" opacity="0.9"/>
+  <ellipse cx="368" cy="240" rx="10" ry="10" fill="#A87050"/>
+  <!-- Child 5 (Dan, bottom-right) -->
+  <line x1="248" y1="188" x2="296" y2="282" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="296" cy="275" r="5" fill="#1845B8" opacity="0.9"/>
+  <ellipse cx="296" cy="288" rx="10" ry="10" fill="#7A5030"/>
+  <!-- Child 6 (Naphtali, bottom) -->
+  <line x1="240" y1="188" x2="192" y2="285" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="192" cy="278" r="5" fill="#D5D5F0" opacity="0.9"/>
+  <ellipse cx="192" cy="290" rx="10" ry="10" fill="#D4956A"/>
+  <!-- Child 7 (Gad, lower-left) -->
+  <line x1="220" y1="185" x2="118" y2="238" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="112" cy="232" r="5" fill="#C44800" opacity="0.9"/>
+  <ellipse cx="118" cy="244" rx="10" ry="10" fill="#8B5E3C"/>
+  <!-- Child 8 (Asher, left) -->
+  <line x1="210" y1="165" x2="96" y2="140" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="89" cy="136" r="5" fill="#222230" opacity="0.9"/>
+  <ellipse cx="96" cy="148" rx="10" ry="10" fill="#C0A070"/>
+  <!-- Child 9 (Issachar, upper-left) -->
+  <line x1="215" y1="140" x2="126" y2="70" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="120" cy="64" r="5" fill="#6A12A0" opacity="0.9"/>
+  <ellipse cx="126" cy="76" rx="10" ry="10" fill="#A87050"/>
+  <!-- Child 10 (Zebulun, top-left more) -->
+  <line x1="222" y1="132" x2="162" y2="42" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="158" cy="36" r="5" fill="#147878" opacity="0.9"/>
+  <ellipse cx="162" cy="50" rx="10" ry="10" fill="#7A5838"/>
+  <!-- Child 11 (Joseph) -->
+  <line x1="226" y1="132" x2="135" y2="50" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="132" cy="44" r="5" fill="#C09060" opacity="0.9"/>
+  <ellipse cx="135" cy="56" rx="10" ry="10" fill="#C8A070"/>
+  <!-- Child 12 (Benjamin) -->
+  <line x1="232" y1="132" x2="200" y2="32" stroke="#FFD700" stroke-width="1.2" opacity="0.55"/>
+  <circle cx="200" cy="26" r="5" fill="#882008" opacity="0.9"/>
+  <ellipse cx="200" cy="40" rx="10" ry="10" fill="#D4956A"/>
+  <!-- Title overlay -->
+  <rect x="120" y="298" width="240" height="22" rx="6" fill="#00000060"/>
+  <text x="240" y="313" font-family="serif" font-size="11" fill="#FFD700" font-weight="bold" text-anchor="middle">Together · One Ephod</text>
+</svg>

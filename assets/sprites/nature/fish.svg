@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="56" viewBox="0 0 80 56">
+  <!-- Zebulun fish — harbour/sea tribe -->
+  <defs>
+    <linearGradient id="fish_g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#80D0F0"/>
+      <stop offset="100%" stop-color="#2080C0"/>
+    </linearGradient>
+  </defs>
+  <!-- Tail fin -->
+  <path d="M60 28 L76 14 L76 42 Z" fill="#60B8E0" opacity="0.85"/>
+  <!-- Body -->
+  <ellipse cx="36" cy="28" rx="30" ry="16" fill="url(#fish_g)"/>
+  <!-- Scales pattern -->
+  <path d="M20 22 Q28 18 36 22 Q28 26 20 22" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.5"/>
+  <path d="M28 28 Q36 24 44 28 Q36 32 28 28" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.5"/>
+  <path d="M36 20 Q44 16 52 20 Q44 24 36 20" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.5"/>
+  <!-- Dorsal fin -->
+  <path d="M24 13 Q36 5 48 13" fill="#60B8E0" stroke="none"/>
+  <!-- Belly fin -->
+  <path d="M28 38 Q36 44 44 38" fill="#60B8E0" opacity="0.7"/>
+  <!-- Big expressive eye -->
+  <circle cx="14" cy="26" r="7" fill="white"/>
+  <circle cx="14" cy="27" r="4.5" fill="#2060A0"/>
+  <circle cx="14" cy="27" r="3" fill="#0A2040"/>
+  <circle cx="12" cy="25" r="1.5" fill="white" opacity="0.85"/>
+  <!-- Mouth -->
+  <path d="M4 30 Q8 33 6 28" fill="none" stroke="#1A5080" stroke-width="1.4"/>
+  <!-- Shimmer highlights -->
+  <ellipse cx="32" cy="22" rx="8" ry="3.5" fill="white" opacity="0.3" transform="rotate(-15 32 22)"/>
+</svg>

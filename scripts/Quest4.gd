@@ -1,27 +1,134 @@
-extends "res://scripts/QuestBase.gd"
+extends "res://scripts/WorldBase.gd"
 # ─────────────────────────────────────────────────────────────────────────────
-# Quest4.gd  –  Tribe of Dan
+# Quest4.gd  –  World 4: Eagle Plateau  (Tribe of Dan)
 # Mini-game 1: Eagle Soar (hold/release altitude)
 # Mini-game 2: Pattern Lock (ordered tap)
-# Verse: Proverbs 2:6  |  Nature: Eagle vision / Isaiah 40:31
+# "For the LORD gives wisdom; from his mouth come knowledge" – Proverbs 2:6
 # ─────────────────────────────────────────────────────────────────────────────
 
 func _ready() -> void:
-	tribe_key  = "dan"
-	quest_id   = "dan_main"
-	next_scene = "res://scenes/Quest5.tscn"
-	music_path = "res://assets/audio/music/quest_theme.ogg"
+	tribe_key    = "dan"
+	quest_id     = "dan_main"
+	next_scene   = "res://scenes/Quest5.tscn"
+	world_name   = "Eagle Plateau"
+	# Genesis 49:17 – Dan shall be a serpent by the way, shrewd and alert
+	music_path   = "res://assets/audio/music/caves_and_hills.wav"
+	world_bounds = Rect2(-900, -700, 1800, 1400)
 	super._ready()
 
-func on_quest_ready() -> void:
-	var elder: String = _tribe_data.get("elder", "Elder")
-	show_dialogue([
-		{"name": elder, "text": "My child, shalom. Stand still for a moment. Look up. Two eagles are circling — do you see them? They are not hurrying. They are watching."},
-		{"name": elder, "text": "Dan was known for sharp eyes — seeing what others missed. The Sapphire stone waits on the far ledge. To reach it, you must fly with the eagle's patience."},
-		{"name": "You",  "text": "Please, Elder Shuham — how do I soar?"},
-		{"name": elder, "text": "Hold to glide on the warm air currents. Release to rise. The eagle does not flap constantly — it rests on what God has already placed beneath it.",
+func on_world_ready() -> void:
+	super.on_world_ready()  # 3D sky + directional light – Psalm 19:1
+	_build_terrain()
+	_place_npcs()
+	_place_chests()
+	_show_world_intro()
+
+# "They will soar on wings like eagles" – Isaiah 40:31
+func _build_terrain() -> void:
+	# "Dan will be a serpent by the roadside" – Genesis 49:17
+	# Wide sky plateau
+	_draw_tile(Rect2(-900, -700, 1800, 400),  Color(0.44, 0.62, 0.82, 0.50))  # sky
+	# Ground rock plateau
+	_draw_tile(Rect2(-800, -300, 1600, 800),  Color(0.52, 0.46, 0.36, 1))
+	# Eagle perch outcrop (center-north)
+	_draw_tile(Rect2(-120, -540, 240, 260),   Color(0.60, 0.52, 0.38, 1))
+	_draw_tile(Rect2(-80,  -600, 160, 80),    Color(0.68, 0.58, 0.42, 1))  # top
+	# Rock face with hidden pattern marks
+	_draw_tile(Rect2(380,  -420, 300, 420),   Color(0.48, 0.40, 0.30, 1))
+	# East riverbed
+	_draw_tile(Rect2(680,  -100, 36, 320),    Color(0.36, 0.60, 0.82, 0.65))
+	_draw_wall(Rect2(-920, -730, 20, 1480))
+	_draw_wall(Rect2(900,  -730, 20, 1480))
+	_draw_wall(Rect2(-920, -730, 1840, 20))
+	_draw_wall(Rect2(-920,  730, 1840, 20))
+
+func _draw_tile(r: Rect2, color: Color) -> void:
+	var mesh_instance := MeshInstance3D.new()
+	var plane := PlaneMesh.new()
+	plane.size = Vector2(r.size.x, r.size.y)
+	mesh_instance.mesh = plane
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	mesh_instance.material_override = material
+	mesh_instance.position = Vector3(r.position.x + r.size.x / 2, 0, r.position.y + r.size.y / 2)
+	mesh_instance.rotation_degrees = Vector3(-90, 0, 0)
+	add_child(mesh_instance)
+
+func _draw_wall(r: Rect2) -> void:
+	var sb := StaticBody3D.new()
+	sb.position = Vector3(r.position.x + r.size.x / 2, r.size.y / 2, r.position.y + r.size.y / 2)
+	var cs3d := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = Vector3(r.size.x, r.size.y, 1)
+	cs3d.shape = box
+	sb.add_child(cs3d)
+	add_child(sb)
+
+func _place_npcs() -> void:
+	var elder_name: String = _tribe_data.get("elder", "Elder Shuham") as String
+
+	# Elder Shuham — main quest trigger
+	var shuham := _spawn_npc(Vector3(-60, 0, 40), elder_name, "👴", Color("#2F4F4F"))
+	shuham.dialogue_lines = [
+		{"name": elder_name,
+		 "text": "My child, shalom! Welcome to Eagle Plateau — land of Dan, the judge tribe. The Sapphire stone rests at the cliff's edge, blue as the sky."},
+		{"name": elder_name,
+		 "text": "Dan means 'judge'. They judged rightly, seeing what others missed. Wisdom comes from seeing clearly."},
+		{"name": "You", "text": "Please, Elder " + elder_name.split(" ")[1] + " — what must I do?"},
+		{"name": elder_name,
+		 "text": "Soar with the eagle — hold to gain height, release to glide. Then unlock the pattern on the rock face."},
+		{"name": elder_name,
+		 "text": "God sees your heart. Are you ready?",
 		 "callback": Callable(self, "_start_soar_mini")}
+	]
+	shuham.repeat_lines = [
+		{"name": elder_name,
+		 "text": "The eagle waits for your command. Soar high, my child."}
+	]
+
+func _spawn_npc(pos: Vector3, npc_name: String, emoji: String, color: Color) -> Area3D:
+	var npc: Area3D = preload("res://scripts/NPC.gd").new()
+	npc.position = pos
+	npc.npc_name = npc_name
+	# Add visual
+	var body := MeshInstance3D.new()
+	var box_mesh := BoxMesh.new()
+	box_mesh.size = Vector3(0.8, 1.6, 0.8)
+	body.mesh = box_mesh
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	body.material_override = material
+	npc.add_child(body)
+	var shape := CollisionShape3D.new()
+	var cs := SphereShape3D.new()
+	cs.radius = 0.5
+	shape.shape = cs
+	npc.add_child(shape)
+	return npc
+
+func _place_chests() -> void:
+	_spawn_chest(Vector3(350, 0, -180), "dan_chest_proverbs",
+		"verse", "", "Proverbs 2:6",
+		"For the LORD gives wisdom; from his mouth come knowledge and understanding.")
+
+func _spawn_chest(pos: Vector3, chest_id: String, reward_type: String, reward_id: String, reward_ref: String, reward_text: String) -> void:
+	var chest: Area3D = preload("res://scripts/TreasureChest.gd").new()
+	chest.position = pos
+	chest.chest_id = chest_id
+	chest.reward_type = reward_type
+	chest.reward_id = reward_id
+	chest.reward_text = reward_text
+	add_child(chest)
+
+func _show_world_intro() -> void:
+	var elder: String = _tribe_data.get("elder", "Elder") as String
+	show_dialogue([
+		{"name": "❝ Proverbs 2:6 ❝",
+		 "text": "For the LORD gives wisdom; from his mouth come knowledge and understanding."},
+		{"name": "Eagle Plateau",
+		 "text": "Eagles circle above the wide plateau. From here you can see for miles. " + elder + " waits at the eagle perch — still, patient, watching."}
 	])
+	update_quest_log("Find " + elder + "\nto begin your quest")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # MINI-GAME 1 — EAGLE SOAR (hold/release altitude control)
@@ -42,7 +149,7 @@ var _soar_result: Dictionary = {}
 var _pattern_result: Dictionary = {}
 
 func _start_soar_mini() -> void:
-	var container: Node = $MiniGameContainer
+	var container: Control = _mini_game_container
 	container.visible = true
 
 	var prompt := Label.new()
@@ -117,7 +224,7 @@ func _process(delta: float) -> void:
 				on_minigame_complete({"soar_done": true})
 
 func _after_soar() -> void:
-	$MiniGameContainer.visible = false
+	_mini_game_container.visible = false
 	var elder: String = _tribe_data.get("elder", "Elder")
 	show_dialogue([
 		{"name": elder, "text": "That is the eagle's secret — rest on what God places beneath you. Now look closer at the rock face. There is a hidden pattern only the eagle's eye can see."},
@@ -129,7 +236,7 @@ func _after_soar() -> void:
 # MINI-GAME 2 — PATTERN LOCK (tap in correct sequence)
 # ─────────────────────────────────────────────────────────────────────────────
 func _start_pattern_mini() -> void:
-	var container: Node = $MiniGameContainer
+	var container: Control = _mini_game_container
 	container.visible = true
 	for child in container.get_children(): child.queue_free()
 
@@ -183,7 +290,7 @@ func _start_pattern_mini() -> void:
 		)
 
 func _on_pattern_complete() -> void:
-	$MiniGameContainer.visible = false
+	_mini_game_container.visible = false
 	var elder: String = _tribe_data.get("elder", "Elder")
 	show_dialogue([{
 		"name": elder,

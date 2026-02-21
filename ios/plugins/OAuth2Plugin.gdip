@@ -1,0 +1,25 @@
+;
+; © 2025-present https://github.com/cengiz-pz
+;
+
+[config]
+name="OAuth2Plugin"
+binary="OAuth2Plugin.xcframework"
+
+initialization="oauth2_plugin_init"
+deinitialization="oauth2_plugin_deinit"
+
+use_swift_runtime=true
+
+[dependencies]
+linked=[]
+embedded=[]
+system=[]
+
+capabilities=[]
+
+files=[]
+
+linker_flags=[]
+
+[plist]

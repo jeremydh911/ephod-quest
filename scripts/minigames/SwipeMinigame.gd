@@ -76,17 +76,17 @@ func _build_ui() -> void:
 	_right_btn.pressed.connect(func(): _check_dodge("right"))
 
 func _spawn_obstacle() -> void:
-	_current_obstacle = _obstacles.pick_random()
+	_current_obstacle = _obstacles.pick_random() as String
 	_dodge_display.text = "🏃 %s coming! ← Dodge → 🏃" % _current_obstacle
 
 func _check_dodge(direction: String) -> void:
 	if _done: return
-	var needed_dir := ["left", "right"].pick_random()
+	var needed_dir: String = ["left", "right"].pick_random() as String
 	if direction == needed_dir:
 		_dodges += 1
 		_prog.value = _dodges
 		_count_lbl.text = "Dodged: %d / %d" % [_dodges, goal]
-		AudioManager.play_sfx("res://assets/audio/sfx/tap.wav")
+		AudioManager.play_sfx("res://assets/audio/sfx/swipe_whoosh.wav")
 		_dodge_display.text = "✨ Dodged! 🏃 ← Ready → 🏃"
 		if _dodges >= goal:
 			_done = true
@@ -98,7 +98,7 @@ func _check_dodge(direction: String) -> void:
 			await get_tree().create_timer(0.8).timeout
 			_spawn_obstacle()
 	else:
-		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		AudioManager.play_sfx("res://assets/audio/sfx/sort_wrong.wav")
 		_dodge_display.text = "💥 Hit! Try again. 🏃 ← Dodge → 🏃"
 		await get_tree().create_timer(1.0).timeout
 		_spawn_obstacle()
@@ -108,5 +108,6 @@ func _on_timeout() -> void:
 		_done = true
 		_left_btn.disabled = true
 		_right_btn.disabled = true
+		AudioManager.play_sfx("res://assets/audio/sfx/timeout_gentle.wav")
 		_dodge_display.text = "Time's up! Keep trying!"
 		minigame_timeout.emit({"root": self, "label": _count_lbl, "bar": _prog, "display": _dodge_display})

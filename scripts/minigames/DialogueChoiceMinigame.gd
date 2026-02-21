@@ -113,12 +113,12 @@ func _show_next_scenario() -> void:
 		btn.custom_minimum_size = Vector2(0, 50)
 		btn.pressed.connect(func():
 			if _done: return
-			var wise := option["wise"]
+			var wise: bool = option["wise"]
 			if wise:
 				_choices_made += 1
 				_prog.value = _choices_made
 				_count_lbl.text = "Choices: %d / %d" % [_choices_made, goal]
-				AudioManager.play_sfx("res://assets/audio/sfx/tap.wav")
+				AudioManager.play_sfx("res://assets/audio/sfx/sort_snap.wav")
 				_scenario_display.text = "🤝 Wise choice! Peace advances..."
 				if _choices_made >= goal:
 					_done = true
@@ -130,7 +130,7 @@ func _show_next_scenario() -> void:
 					await get_tree().create_timer(1.2).timeout
 					_show_next_scenario()
 			else:
-				AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+				AudioManager.play_sfx("res://assets/audio/sfx/sort_wrong.wav")
 				_scenario_display.text = "😠 Unwise choice! Conflict grows..."
 				await get_tree().create_timer(1.5).timeout
 				_show_next_scenario()

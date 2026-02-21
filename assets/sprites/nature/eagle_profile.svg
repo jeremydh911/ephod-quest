@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Category: nature | Item: Bald Eagle (profile/standing view) -->
+<!-- Identified from reference art grid row 3 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="88" viewBox="0 0 72 88">
+  <!-- Body — dark brown feathers -->
+  <ellipse cx="36" cy="62" rx="22" ry="28" fill="#4A3010"/>
+  <!-- Wing fold lines -->
+  <path d="M16 52 Q24 46 32 50 Q24 56 16 60 Z" fill="#6B4820" opacity="0.5"/>
+  <path d="M56 52 Q48 46 40 50 Q48 56 56 60 Z" fill="#6B4820" opacity="0.5"/>
+  <!-- White tail feathers -->
+  <ellipse cx="36" cy="86" rx="14" ry="6" fill="white" opacity="0.85"/>
+  <!-- Neck (white) -->
+  <rect x="28" y="28" width="16" height="20" rx="6" fill="white"/>
+  <!-- White head -->
+  <ellipse cx="36" cy="22" rx="14" ry="16" fill="white"/>
+  <!-- Bold beak -->
+  <path d="M48 24 L60 30 L54 34 L48 28 Z" fill="#FFA800"/>
+  <path d="M48 26 L60 30" fill="none" stroke="#CC8000" stroke-width="1"/>
+  <!-- Fierce eye -->
+  <ellipse cx="42" cy="20" rx="5" ry="4.5" fill="#FFD700"/>
+  <circle cx="42" cy="20" r="2.5" fill="#0A0600"/>
+  <circle cx="41" cy="19" r="1" fill="white"/>
+  <!-- Yellow talons -->
+  <path d="M28 85 Q24 88 20 90" fill="none" stroke="#FFA800" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M26 87 Q24 90 22 93" fill="none" stroke="#FFA800" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M44 85 Q48 88 52 90" fill="none" stroke="#FFA800" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M46 87 Q48 90 50 93" fill="none" stroke="#FFA800" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

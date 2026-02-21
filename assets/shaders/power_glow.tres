@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bra7xxehd0aoo"]
+
+[ext_resource type="Shader" uid="uid://bd4tmatluub57" path="res://assets/shaders/power_glow.gdshader" id="1"]
+
+[resource]
+shader = ExtResource("1")
+shader_parameter/glow_intensity = 1.0
+shader_parameter/glow_color = Color(1, 1, 1, 1)

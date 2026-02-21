@@ -1,0 +1,23 @@
+{
+    "name": "twelve-stones-playwright-tests",
+    "version": "1.0.0",
+    "description": "Playwright end-to-end tests for Twelve Stones: Ephod Quest (Godot 4 web export)",
+    "scripts": {
+        "test": "npx playwright test",
+        "test:headed": "npx playwright test --headed",
+        "test:ui": "npx playwright test --ui",
+        "test:report": "npx playwright show-report",
+        "test:main-menu": "npx playwright test --grep @main-menu",
+        "test:avatar": "npx playwright test --grep @avatar",
+        "test:quests": "npx playwright test --grep @quest",
+        "test:finale": "npx playwright test --grep @finale",
+        "test:multiplayer": "npx playwright test --grep @multiplayer",
+        "serve": "python3 -m http.server 8000 --directory ../build/web"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.44.0"
+    },
+    "dependencies": {
+        "playwright": "^1.58.2"
+    }
+}

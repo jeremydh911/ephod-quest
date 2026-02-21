@@ -1,6 +1,13 @@
+// ⚠️  SUPERSEDED — this file is no longer executed by the test runner.
+// The active test suite is:  tests/twelve-stones.spec.js
+// Run:  cd tests && npm test
+//
+// This file is kept for historical reference only.
+// ────────────────────────────────────────────────────────────────────────────
+
 const { test, expect } = require('@playwright/test');
 
-test.describe('Twelve Stones: Ephod Quest - Full Game Test', () => {
+test.describe('Twelve Stones: Ephod Quest - Full Game Test (LEGACY)', () => {
   test('Play through entire game', async ({ page }) => {
     // Load the game (assume served at localhost:8000/index.html)
     await page.goto('http://localhost:8000/index.html');

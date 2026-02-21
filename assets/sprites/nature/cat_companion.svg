@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Category: nature | Item: Pet Cat (elder companion) -->
+<!-- Identified from reference art — elder with small tabby cat -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="56" viewBox="0 0 48 56">
+  <!-- Body -->
+  <ellipse cx="24" cy="42" rx="16" ry="14" fill="#B08C5A"/>
+  <!-- Tabby stripes -->
+  <path d="M12 40 Q20 38 28 40" fill="none" stroke="#806030" stroke-width="1.2" opacity="0.5"/>
+  <path d="M10 44 Q20 42 30 44" fill="none" stroke="#806030" stroke-width="1.2" opacity="0.5"/>
+  <!-- Tail curled up -->
+  <path d="M38 44 Q46 36 42 28 Q40 24 36 26" fill="none" stroke="#B08C5A" stroke-width="6" stroke-linecap="round"/>
+  <!-- Head -->
+  <ellipse cx="24" cy="22" rx="14" ry="13" fill="#B08C5A"/>
+  <!-- Ears -->
+  <polygon points="12,12 8,2 18,10" fill="#B08C5A"/>
+  <polygon points="13,11 10,4 17,9" fill="#FFB8A0" opacity="0.7"/>
+  <polygon points="36,12 40,2 30,10" fill="#B08C5A"/>
+  <polygon points="35,11 38,4 31,9" fill="#FFB8A0" opacity="0.7"/>
+  <!-- Eyes -->
+  <ellipse cx="19" cy="22" rx="4" ry="4.5" fill="#90C840"/>
+  <ellipse cx="29" cy="22" rx="4" ry="4.5" fill="#90C840"/>
+  <ellipse cx="19" cy="22" rx="1.5" ry="3.5" fill="#0A0A0A"/>
+  <ellipse cx="29" cy="22" rx="1.5" ry="3.5" fill="#0A0A0A"/>
+  <circle cx="18" cy="21" r="0.8" fill="white"/>
+  <circle cx="28" cy="21" r="0.8" fill="white"/>
+  <!-- Nose -->
+  <polygon points="24,27 22,29 26,29" fill="#E08090"/>
+  <!-- Mouth -->
+  <path d="M22 29 Q20 31 18 30" fill="none" stroke="#A06070" stroke-width="0.9"/>
+  <path d="M26 29 Q28 31 30 30" fill="none" stroke="#A06070" stroke-width="0.9"/>
+  <!-- Whiskers -->
+  <line x1="16" y1="27" x2="4" y2="25" stroke="#806030" stroke-width="0.8" opacity="0.6"/>
+  <line x1="16" y1="29" x2="4" y2="30" stroke="#806030" stroke-width="0.8" opacity="0.6"/>
+  <line x1="32" y1="27" x2="44" y2="25" stroke="#806030" stroke-width="0.8" opacity="0.6"/>
+  <line x1="32" y1="29" x2="44" y2="30" stroke="#806030" stroke-width="0.8" opacity="0.6"/>
+</svg>

@@ -1,4 +1,4 @@
-extends "res://scripts/QuestBase.gd"
+extends "res://scripts/WorldBase.gd"
 # ─────────────────────────────────────────────────────────────────────────────
 # Quest9.gd  –  Tribe of Issachar
 # Map: Hilltop observatory.
@@ -12,8 +12,49 @@ func _ready() -> void:
 	tribe_key  = "issachar"
 	quest_id   = "issachar_main"
 	next_scene = "res://scenes/Quest10.tscn"
-	music_path = "res://assets/audio/music/quest_theme.ogg"
+	# Genesis 49:14 – Issachar is a strong donkey, a patient and steady worker
+	music_path = "res://assets/audio/music/soft_stone_discovery.wav"
 	super._ready()
+
+func on_world_ready() -> void:
+	super.on_world_ready()  # 3D sky + directional light – Psalm 19:1
+	_build_terrain()
+	_place_npcs()
+	_place_chests()
+	_show_world_intro()
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TERRAIN
+# "Understood the times" – 1 Chronicles 12:32
+# ─────────────────────────────────────────────────────────────────────────────
+func _build_terrain() -> void:
+	# Hilltop observatory
+	# "Issachar crouched between two saddlebags" – Genesis 49:14
+	# Ground: hilltop stone
+	_tr(Vector3(-50, 0, -50), Vector3(100, 0, 100), "stone.jpg")
+	
+	# Observatory stones: arranged in a circle
+	for i in range(8):
+		var angle = i * PI / 4
+		var x = cos(angle) * 20
+		var z = sin(angle) * 20
+		_wall(Vector3(x, 0, z), Vector3(2, 3, 2), "stone.jpg")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NPCs
+# "Knew what Israel should do" – 1 Chronicles 12:32
+# ─────────────────────────────────────────────────────────────────────────────
+func _place_npcs() -> void:
+	# Elder Tola at the observatory center
+	_build_npc("tola", Vector3(0, 0, 0), "elder_tola.jpg")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CHESTS
+# "Men of Issachar" – 1 Chronicles 12:32
+# ─────────────────────────────────────────────────────────────────────────────
+func _place_chests() -> void:
+	# Verse chest among the stones
+	_chest(Vector3(15, 0, 15), "chronicles_12_32", "1 Chronicles 12:32")
 
 func on_quest_ready() -> void:
 	var elder: String = Global.get_tribe_data(tribe_key).get("elder", "Elder")
@@ -44,11 +85,11 @@ var _puzzle_result: Dictionary = {}
 var _schedule_result: Dictionary = {}
 
 func _start_astronomy_puzzle() -> void:
-	var container: Node = $MiniGameContainer
+	var container: Control = _mini_game_container
 	container.visible = true
-	_puzzle_result = build_astronomy_puzzle_minigame(
+	_puzzle_result = build_sorting_minigame(
 		container, 8,
-		"Arrange the constellation pieces!\nFind the pattern in the stars.",
+		"Sort the constellation pieces!\nFind God's order in the stars.",
 		20.0
 	)
 
@@ -67,17 +108,16 @@ func _continue_after_puzzle() -> void:
 # MINI-GAME 2 — TIME MANAGEMENT (schedule activities)
 # ─────────────────────────────────────────────────────────────────────────────
 func _start_time_management() -> void:
-	var container: Node = $MiniGameContainer
+	var container: Control = _mini_game_container
 	container.visible = true
-	for child in container.get_children():
-		child.queue_free()
-	_schedule_result = build_time_management_minigame(
-		container, 6,
-		"Schedule tribal activities!\nPlace each task in its proper time."
+	for child in container.get_children(): child.queue_free()
+	_schedule_result = build_rhythm_minigame(
+		container, 0.8, 12, 7,
+		"Tap in the rhythm of the seasons!\nThere is a time for everything."
 	)
 
 func _on_schedule_complete() -> void:
-	$MiniGameContainer.visible = false
+	_mini_game_container.visible = false
 	var elder: String = _tribe_data.get("elder", "Elder")
 	show_dialogue([{
 		"name": elder,
@@ -87,26 +127,20 @@ func _on_schedule_complete() -> void:
 
 func _show_quest_verse() -> void:
 	var ref:  String = _tribe_data.get("quest_verse_ref", "")
-	var text: String = _tribe_data.get("quest_verse_text", "")
+	var text: String = _tribe_data.get("quest_verse", "")
 	show_verse_scroll(ref, text)
-
-func _show_nature_fact() -> void:
-	show_nature_fact()
-
-func _collect_stone() -> void:
-	_collect_stone()
 
 # ─────────────────────────────────────────────────────────────────────────────
 # QUEST COMPLETE — fade out and change scene
 # ─────────────────────────────────────────────────────────────────────────────
 func on_minigame_complete(result: Dictionary) -> void:
-	if result == _puzzle_result:
+	if result.get("root") == _puzzle_result.get("root"):
 		_continue_after_puzzle()
-	elif result == _schedule_result:
+	elif result.get("root") == _schedule_result.get("root"):
 		_on_schedule_complete()
 
 func on_minigame_timeout(result: Dictionary) -> void:
-	if result == _puzzle_result:
+	if result.get("root") == _puzzle_result.get("root"):
 		_continue_after_puzzle()
-	elif result == _schedule_result:
+	elif result.get("root") == _schedule_result.get("root"):
 		_on_schedule_complete()

@@ -64,6 +64,7 @@ func _on_tap() -> void:
 		_done = true
 		_tap_btn.disabled = true
 		_tap_btn.text = "✦ Done!"
+		AudioManager.play_sfx("res://assets/audio/sfx/stone_collect.wav")
 		minigame_complete.emit({"button": _tap_btn, "label": _count_lbl, "bar": _prog, "root": self})
 
 func _start_timer() -> void:
@@ -75,4 +76,5 @@ func _on_timeout() -> void:
 		_done = true
 		_tap_btn.disabled = true
 		_tap_btn.text = "Keep trying next time!"
+		AudioManager.play_sfx("res://assets/audio/sfx/timeout_gentle.wav")
 		minigame_timeout.emit({"button": _tap_btn, "label": _count_lbl, "bar": _prog, "root": self})

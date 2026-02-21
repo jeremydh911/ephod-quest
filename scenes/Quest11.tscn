@@ -1,51 +1,52 @@
-[gd_scene load_steps=3 format=3 uid="uid://quest11_joseph"]
+[gd_scene format=3 uid="uid://b1hwv4uyr87hc"]
 
-[ext_resource type="Script" path="res://scripts/Quest11.gd" id="1_quest11"]
-[ext_resource type="FontFile" path="res://assets/fonts/default_font.ttf" id="2_font"]
+[ext_resource type="Script" uid="uid://b6j3hbfgvc6wr" path="res://scripts/Quest11.gd" id="1_quest11"]
+[ext_resource type="Script" uid="uid://bg7028u281fmi" path="res://scripts/PlayerBody.gd" id="2_pbscript"]
 
-[node name="Quest11" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 14.0
+height = 28.0
+
+[node name="Quest11" type="Node3D" unique_id=101757700]
 script = ExtResource("1_quest11")
 tribe_key = "joseph"
 quest_id = "joseph_main"
 next_scene = "res://scenes/Quest12.tscn"
-music_path = "res://assets/audio/music/quest_theme.ogg"
+music_path = "res://assets/audio/music/sacred_spark.wav"
 
-[node name="BG" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0.6, 0.8, 0.4, 1)
-z_index = -10
+[node name="PlayerBody" type="CharacterBody3D" parent="." unique_id=66824390]
+script = ExtResource("2_pbscript")
 
-[node name="Sky" type="ColorRect" parent="BG"]
-layout_mode = 1
-anchors_preset = 10
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBody" unique_id=1541835666]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2128368303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 5)
+
+[node name="BG#Sky" type="ColorRect" parent="." unique_id=1793107189]
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.6
+grow_horizontal = 2
 color = Color(0.5, 0.7, 0.9, 1)
 
-[node name="Sun" type="ColorRect" parent="Sky"]
-layout_mode = 0
+[node name="Sky#Sun" type="ColorRect" parent="." unique_id=406835919]
 offset_left = 500.0
 offset_top = 50.0
 offset_right = 520.0
 offset_bottom = 70.0
 color = Color(1, 1, 0.7, 1)
 
-[node name="Garden" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 12
+[node name="Garden" type="ColorRect" parent="." unique_id=309386555]
+anchors_preset = -1
 anchor_top = 0.4
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
 color = Color(0.4, 0.6, 0.3, 1)
 
-[node name="Path" type="ColorRect" parent="Garden"]
+[node name="Path" type="ColorRect" parent="Garden" unique_id=1594230241]
 layout_mode = 0
 offset_left = 300.0
 offset_top = 50.0
@@ -53,7 +54,7 @@ offset_right = 340.0
 offset_bottom = 200.0
 color = Color(0.6, 0.4, 0.2, 1)
 
-[node name="Well" type="ColorRect" parent="Garden"]
+[node name="Well" type="ColorRect" parent="Garden" unique_id=924551762]
 layout_mode = 0
 offset_left = 50.0
 offset_top = 100.0
@@ -61,31 +62,17 @@ offset_right = 80.0
 offset_bottom = 140.0
 color = Color(0.5, 0.5, 0.5, 1)
 
-[node name="WellRope" type="ColorRect" parent="Well"]
-layout_mode = 0
+[node name="Well#WellRope" type="ColorRect" parent="." unique_id=1254355668]
 offset_left = 10.0
 offset_top = -20.0
 offset_right = 20.0
 offset_bottom = 40.0
 color = Color(0.4, 0.3, 0.1, 1)
 
-[node name="TribeBar" type="Label" parent="."]
-layout_mode = 1
-offset_left = 0.0
-offset_top = 8.0
-offset_right = 640.0
-offset_bottom = 42.0
-text = "✦ Tribe of Joseph  ·  Fruitfulness & Forgiveness"
-horizontal_alignment = 1
-add_theme_color_override("font_color", Color(0.2, 0.4, 0.1, 1))
-add_theme_font_override("font", ExtResource("2_font"))
-add_theme_font_size_override("font_size", 16)
-
-[node name="MiniGameContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
+[node name="TribeBar" type="Label" parent="." unique_id=1018570387]
 offset_left = 60.0
 offset_top = 90.0
 offset_right = 580.0
 offset_bottom = 510.0
-add_theme_constant_override("separation", 14)
-visible = false
+text = "✦ Tribe of Joseph  ·  Fruitfulness & Forgiveness"
+horizontal_alignment = 1

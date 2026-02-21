@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2b3d4e5f6g7h8i9j0k1l2m3n4o5p6q7"]
+[gd_scene format=3 uid="uid://gqu04u0ik0b5"]
 
-[ext_resource type="Script" path="res://scripts/minigames/RhythmMinigame.gd" id="1"]
+[ext_resource type="Script" uid="uid://dka0cgvf1ewgj" path="res://scripts/minigames/RhythmMinigame.gd" id="1"]
 
-[node name="RhythmMinigame" type="Control"]
+[node name="RhythmMinigame" type="Control" unique_id=520561448]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,7 +10,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
-beat_duration = 1.0
-total_beats = 10
-goal_score = 7
-prompt = "Tap when the circle is big!"

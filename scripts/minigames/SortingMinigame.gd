@@ -103,7 +103,7 @@ func _check_sort(is_just: bool) -> void:
 		_sorted += 1
 		_prog.value = _sorted
 		_count_lbl.text = "Sorted: %d / %d" % [_sorted, goal]
-		AudioManager.play_sfx("res://assets/audio/sfx/tap.wav")
+		AudioManager.play_sfx("res://assets/audio/sfx/sort_snap.wav")
 		_scale_display.text = "⚖️ Balanced! ⚖️"
 		if _sorted >= goal:
 			_done = true
@@ -115,7 +115,7 @@ func _check_sort(is_just: bool) -> void:
 			await get_tree().create_timer(0.8).timeout
 			_show_next_deed()
 	else:
-		AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
+		AudioManager.play_sfx("res://assets/audio/sfx/sort_wrong.wav")
 		_scale_display.text = "⚖️ Unbalanced! Try again. ⚖️"
 		await get_tree().create_timer(1.0).timeout
 		_show_next_deed()
@@ -125,5 +125,6 @@ func _on_timeout() -> void:
 		_done = true
 		_just_btn.disabled = true
 		_unjust_btn.disabled = true
+		AudioManager.play_sfx("res://assets/audio/sfx/timeout_gentle.wav")
 		_scale_display.text = "Time's up! Justice prevails."
 		minigame_timeout.emit({"root": self, "label": _count_lbl, "bar": _prog})

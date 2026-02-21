@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Category: items | Item: Ephod held and displayed -->
+<!-- Exodus 28:4 — a breastpiece, an ephod, a robe, a woven tunic, a turban, and a sash -->
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="200" viewBox="0 0 160 200">
+  <!-- Hands holding from below -->
+  <ellipse cx="44" cy="185" rx="20" ry="12" fill="#C8956A"/>
+  <ellipse cx="116" cy="185" rx="20" ry="12" fill="#C8956A"/>
+  <!-- Fingers -->
+  <rect x="32" y="175" width="8" height="18" rx="4" fill="#D4A07A"/>
+  <rect x="42" y="173" width="8" height="20" rx="4" fill="#D4A07A"/>
+  <rect x="52" y="174" width="8" height="19" rx="4" fill="#D4A07A"/>
+  <rect x="104" y="174" width="8" height="19" rx="4" fill="#D4A07A"/>
+  <rect x="114" y="173" width="8" height="20" rx="4" fill="#D4A07A"/>
+  <rect x="124" y="175" width="8" height="18" rx="4" fill="#D4A07A"/>
+  <!-- Ephod gold outer frame -->
+  <rect x="28" y="30" width="104" height="150" rx="14" fill="#8B6010" stroke="#FFD700" stroke-width="3"/>
+  <rect x="34" y="36" width="92" height="138" rx="10" fill="#C5A030"/>
+  <!-- Woven gold textures -->
+  <line x1="34" y1="38" x2="126" y2="38" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="48" x2="126" y2="48" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="58" x2="126" y2="58" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="68" x2="126" y2="68" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="78" x2="126" y2="78" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="88" x2="126" y2="88" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="98" x2="126" y2="98" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="108" x2="126" y2="108" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="118" x2="126" y2="118" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="128" x2="126" y2="128" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="138" x2="126" y2="138" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="148" x2="126" y2="148" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="34" y1="158" x2="126" y2="158" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/>
+  <line x1="40" y1="36" x2="40" y2="174" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="52" y1="36" x2="52" y2="174" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="64" y1="36" x2="64" y2="174" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="76" y1="36" x2="76" y2="174" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="88" y1="36" x2="88" y2="174" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="100" y1="36" x2="100" y2="174" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/><line x1="112" y1="36" x2="112" y2="174" stroke="#FFD700" stroke-width="0.6" opacity="0.4"/>
+  <!-- Gem grid 4x3, centered -->
+  
+  <rect x="39" y="53" width="18" height="18" rx="4"
+        fill="#E83030" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="42" y="56" width="12" height="12" rx="3"
+        fill="#FF6060" opacity="0.55"/>
+  <rect x="61" y="53" width="18" height="18" rx="4"
+        fill="#70C030" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="64" y="56" width="12" height="12" rx="3"
+        fill="#A0F840" opacity="0.55"/>
+  <rect x="83" y="53" width="18" height="18" rx="4"
+        fill="#A0B8C0" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="86" y="56" width="12" height="12" rx="3"
+        fill="#D8F0F8" opacity="0.55"/>
+  <rect x="39" y="79" width="18" height="18" rx="4"
+        fill="#40A8C0" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="42" y="82" width="12" height="12" rx="3"
+        fill="#80E8FF" opacity="0.55"/>
+  <rect x="61" y="79" width="18" height="18" rx="4"
+        fill="#4060C8" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="64" y="82" width="12" height="12" rx="3"
+        fill="#80A0FF" opacity="0.55"/>
+  <rect x="83" y="79" width="18" height="18" rx="4"
+        fill="#FF8820" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="86" y="82" width="12" height="12" rx="3"
+        fill="#FFB060" opacity="0.55"/>
+  <rect x="39" y="105" width="18" height="18" rx="4"
+        fill="#C060A0" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="42" y="108" width="12" height="12" rx="3"
+        fill="#F0A0D0" opacity="0.55"/>
+  <rect x="61" y="105" width="18" height="18" rx="4"
+        fill="#88B838" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="64" y="108" width="12" height="12" rx="3"
+        fill="#C0F058" opacity="0.55"/>
+  <rect x="83" y="105" width="18" height="18" rx="4"
+        fill="#C01828" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="86" y="108" width="12" height="12" rx="3"
+        fill="#F04060" opacity="0.55"/>
+  <rect x="39" y="131" width="18" height="18" rx="4"
+        fill="#A080D0" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="42" y="134" width="12" height="12" rx="3"
+        fill="#D0B8FF" opacity="0.55"/>
+  <rect x="61" y="131" width="18" height="18" rx="4"
+        fill="#D8C850" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="64" y="134" width="12" height="12" rx="3"
+        fill="#FFF098" opacity="0.55"/>
+  <rect x="83" y="131" width="18" height="18" rx="4"
+        fill="#108838" stroke="#FFD700" stroke-width="1.5"/>
+  <rect x="86" y="134" width="12" height="12" rx="3"
+        fill="#40D060" opacity="0.55"/>
+  <!-- Gold chains -->
+  <path d="M40 32 Q36 18 38 14" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M120 32 Q124 18 122 14" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Onyx shoulder stones disc -->
+  <circle cx="38" cy="14" r="7" fill="#505050" stroke="#FFD700" stroke-width="2"/>
+  <circle cx="122" cy="14" r="7" fill="#505050" stroke="#FFD700" stroke-width="2"/>
+  <!-- Hebrew label -->
+  <text x="80" y="168" text-anchor="middle" fill="#FFD700" font-family="serif" font-size="9" font-weight="bold">חֹשֶׁן הַמִּשְׁפָּט</text>
+</svg>

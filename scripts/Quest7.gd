@@ -1,4 +1,4 @@
-extends "res://scripts/QuestBase.gd"
+extends "res://scripts/WorldBase.gd"
 # ─────────────────────────────────────────────────────────────────────────────
 # Quest7.gd  –  Tribe of Gad
 # Map: Mountain stronghold.
@@ -12,8 +12,48 @@ func _ready() -> void:
 	tribe_key  = "gad"
 	quest_id   = "gad_main"
 	next_scene = "res://scenes/Quest8.tscn"
-	music_path = "res://assets/audio/music/quest_theme.ogg"
+	# Genesis 49:19 – Gad, a troop shall press upon him; he shall press back
+	music_path = "res://assets/audio/music/gather_the_tribes_2.wav"
 	super._ready()
+
+func on_world_ready() -> void:
+	super.on_world_ready()  # 3D sky + directional light – Psalm 19:1
+	_build_terrain()
+	_place_npcs()
+	_place_chests()
+	_show_world_intro()
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TERRAIN
+# "Let us run with perseverance" – Hebrews 12:1
+# ─────────────────────────────────────────────────────────────────────────────
+func _build_terrain() -> void:
+	# Mountain stronghold
+	# "Gad will be attacked by a band of raiders" – Genesis 49:19
+	# Ground: rocky mountain
+	_tr(Vector3(-50, 0, -50), Vector3(100, 0, 100), "rock.jpg")
+	
+	# Stronghold walls
+	_wall(Vector3(-30, 0, -30), Vector3(60, 10, 0), "stone_wall.jpg")  # North wall
+	_wall(Vector3(-30, 0, 30), Vector3(60, 10, 0), "stone_wall.jpg")   # South wall
+	_wall(Vector3(-30, 0, -30), Vector3(0, 10, 60), "stone_wall.jpg")  # West wall
+	_wall(Vector3(30, 0, -30), Vector3(0, 10, 60), "stone_wall.jpg")   # East wall
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NPCs
+# "The race marked out for us" – Hebrews 12:1
+# ─────────────────────────────────────────────────────────────────────────────
+func _place_npcs() -> void:
+	# Elder Zephon at the stronghold entrance
+	_build_npc("zephon", Vector3(0, 0, -20), "elder_zephon.jpg")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CHESTS
+# "Fixing our eyes on Jesus" – Hebrews 12:2
+# ─────────────────────────────────────────────────────────────────────────────
+func _place_chests() -> void:
+	# Verse chest at the peak
+	_chest(Vector3(0, 5, 0), "hebrews_12_1", "Hebrews 12:1")
 
 func on_quest_ready() -> void:
 	var elder: String = Global.get_tribe_data(tribe_key).get("elder", "Elder")
@@ -44,7 +84,7 @@ var _defense_result: Dictionary = {}
 var _race_result: Dictionary = {}
 
 func _start_tower_defense() -> void:
-	var container: Node = $MiniGameContainer
+	var container: Control = _mini_game_container
 	container.visible = true
 	_defense_result = build_tower_defense_minigame(
 		container, 10,
@@ -67,17 +107,18 @@ func _continue_after_defense() -> void:
 # MINI-GAME 2 — ENDURANCE RACE (sustained effort)
 # ─────────────────────────────────────────────────────────────────────────────
 func _start_endurance_race() -> void:
-	var container: Node = $MiniGameContainer
+	var container: Control = _mini_game_container
 	container.visible = true
 	for child in container.get_children():
 		child.queue_free()
-	_race_result = build_endurance_minigame(
-		container,
-		"Run the endurance race!\nHold the pace steadily to the finish."
+	# Hebrews 12:1 — "run with perseverance the race marked out for us"
+	_race_result = build_rhythm_minigame(
+		container, 0.5, 20, 14,
+		"Run the endurance race!\nKeep the rhythm — hold the pace steadily to the finish."
 	)
 
 func _on_race_complete() -> void:
-	$MiniGameContainer.visible = false
+	_mini_game_container.visible = false
 	var elder: String = _tribe_data.get("elder", "Elder")
 	show_dialogue([{
 		"name": elder,
@@ -86,27 +127,22 @@ func _on_race_complete() -> void:
 	}])
 
 func _show_quest_verse() -> void:
-	var ref:  String = _tribe_data.get("quest_verse_ref", "")
-	var text: String = _tribe_data.get("quest_verse_text", "")
-	show_verse_scroll(ref, text)
-
-func _show_nature_fact() -> void:
-	show_nature_fact()
-
-func _collect_stone() -> void:
-	_collect_stone()
+	show_verse_scroll(
+		_tribe_data.get("quest_verse_ref", ""),
+		_tribe_data.get("quest_verse", "")
+	)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # QUEST COMPLETE — fade out and change scene
 # ─────────────────────────────────────────────────────────────────────────────
 func on_minigame_complete(result: Dictionary) -> void:
-	if result == _defense_result:
+	if result.get("root") == _defense_result.get("root"):
 		_continue_after_defense()
-	elif result == _race_result:
+	elif result.get("root") == _race_result.get("root"):
 		_on_race_complete()
 
 func on_minigame_timeout(result: Dictionary) -> void:
-	if result == _defense_result:
+	if result.get("root") == _defense_result.get("root"):
 		_continue_after_defense()
-	elif result == _race_result:
+	elif result.get("root") == _race_result.get("root"):
 		_on_race_complete()

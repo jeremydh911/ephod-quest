@@ -1,0 +1,25 @@
+;
+; © 2026-present https://github.com/cengiz-pz
+;
+
+[config]
+name="QRPlugin"
+binary="QRPlugin.xcframework"
+
+initialization="qr_plugin_init"
+deinitialization="qr_plugin_deinit"
+
+use_swift_runtime=true
+
+[dependencies]
+linked=[]
+embedded=[]
+system=[]
+
+capabilities=[]
+
+files=[]
+
+linker_flags=[]
+
+[plist]

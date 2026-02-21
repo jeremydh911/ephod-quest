@@ -1,4 +1,4 @@
-extends "res://scripts/QuestBase.gd"
+extends "res://scripts/WorldBase.gd"
 # ─────────────────────────────────────────────────────────────────────────────
 # Quest5.gd  –  Tribe of Naphtali
 # Map: Forest clearing at night, stars overhead.
@@ -12,8 +12,70 @@ func _ready() -> void:
 	tribe_key  = "naphtali"
 	quest_id   = "naphtali_main"
 	next_scene = "res://scenes/Quest6.tscn"
-	music_path = "res://assets/audio/music/quest_theme.ogg"
+	# Genesis 49:21 – Naphtali is a doe set free that bears beautiful fawns
+	music_path = "res://assets/audio/music/naphtali_theme.wav"
 	super._ready()
+
+func on_world_ready() -> void:
+	super.on_world_ready()  # 3D sky + directional light – Psalm 19:1
+	_build_terrain()
+	_place_npcs()
+	_place_chests()
+	_place_side_quest_objects()
+	_show_world_intro()
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SIDE QUEST OBJECTS
+# "Butterflies taste with their feet" – Real science, God's design
+# ─────────────────────────────────────────────────────────────────────────────
+func _place_side_quest_objects() -> void:
+	# Collect butterflies for extra heart badge
+	_place_collectible(Vector3(5, 1, 5), "butterfly", Callable(self, "_on_butterfly_collected"))
+	_place_collectible(Vector3(-5, 1, -5), "butterfly", Callable(self, "_on_butterfly_collected"))
+	_place_collectible(Vector3(10, 1, -10), "butterfly", Callable(self, "_on_butterfly_collected"))
+
+func _on_butterfly_collected() -> void:
+	AudioManager.play_sfx("res://assets/audio/sfx/stone_collect.wav")
+	show_dialogue([{
+		"name": "You",
+		"text": "A beautiful butterfly! God made such wonders.",
+		"callback": Callable(self, "_show_butterfly_fact")
+	}])
+
+func _show_butterfly_fact() -> void:
+	show_nature_fact()
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TERRAIN
+# "The heavens declare the glory of God" – Psalm 19:1
+# ─────────────────────────────────────────────────────────────────────────────
+func _build_terrain() -> void:
+	# Forest clearing at night, stars overhead
+	# "Naphtali is a doe set free" – Genesis 49:21
+	# Ground: grassy clearing
+	_tr(Vector3(-50, 0, -50), Vector3(100, 0, 100), "grass.jpg")
+	
+	# Forest edges: trees as walls (simplified as barriers)
+	_wall(Vector3(-50, 0, -50), Vector3(100, 5, 0), "tree_bark.jpg")  # North wall
+	_wall(Vector3(-50, 0, 50), Vector3(100, 5, 0), "tree_bark.jpg")   # South wall
+	_wall(Vector3(-50, 0, -50), Vector3(0, 5, 100), "tree_bark.jpg")  # West wall
+	_wall(Vector3(50, 0, -50), Vector3(0, 5, 100), "tree_bark.jpg")   # East wall
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NPCs
+# "Let the words of my mouth... be acceptable" – Psalm 19:14
+# ─────────────────────────────────────────────────────────────────────────────
+func _place_npcs() -> void:
+	# Elder Jahzeel in the clearing center
+	_build_npc("jahzeel", Vector3(0, 0, 0), "elder_jahzeel.jpg")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CHESTS
+# "The meditation of my heart be acceptable in your sight" – Psalm 19:14
+# ─────────────────────────────────────────────────────────────────────────────
+func _place_chests() -> void:
+	# Verse chest near the elder
+	_chest(Vector3(10, 0, 10), "psalm_19_14", "Psalm 19:14")
 
 func on_quest_ready() -> void:
 	var elder: String = Global.get_tribe_data(tribe_key).get("elder", "Elder")
@@ -44,7 +106,7 @@ var _dash_result: Dictionary = {}
 var _poem_result: Dictionary = {}
 
 func _start_run_dash() -> void:
-	var container: Node = $MiniGameContainer
+	var container: Control = _mini_game_container
 	container.visible = true
 	_dash_result = build_swipe_minigame(
 		container, 8,
@@ -67,7 +129,7 @@ func _continue_after_dash() -> void:
 # MINI-GAME 2 — PRAISE POEM (rhythm tap)
 # ─────────────────────────────────────────────────────────────────────────────
 func _start_praise_poem() -> void:
-	var container: Node = $MiniGameContainer
+	var container: Control = _mini_game_container
 	container.visible = true
 	for child in container.get_children():
 		child.queue_free()
@@ -83,7 +145,7 @@ func _start_praise_poem() -> void:
 	)
 
 func _on_poem_complete() -> void:
-	$MiniGameContainer.visible = false
+	_mini_game_container.visible = false
 	var elder: String = _tribe_data.get("elder", "Elder")
 	show_dialogue([{
 		"name": elder,
@@ -92,27 +154,22 @@ func _on_poem_complete() -> void:
 	}])
 
 func _show_quest_verse() -> void:
-	var ref:  String = _tribe_data.get("quest_verse_ref", "")
-	var text: String = _tribe_data.get("quest_verse_text", "")
-	show_verse_scroll(ref, text)
-
-func _show_nature_fact() -> void:
-	show_nature_fact()
-
-func _collect_stone() -> void:
-	_collect_stone()
+	show_verse_scroll(
+		_tribe_data.get("quest_verse_ref", ""),
+		_tribe_data.get("quest_verse", "")
+	)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # QUEST COMPLETE — fade out and change scene
 # ─────────────────────────────────────────────────────────────────────────────
 func on_minigame_complete(result: Dictionary) -> void:
-	if result == _dash_result:
+	if result.get("root") == _dash_result.get("root"):
 		_continue_after_dash()
-	elif result == _poem_result:
+	elif result.get("root") == _poem_result.get("root"):
 		_on_poem_complete()
 
 func on_minigame_timeout(result: Dictionary) -> void:
-	if result == _dash_result:
+	if result.get("root") == _dash_result.get("root"):
 		_continue_after_dash()
-	elif result == _poem_result:
+	elif result.get("root") == _poem_result.get("root"):
 		_on_poem_complete()
