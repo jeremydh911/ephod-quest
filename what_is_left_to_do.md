@@ -308,7 +308,9 @@ ephod-quest/                          ← repo root
 | Issue                                  | Priority | Fix                                     |
 |----------------------------------------|----------|-----------------------------------------|
 | No sprite assets (art still pending)   | 🟡 MED   | Commission / AI-generate SVG sprites    |
-| Quest4-12 .tscn files not updated      | 🟡 MED   | Scenes still use old script refs; open each in editor and reassign script |
+| Quest4-12 .tscn files not updated      | ✅ DONE  | All .tscn already pointed to correct WorldBase scripts |
+| PlayerBody.gd init in wrong method     | ✅ DONE  | Moved _build_visual + area + HUD into _ready(); fixed MeshInstance→MeshInstance3D, Area2D→Area3D, Vector2→Vector3 |
+| Camera too low (Y=5, Z=5)              | ✅ DONE  | WorldBase camera: CAMERA_OFFSET = Vector3(0,120,80) — proper Zelda 3/4-overhead |
 | Multiplayer cross-tribe not tested     | 🟡 MED   | Test with 2 devices on LAN              |
 | Android APK not built / signed         | 🟡 MED   | Create keystore, export from Godot      |
 | Camera2D reparent order                | 🟢 LOW   | Move to _post_ready or defer            |
@@ -531,7 +533,6 @@ ephod-quest/                          ← repo root
 - Prioritize based on timeline: Short-term first, then medium, then long-term.
 - Mark items as completed with [x] when done.
 
-
 ---
 
 ## Session Log — Feb 21 2026 (All 12 Worlds Complete)
@@ -624,7 +625,7 @@ ephod-quest/                          ← repo root
   `CapsuleMesh` (arms/legs). OmniLight3D glow replaces broken shader file.
   Five animation states via Tween state machine: IDLE (breathing bob), WALK
   (body sway + arm swing), RUN (lean forward + fast swing), PRAY (arms raise
-  + body bow), CELEBRATE (bounce + full spin + glow burst).
+  - body bow), CELEBRATE (bounce + full spin + glow burst).
   Static factory `create()` return type fixed Node2D -> Node3D.
 
 - [x] **footstep.wav placeholder created**: Minimal silent WAV placed at
@@ -647,13 +648,16 @@ ephod-quest/                          ← repo root
 
 ### Immediate Next Priorities (ordered)
 
-1. **Open each Quest4-12.tscn in Godot editor** and confirm the script attachment points to the updated .gd file (or reassign if needed)
-2. **Play-test all 12 worlds** — verify free-roam works, NPCs interactive, chests openable
-3. **Basic sprite placeholders** — SVG elders + gem icons so CharacterSprite3D has art
+1. **Play-test all 12 worlds** — open Godot, press Play on Quest1.tscn, verify:
+   - Player visible (capsule body + head + tribe ring) from overhead camera
+   - WASD/arrow keys move player; D-pad works on mobile
+   - Interact ✦ button triggers NPC dialogue
+   - Camera follows at Y=120, Z=80 (proper Zelda top-down)
+2. **Basic sprite placeholders** — SVG elders + gem icons for CharacterSprite3D art
+3. **Wire Character.gd into PlayerBody** — replace CapsuleMesh placeholder with `Character.create()` for each tribe's avatar look
 4. **Android APK** — create keystore, export, test on real device
 5. **Multiplayer co-op test** — 2 devices, different tribes, verify cross-tribe bonus fires
-6. **Rebuild Playwright visual mockup tests** (terrain shapes changed)
-7. **Wire Character.gd into PlayerBody** — replace BoxMesh placeholder with Character.create()
+6. **Rebuild Playwright visual mockup tests** (camera angle changed, terrain shapes changed)
 
 ### Game Architecture Decision
 
