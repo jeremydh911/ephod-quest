@@ -3,6 +3,7 @@ extends CharacterBody3D
 # ─────────────────────────────────────────────────────────────────────────────
 # PlayerBody.gd  –  Twelve Stones / Ephod Quest
 # Top-down adventure player controller.  Used by all 12 World scenes.
+# Visual is built by Character.gd (procedural 3D cartoon body).
 #
 # Signals:
 #   interaction_requested  – player pressed interact button
@@ -24,6 +25,9 @@ var _facing: Vector3 = Vector3.FORWARD
 var _is_moving: bool = false
 var _step_timer: float = 0.0
 var _visual_built: bool = false
+
+# Reference to the Character.gd node (set in _build_visual)
+var _character_node: Node3D = null
 
 # Touch direction set by on-screen D-pad (Vector3 XZ plane)
 var touch_direction: Vector3 = Vector3.ZERO
@@ -64,77 +68,90 @@ func _ready() -> void:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# VISUAL — procedural player avatar visible from overhead camera
+# VISUAL — procedural cartoon avatar built by Character.gd
+# "I am fearfully and wonderfully made" — Psalm 139:14
 # ─────────────────────────────────────────────────────────────────────────────
 func _build_visual() -> void:
 	if _visual_built:
 		return
 	_visual_built = true
 
-	# Body capsule (visible coloured cylinder, Y=0 at feet, sits on ground)
-	var body_mesh := CapsuleMesh.new()
-	body_mesh.radius = 12.0
-	body_mesh.height = 30.0
-	var body_mat := StandardMaterial3D.new()
-	body_mat.albedo_color = Color(0.82, 0.65, 0.45) # warm skin tone
-	body_mat.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
-	body_mesh.surface_set_material(0, body_mat)
-	var body := MeshInstance3D.new()
-	body.name = "BodyMesh"
-	body.mesh = body_mesh
-	body.position = Vector3(0, 15, 0) # centre at waist height
-	add_child(body)
+	# ── Resolve tribe / avatar data ──────────────────────────────────────────
+	var td: Dictionary = {}
+	if Global.selected_tribe != "":
+		td = Global.get_tribe_data(Global.selected_tribe)
 
-	# Head sphere (slightly lighter)
-	var head_mesh := SphereMesh.new()
-	head_mesh.radius = 8.0
-	head_mesh.height = 16.0
-	var head_mat := StandardMaterial3D.new()
-	head_mat.albedo_color = Color(0.88, 0.72, 0.52)
-	head_mesh.surface_set_material(0, head_mat)
-	var head := MeshInstance3D.new()
-	head.name = "HeadMesh"
-	head.mesh = head_mesh
-	head.position = Vector3(0, 34, 0)
-	add_child(head)
+	# ── Build Character.gd node ───────────────────────────────────────────────
+	# Character is a Node3D that builds its own mesh hierarchy in _ready().
+	# Set all properties BEFORE add_child so _ready() gets the right values.
+	var char_node: Node3D = load("res://scripts/Character.gd").new()
+	char_node.name = "CharacterVisual"
+	char_node.tribe_key   = Global.selected_tribe if Global.selected_tribe != "" else "reuben"
+	char_node.role        = "avatar"
 
-	# Tribe colour ring under feet (glows tribe colour)
+	# Pull avatar metadata for age/skin/hair if available
+	var av_key: String = Global.selected_avatar
+	if av_key != "" and Global.AVATARS.has(Global.selected_tribe):
+		for av in Global.AVATARS[Global.selected_tribe]:
+			if (av as Dictionary).get("key", "") == av_key:
+				char_node.age = (av as Dictionary).get("age", 17) as int
+				var skin_str: String = (av as Dictionary).get("skin", "medium") as String
+				# Map descriptive skin strings to Character.gd skin_tone keys
+				if "light" in skin_str or "fair" in skin_str or "pale" in skin_str:
+					char_node.skin_tone = "light"
+				elif "dark" in skin_str or "deep" in skin_str or "mahogany" in skin_str:
+					char_node.skin_tone = "dark"
+				else:
+					char_node.skin_tone = "medium"
+				break
+
+	# Scale up from Character.gd's unit scale (≈1.6m) to match world units
+	# WorldBase uses ~3200 unit play area; players are ~30 units tall ≈ 1/100 scale
+	char_node.scale = Vector3.ONE * 18.0
+
+	# Sit at ground level (Character.gd root is at foot level)
+	char_node.position = Vector3.ZERO
+
+	add_child(char_node)
+	_character_node = char_node
+
+	# ── Tribe glow ring under feet ────────────────────────────────────────────
 	var ring_mesh := TorusMesh.new()
 	ring_mesh.inner_radius = 10.0
 	ring_mesh.outer_radius = 16.0
 	var ring_mat := StandardMaterial3D.new()
-	ring_mat.albedo_color = Color(1.0, 0.85, 0.2, 0.9) # gold default; overridden by tribe
+	var ring_col: Color = Color(1.0, 0.85, 0.2)
+	if td.has("color"):
+		ring_col = Color(td["color"] as String)
+	ring_mat.albedo_color     = ring_col
 	ring_mat.emission_enabled = true
-	ring_mat.emission = Color(1.0, 0.85, 0.2) * 0.6
+	ring_mat.emission         = ring_col * 0.6
 	ring_mesh.surface_set_material(0, ring_mat)
 	var ring := MeshInstance3D.new()
-	ring.name = "TribeRing"
-	ring.mesh = ring_mesh
-	ring.position = Vector3(0, 1.5, 0) # just above ground
+	ring.name     = "TribeRing"
+	ring.mesh     = ring_mesh
+	ring.position = Vector3(0.0, 1.5, 0.0)
 	add_child(ring)
 
-	# Name label floating overhead
+	# ── Floating name label ───────────────────────────────────────────────────
 	var label := Label3D.new()
-	label.name = "NameLabel"
-	label.text = Global.selected_avatar if Global.selected_avatar != "" else "You"
+	label.name      = "NameLabel"
+	label.text      = Global.selected_avatar if Global.selected_avatar != "" else "You"
 	label.font_size = 18
-	label.position = Vector3(0, 52, 0)
+	label.position  = Vector3(0.0, 52.0, 0.0)
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	add_child(label)
 
 
-# Tint the tribe ring and body to tribe colour
+# Tint the tribe ring to the tribe colour.
+# Character.gd manages its own robe color via tribe_key — nothing to override here.
 func _tint_body(c: Color) -> void:
-	for child in get_children():
-		if child is MeshInstance3D:
-			var m: Mesh = (child as MeshInstance3D).mesh
-			if m != null and m.get_surface_count() > 0:
-				var mat: Material = m.surface_get_material(0)
-				if mat is StandardMaterial3D:
-					if child.name == "TribeRing":
-						(mat as StandardMaterial3D).albedo_color = c
-						(mat as StandardMaterial3D).emission = c * 0.5
-					# Do NOT recolour body/head — keep natural skin tone
+	var ring := get_node_or_null("TribeRing") as MeshInstance3D
+	if ring and ring.mesh != null and ring.mesh.get_surface_count() > 0:
+		var mat := ring.mesh.surface_get_material(0) as StandardMaterial3D
+		if mat:
+			mat.albedo_color = c
+			mat.emission     = c * 0.5
 
 
 # Legacy public API kept for backward-compat (called by some quest scripts)
@@ -182,15 +199,11 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-# Rotate body mesh to face movement direction
+# Rotate Character visual to face movement direction
 func _update_facing(dir: Vector3) -> void:
-	var body := get_node_or_null("BodyMesh") as MeshInstance3D
-	if body and dir.length_squared() > 0.01:
+	if _character_node != null and dir.length_squared() > 0.01:
 		var angle := atan2(dir.x, dir.z)
-		body.rotation.y = angle
-		var head := get_node_or_null("HeadMesh") as MeshInstance3D
-		if head:
-			head.rotation.y = angle
+		_character_node.rotation.y = angle
 
 
 # ─────────────────────────────────────────────────────────────────────────────

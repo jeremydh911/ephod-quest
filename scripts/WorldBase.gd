@@ -514,6 +514,14 @@ func _add_ambient_particles() -> void:
 			pm.color                = Color(base_col.r, base_col.g, base_col.b, 1.0)
 			pm.turbulence_enabled   = false
 
+	# ── Mobile performance: halve particle count on handheld devices ──────────
+	# "He gives strength to the weary" — Isaiah 40:29
+	var platform := OS.get_name()
+	if platform == "Android" or platform == "iOS":
+		gps.amount = max(8, gps.amount / 4)  # quarter on mobile GPU
+	elif platform == "Web":
+		gps.amount = max(12, gps.amount / 2) # half on WebGL
+
 	# Colour ramp: fade in → vivid → fade out gracefully
 	var grad       := Gradient.new()
 	var grad_tex   := GradientTexture1D.new()
@@ -959,6 +967,12 @@ func _collect_stone() -> void:
 	mat.color = Color(1.0, 0.9, 0.0, 1.0)  # Golden sparkles
 	particles.process_material = mat
 	particles.amount = 50
+	# Reduce on mobile to stay smooth — "He gives strength" – Isaiah 40:29
+	var _plat := OS.get_name()
+	if _plat == "Android" or _plat == "iOS":
+		particles.amount = 12
+	elif _plat == "Web":
+		particles.amount = 24
 	particles.lifetime = 2.0
 	particles.one_shot = true
 	add_child(particles)

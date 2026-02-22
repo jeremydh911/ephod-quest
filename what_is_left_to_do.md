@@ -19,6 +19,32 @@ All quests extend WorldBase.gd with rich 1800×1400 terrain, scattered NPCs, 4 c
 
 ---
 
+## ✅ Production Assets (all complete)
+
+| Asset Category     | Count | Status |
+|--------------------|-------|--------|
+| Gem SVGs           | 12/12 | ✅ Done |
+| Elder SVGs         | 12/12 | ✅ Done |
+| Avatar SVGs        | 32/32 | ✅ Done |
+| Nature SVGs        | 10/10 | ✅ Done |
+| Background SVGs    | 6/6   | ✅ Done |
+| UI assets          | 3/3   | ✅ Done |
+| Raw artwork JPGs   | 35/35 | ✅ Done |
+| Music tracks       | 20+   | ✅ Done |
+| SFX               | 12+   | ✅ Done |
+
+**Character system**: PlayerBody.gd now uses `Character.gd` (procedural 3D cartoon body
+with tribe-coloured robe, skin mesh, eyes, limbs, idle animation). Replaced placeholder
+CapsuleMesh. Tribe ring glow retained. `_update_facing()` rotates the Character node.
+
+**Mobile GPU performance**: `_add_ambient_particles()` in WorldBase.gd now halves
+particle count on Web and divides by 4 on Android/iOS. Same applied to the stone-collect
+burst. Smooth 60fps expected on mid-range Android.
+
+---
+
+---
+
 ## Project Vision (never change)
 
 Mobile-first 3D Zelda-like biblical co-op adventure. 12 tribes, 48 avatars, free-roam
@@ -47,11 +73,13 @@ ephod-quest/                          ← repo root
 │   │       ├── stone_unlock.wav      ✅ (used as stone_collect.wav)
 │   │       └── footstep.wav          ✅ silent placeholder created
 │   ├── sprites/
-│   │   ├── elders/                   ❌ art pending
-│   │   ├── avatars/                  ❌ art pending
-│   │   ├── mini_game/                ❌ art pending
-│   │   ├── ephod_sheet.png           ❌ art pending
-│   │   └── ui/                       ❌ art pending
+│   │   ├── elders/                   ✅ 12 SVGs (elder_reuben.svg … elder_benjamin.svg)
+│   │   ├── avatars/                  ✅ 32 SVGs (4 skins × 4 hair × 2 eye)
+│   │   ├── gems/                     ✅ 12 SVGs (gem_reuben.svg … gem_benjamin.svg)
+│   │   ├── nature/                   ✅ 10 SVGs (butterfly, eagle, lion, deer, wolf …)
+│   │   ├── backgrounds/              ✅ 6 SVGs (courtyard_pillars, ephod_breastplate …)
+│   │   ├── raw/                      ✅ 35 JPG artwork images (img_01–img_35)
+│   │   └── ui/                       ✅ panel_parchment.jpg, gems_reference_sheet.jpg, diagram.svg
 │   └── tiles/                        ❌ art pending
 ├── docs/
 │   ├── what_is_left_to_do.md         ✅ THIS FILE
