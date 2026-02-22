@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <!-- Cartoon lion face — Tribe of Judah, Genesis 49:9 -->
+  <!-- Mane (big fluffy circle) -->
+  <circle cx="40" cy="44" r="32" fill="#D4880A" opacity="0.88"/>
+  <circle cx="40" cy="44" r="28" fill="#E8A820"/>
+  <!-- Ear tips poking through mane -->
+  <polygon points="24,18  18,8  30,14" fill="#D4880A"/>
+  <polygon points="56,18  62,8  50,14" fill="#D4880A"/>
+  <polygon points="24,18  21,12  28,15" fill="#FFCC88"/>
+  <polygon points="56,18  59,12  52,15" fill="#FFCC88"/>
+  <!-- Face -->
+  <circle cx="40" cy="42" r="22" fill="#FFCC88"/>
+  <!-- Eyes — big warm lion eyes -->
+  <ellipse cx="31" cy="38" rx="7" ry="6.5" fill="white"/>
+  <ellipse cx="31" cy="39" rx="4.8" ry="4.8" fill="#C87000"/>
+  <ellipse cx="31" cy="39" rx="3" ry="3" fill="#1A0A00"/>
+  <ellipse cx="29" cy="37" rx="1.5" ry="1.2" fill="white" opacity="0.8"/>
+  <ellipse cx="49" cy="38" rx="7" ry="6.5" fill="white"/>
+  <ellipse cx="49" cy="39" rx="4.8" ry="4.8" fill="#C87000"/>
+  <ellipse cx="49" cy="39" rx="3" ry="3" fill="#1A0A00"/>
+  <ellipse cx="47" cy="37" rx="1.5" ry="1.2" fill="white" opacity="0.8"/>
+  <!-- Nose -->
+  <ellipse cx="40" cy="47" rx="5" ry="3.5" fill="#D4680A"/>
+  <!-- Mouth -->
+  <path d="M34 51 Q40 56 46 51" fill="none" stroke="#8A4400" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Whisker dots -->
+  <circle cx="28" cy="49" r="1.2" fill="#8A6030" opacity="0.6"/>
+  <circle cx="32" cy="51" r="1.2" fill="#8A6030" opacity="0.6"/>
+  <circle cx="52" cy="49" r="1.2" fill="#8A6030" opacity="0.6"/>
+  <circle cx="48" cy="51" r="1.2" fill="#8A6030" opacity="0.6"/>
+  <!-- Whisker lines -->
+  <line x1="16" y1="48" x2="30" y2="49" stroke="#C89050" stroke-width="0.9" opacity="0.7"/>
+  <line x1="16" y1="52" x2="30" y2="51" stroke="#C89050" stroke-width="0.9" opacity="0.7"/>
+  <line x1="64" y1="48" x2="50" y2="49" stroke="#C89050" stroke-width="0.9" opacity="0.7"/>
+  <line x1="64" y1="52" x2="50" y2="51" stroke="#C89050" stroke-width="0.9" opacity="0.7"/>
+</svg>

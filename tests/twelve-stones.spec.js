@@ -41,17 +41,29 @@ function assertNoErrors(errors, context) {
     // Filter out known harmless headless-browser / Godot-web noise.
     // Keep only real GDScript errors (SCRIPT ERROR / Parse error) or JS crashes.
     const critical = errors.filter(e =>
+        e.trim().length > 0 &&              // skip blank / whitespace-only console noise
         !e.includes('favicon') &&
         !e.includes('SharedArrayBuffer') &&          // Godot threading limit
         !e.includes('AudioContext was not allowed') &&
         !e.includes('WebGL warning') &&
         !e.includes('CONTEXT_LOST_WEBGL') &&         // SwiftShader headless
         !e.includes('GPU stall') &&                  // headless SwiftShader
-        !e.includes('WARNING: Node AnimationLibrary') && // harmless placeholder
+        !e.includes('AnimationLibrary') &&  // AnimationPlayer#AnimationLibrary placeholder (harmless)
         !e.includes('at: instantiate') &&            // call stack from WARNING
         !e.includes('invalid bus index') &&          // fixed, but guard anyway
         !e.includes('GL Driver Message') &&          // GPU driver perf note
         !e.includes('GDScript backtrace') &&         // stack-trace header from push_error
+        !e.includes('GDExtension') &&                // native addons unavailable on web.wasm32 — expected
+        !e.includes('gdextension') &&
+        !e.includes('mlgodotkit') &&                 // ML addon has no web binary — harmless
+        !e.includes('hybrid2d3d') &&                 // 2D/3D hybrid addon has no web binary — harmless
+        !e.includes('No GDExtension library found') &&
+        !e.includes('dynamic library not found') &&
+        !e.includes('Error loading extension') &&
+        !e.includes('fetch_api') &&                  // optional fetch addon warning
+        !e.includes('at: parse_gdextension_file') && // GDExtension call-stack lines
+        !e.includes('at: open_library') &&
+        !e.includes('at: load_extensions') &&
         !/^\s*\[\d+\] .+\(res:\/\//.test(e)         // individual backtrace call lines: [0] func (res://...)
     );
     if (critical.length > 0) {

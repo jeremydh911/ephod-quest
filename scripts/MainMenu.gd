@@ -65,7 +65,7 @@ const C_BTN_TEXT   := Color(0.98, 0.92, 0.72, 1)   # warm cream text
 
 # ── state ─────────────────────────────────────────────────────────────────────
 var _fade_rect: ColorRect
-var _gem_rects: Array[ColorRect] = []   # 12 gem ColorRects for pulsing
+var _gem_rects: Array[Panel] = []   # 12 gem Panels for pulsing
 var _verse_label: Label
 var _verse_index: int = 0
 
@@ -422,7 +422,7 @@ func _build_ephod() -> void:
 			gs.border_color = Color(1, 1, 1, 0.35)
 			gem.add_theme_stylebox_override("panel", gs)
 			add_child(gem)
-			_gem_rects.append(gem as ColorRect)  # stored for pulsing (type mismatch OK)
+			_gem_rects.append(gem)  # store Panel ref for optional pulsing
 			# Store the StyleBoxFlat so we can animate it
 			gem.set_meta("style", gs)
 			gem.set_meta("base_color", gc)

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="72" viewBox="0 0 80 72">
+  <!-- Gentle sheep — Psalm 23, shepherd motif -->
+  <!-- Fluffy wool body -->
+  <circle cx="40" cy="42" r="26" fill="#F0EEE8" opacity="0.95"/>
+  <circle cx="24" cy="36" r="14" fill="#F0EEE8"/>
+  <circle cx="56" cy="36" r="14" fill="#F0EEE8"/>
+  <circle cx="32" cy="28" r="12" fill="#F0EEE8"/>
+  <circle cx="48" cy="28" r="12" fill="#F0EEE8"/>
+  <circle cx="40" cy="22" r="11" fill="#F0EEE8"/>
+  <!-- Wool texture swirls -->
+  <path d="M28 38 Q32 34 36 38" fill="none" stroke="#D8D6D0" stroke-width="1.5" opacity="0.6"/>
+  <path d="M44 38 Q48 34 52 38" fill="none" stroke="#D8D6D0" stroke-width="1.5" opacity="0.6"/>
+  <path d="M34 28 Q38 24 42 28" fill="none" stroke="#D8D6D0" stroke-width="1.5" opacity="0.6"/>
+  <!-- Head -->
+  <ellipse cx="40" cy="14" rx="12" ry="11" fill="#E8D8B8"/>
+  <!-- Ears -->
+  <ellipse cx="28" cy="16" rx="5" ry="7" fill="#E0C8A0" transform="rotate(-15 28 16)"/>
+  <ellipse cx="52" cy="16" rx="5" ry="7" fill="#E0C8A0" transform="rotate(15 52 16)"/>
+  <!-- Eyes — sweet, gentle -->
+  <ellipse cx="34" cy="12" rx="4" ry="4" fill="white"/>
+  <ellipse cx="34" cy="12" rx="2.5" ry="2.5" fill="#3A2410"/>
+  <ellipse cx="33" cy="11" rx="1.1" ry="0.9" fill="white" opacity="0.8"/>
+  <ellipse cx="46" cy="12" rx="4" ry="4" fill="white"/>
+  <ellipse cx="46" cy="12" rx="2.5" ry="2.5" fill="#3A2410"/>
+  <ellipse cx="45" cy="11" rx="1.1" ry="0.9" fill="white" opacity="0.8"/>
+  <!-- Nose -->
+  <ellipse cx="40" cy="18" rx="3.5" ry="2.5" fill="#D0A080"/>
+  <!-- Gentle smile -->
+  <path d="M35 21 Q40 24 45 21" fill="none" stroke="#B07850" stroke-width="1.4" stroke-linecap="round"/>
+  <!-- Legs -->
+  <rect x="26" y="60" width="6" height="14" rx="3" fill="#D0C0A0"/>
+  <rect x="34" y="62" width="6" height="12" rx="3" fill="#D0C0A0"/>
+  <rect x="42" y="62" width="6" height="12" rx="3" fill="#D0C0A0"/>
+  <rect x="50" y="60" width="6" height="14" rx="3" fill="#D0C0A0"/>
+  <!-- Hooves -->
+  <ellipse cx="29" cy="73" rx="4" ry="2.5" fill="#8A7060"/>
+  <ellipse cx="37" cy="73" rx="4" ry="2.5" fill="#8A7060"/>
+  <ellipse cx="45" cy="73" rx="4" ry="2.5" fill="#8A7060"/>
+  <ellipse cx="53" cy="73" rx="4" ry="2.5" fill="#8A7060"/>
+</svg>

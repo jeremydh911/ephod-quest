@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Category: tools | Tool: Olive Branch with olives -->
+<!-- Psalm 128:3 — "your children like olive shoots around your table" -->
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <!-- Main branch -->
+  <path d="M72 70 Q52 50 32 32 Q20 20 10 10" fill="none" stroke="#6B7A4F" stroke-width="5" stroke-linecap="round"/>
+  <!-- Secondary branch -->
+  <path d="M52 50 Q40 38 28 20" fill="none" stroke="#6B7A4F" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Leaves (paired along branch) -->
+  <ellipse cx="64" cy="63" rx="10" ry="5" fill="#7A9A40" transform="rotate(-45 64 63)"/>
+  <ellipse cx="60" cy="67" rx="10" ry="5" fill="#90B848" transform="rotate(-45 60 67)"/>
+  <ellipse cx="50" cy="52" rx="9" ry="4" fill="#7A9A40" transform="rotate(-50 50 52)"/>
+  <ellipse cx="46" cy="56" rx="9" ry="4" fill="#90B848" transform="rotate(-50 46 56)"/>
+  <ellipse cx="38" cy="38" rx="9" ry="4" fill="#7A9A40" transform="rotate(-40 38 38)"/>
+  <ellipse cx="34" cy="42" rx="9" ry="4" fill="#90B848" transform="rotate(-40 34 42)"/>
+  <ellipse cx="24" cy="25" rx="8" ry="3.5" fill="#7A9A40" transform="rotate(-55 24 25)"/>
+  <ellipse cx="20" cy="29" rx="8" ry="3.5" fill="#90B848" transform="rotate(-55 20 29)"/>
+  <!-- Olives (green/purple) -->
+  <ellipse cx="56" cy="60" rx="5" ry="7" fill="#5A8030" transform="rotate(-20 56 60)"/>
+  <ellipse cx="44" cy="46" rx="5" ry="7" fill="#8060A0" transform="rotate(-15 44 46)"/>
+  <ellipse cx="30" cy="34" rx="4.5" ry="6.5" fill="#5A8030" transform="rotate(-25 30 34)"/>
+  <ellipse cx="18" cy="18" rx="4" ry="6" fill="#8060A0" transform="rotate(-20 18 18)"/>
+  <!-- Leaf veins (subtle) -->
+  <line x1="57" y1="59" x2="71" y2="65" stroke="#5A7030" stroke-width="0.7" opacity="0.5" transform="rotate(-45 64 63)"/>
+</svg>

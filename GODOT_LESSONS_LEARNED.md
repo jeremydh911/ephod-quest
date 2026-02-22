@@ -338,9 +338,11 @@ Use `create_file` tool or Python `open(path,'w').write(...)` instead.
 quest files still show "Could not resolve WorldBase.gd" in the editor panel.
 
 **Rule:** Run headless parse to confirm real status:
+
 ```
 Godot --headless --path /project --quit-after 3 2>&1 | grep -iE "script error|parse|failed"
 ```
+
 Empty output = zero errors.  Editor panel alone is unreliable after cascading errors.
 
 ---
