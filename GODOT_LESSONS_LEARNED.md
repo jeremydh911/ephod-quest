@@ -366,4 +366,76 @@ GDScript rejects mismatched override signatures at compile time.
 
 ---
 
-*Last updated: session — Character.gd fully procedural 3D, 34/34 tests green.*
+## 26  `_draw_tile` / `_draw_wall` belong in WorldBase, not per-quest
+
+**Problem:** Quest1-3 each defined their own `_draw_tile(Rect2, Color)` helper.
+Quest4-12 couldn't use them at all — code was copy-pasted or missing.
+
+**Fix:** Moved both helpers into WorldBase.gd right after `func _wall()`.
+All 12 quests inherit them automatically:
+
+```gdscript
+# WorldBase.gd — call from any quest
+_draw_tile(Rect2(-900, -700, 1800, 1400), Color(0.5, 0.4, 0.3))  # base soil
+_draw_tile(Rect2(-200, -200, 400,  400),  Color(0.3, 0.6, 0.3))  # grass patch
+_draw_wall(Rect2(-910, -710, 1820, 20))                           # north boundary
+```
+
+**Rule:** Any terrain helper used by 2+ quests must live in WorldBase, not in the
+individual quest file.
+
+---
+
+## 27  Every quest `_ready()` must declare `world_name` + `world_bounds` BEFORE `super._ready()`
+
+WorldBase.gd reads these two variables during `_ready()` to set up the world banner
+and collision bounds.  If they are declared AFTER `super._ready()`, the intro shows
+"Unnamed World" and bounds default to a tiny 100×100 box.
+
+```gdscript
+func _ready() -> void:
+    tribe_key   = "naphtali"            # required
+    quest_id    = "naphtali_main"       # required
+    world_name  = "Night Forest"        # ← must be before super
+    world_bounds = Rect2(-900,-700,1800,1400)  # ← must be before super
+    next_scene  = "res://scenes/Quest6.tscn"
+    music_path  = "res://assets/audio/music/quest_theme.ogg"
+    super._ready()                      # ← WorldBase reads vars here
+```
+
+---
+
+## 28  `SideQuestManager.collect_item(id, world)` — NOT `on_item_collected`
+
+**Problem:** Quest5 called `SideQuestManager.on_item_collected("scroll_1", self)`
+which does not exist.  Engine threw `Invalid call. Nonexistent function`.
+
+**Correct API:**
+
+```gdscript
+SideQuestManager.collect_item("butterfly_1", self)
+SideQuestManager.collect_item("scroll_peace", self)
+```
+
+**Rule:** Always grep `WorldBase.gd` and `SideQuestManager` for the actual method
+name before calling — never guess from signal name patterns.
+
+---
+
+## 29  `_build_npc(key, pos)` — 2 args only (texture arg removed)
+
+Older quest stubs called `_build_npc("elder_name", Vector3(0,0,0), "portrait.png")`.
+WorldBase's current signature is:
+
+```gdscript
+func _build_npc(key: String, pos: Vector3) -> void:
+```
+
+The third texture arg was removed when the NPC system moved to ProcCharacter.
+Passing it causes a parse error (`Too many arguments`).
+
+**Rule:** Always check WorldBase.gd method signatures before calling inherited helpers.
+
+---
+
+*Last updated: Feb 21 2026 — all 12 tribes on WorldBase, 48 chests, ~40 NPCs placed.*
