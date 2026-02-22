@@ -94,7 +94,7 @@ func _build_npc_q3(pos: Vector3, npc_name: String, emoji: String, color: Color) 
 
 func _place_chests() -> void:
 	_spawn_chest(Vector3(350, 0, -180), "levi_chest_matthew",
-		"verse", "", "Matthew 5:16",
+		"verse", "Matthew 5:16", "Matthew 5:16",
 		"Let your light shine before others, that they may see your good deeds and glorify your Father in heaven.")
 
 func _spawn_chest(pos: Vector3, chest_id: String, reward_type: String, reward_id: String, reward_ref: String, reward_text: String) -> void:

@@ -60,6 +60,17 @@ func _on_tap() -> void:
 	_prog.value = _taps
 	_count_lbl.text = "%d / %d" % [_taps, goal]
 	AudioManager.play_sfx("res://assets/audio/sfx/tap.wav")
+
+	# Visual feedback – button scale pulse + bar colour flash
+	# "Clap your hands, all you nations; shout to God with cries of joy" – Psalm 47:1
+	var tw := _tap_btn.create_tween()
+	tw.tween_property(_tap_btn, "scale", Vector2(1.12, 1.12), 0.07).set_ease(Tween.EASE_OUT)
+	tw.tween_property(_tap_btn, "scale", Vector2(1.0,  1.0 ), 0.10).set_ease(Tween.EASE_IN)
+
+	var bar_tw := _prog.create_tween()
+	bar_tw.tween_property(_prog, "modulate", Color(1.0, 0.9, 0.2, 1.0), 0.06).set_ease(Tween.EASE_OUT)
+	bar_tw.tween_property(_prog, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.14).set_ease(Tween.EASE_IN)
+
 	if _taps >= goal:
 		_done = true
 		_tap_btn.disabled = true

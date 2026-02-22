@@ -97,8 +97,10 @@ func show_nearby() -> void:
 	_bubble.visible = true
 	var tw := create_tween()
 	tw.set_loops()
-	tw.tween_property(_bubble, "position:y", -62.0, 0.6).set_ease(Tween.EASE_IN_OUT)
-	tw.tween_property(_bubble, "position:y", -52.0, 0.6).set_ease(Tween.EASE_IN_OUT)
+	# Bob gently between y=2.0 and y=2.6 – local position above the NPC
+	# "A cheerful heart is good medicine" – Proverbs 17:22
+	tw.tween_property(_bubble, "position:y", 2.6, 0.5).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(_bubble, "position:y", 2.0, 0.5).set_ease(Tween.EASE_IN_OUT)
 	_bubble.set_meta("_tween", tw)
 
 func hide_nearby() -> void:
