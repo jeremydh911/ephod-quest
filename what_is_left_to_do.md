@@ -646,18 +646,28 @@ ephod-quest/                          ← repo root
 
 - [x] **Parse check: ZERO errors** confirmed via headless Godot.
 
+- [x] **SUPER GRAPHICAL visual upgrade** (Feb 21 2026, commit f8bde86):
+  - `_add_ambient_particles()` — 5 biome archetypes of GPUParticles3D:
+    spark (levi/judah), firefly (naphtali/gad/joseph), mist (reuben/asher/dan),
+    dust (simeon/benjamin), star (issachar/zebulun). Pre-warmed, distance-faded,
+    emission material so bloom picks them up. Called from `on_world_ready()`.
+  - `_draw_tile()` — per-tile ±6% brightness variation (sin hash = deterministic).
+  - `_build_npc()` — OmniLight3D pulse ring per NPC (energy 0.25↔0.55, 2.2s tempo).
+
+- [x] **Playwright 34/34 passing** (Feb 21 2026, commits f8bde86 + ed7cb67):
+  - Fixed `SCRIPT ERROR: Panel → ColorRect` in MainMenu.gd (`_gem_rects` Array type)
+  - Fixed GDExtension addon noise filter (mlgodotkit/hybrid2d3d not available on web)
+  - Fixed AnimationPlayer#AnimationLibrary placeholder filter
+  - Fixed blank/whitespace console message false-positives (e.trim().length > 0)
+  - Result: ALL 34 TESTS PASS on rebuilt web export
+
 ### Immediate Next Priorities (ordered)
 
-1. **Play-test all 12 worlds** — open Godot, press Play on Quest1.tscn, verify:
-   - Player visible (capsule body + head + tribe ring) from overhead camera
-   - WASD/arrow keys move player; D-pad works on mobile
-   - Interact ✦ button triggers NPC dialogue
-   - Camera follows at Y=120, Z=80 (proper Zelda top-down)
-2. **Basic sprite placeholders** — SVG elders + gem icons for CharacterSprite3D art
-3. **Wire Character.gd into PlayerBody** — replace CapsuleMesh placeholder with `Character.create()` for each tribe's avatar look
-4. **Android APK** — create keystore, export, test on real device
-5. **Multiplayer co-op test** — 2 devices, different tribes, verify cross-tribe bonus fires
-6. **Rebuild Playwright visual mockup tests** (camera angle changed, terrain shapes changed)
+1. **Basic sprite placeholders** — SVG elders + gem icons for CharacterSprite3D art
+2. **Wire Character.gd into PlayerBody** — replace CapsuleMesh placeholder with `Character.create()` for each tribe's avatar look
+3. **Android APK** — create keystore, export, test on real device
+4. **Multiplayer co-op test** — 2 devices, different tribes, verify cross-tribe bonus fires
+5. **Play-test all 12 worlds** on device — verify particles, NPC glow, terrain variation look correct
 
 ### Game Architecture Decision
 
@@ -670,4 +680,4 @@ QuestBase.gd (Control) is frozen — only maintained for backward compat.
 Tribes on WorldBase: **12 / 12** ✅ ALL COMPLETE
 Tribes on QuestBase (to migrate): 0 / 12 ✅
 Assets zero-error: ✅
-34/34 Playwright tests: ✅ (last verified pre-session — rebuild needed after terrain change)
+34/34 Playwright tests: ✅ VERIFIED (Feb 21 2026, post-camera + terrain + visual upgrade)
