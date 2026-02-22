@@ -96,12 +96,17 @@ func _add_touch_controls() -> void:
 			var touch_controls = packed.instantiate()
 			_ui_canvas.add_child(touch_controls)
 
+# Camera constants – Zelda 3/4-overhead view
+# "Lift your eyes and look to the heavens" – Isaiah 40:26
+const CAMERA_OFFSET := Vector3(0.0, 120.0, 80.0)   # Y=above, Z=behind for angled top-down
+const CAMERA_LERP   := 6.0                          # smooth follow speed
+
 func _process(delta: float) -> void:
 	if _player:
 		var cam = get_node_or_null("Camera3D")
 		if cam:
-			var target_pos = _player.position + Vector3(0, 5, 5)
-			cam.position = cam.position.lerp(target_pos, delta * 5.0)
+			var target_pos: Vector3 = _player.position + CAMERA_OFFSET
+			cam.position = cam.position.lerp(target_pos, delta * CAMERA_LERP)
 			cam.look_at(_player.position, Vector3.UP)
 
 func on_world_ready() -> void:
@@ -414,18 +419,17 @@ func _setup_camera() -> void:
 		cam = Camera3D.new()
 		cam.name = "Camera3D"
 		add_child(cam)
-	cam.fov = 75.0   # field of view
-	cam.near = 0.1
-	cam.far = 1000.0
-	# Position camera above and behind player
-	if _player:
-		cam.position = _player.position + Vector3(0, 10, 10)
-		cam.look_at(_player.position, Vector3.UP)
+	cam.fov  = 70.0    # slightly narrower for tighter Zelda feel
+	cam.near = 0.5
+	cam.far  = 2000.0  # must see the whole 1800-unit world
 	_player = get_node_or_null("PlayerBody") as CharacterBody3D
 	if _player:
-		# For 3D, keep camera as child of world, update position in _process
-		cam.position = _player.position + Vector3(0, 5, 5)
+		# Zelda 3/4-overhead starting position (CAMERA_OFFSET defined above _process)
+		cam.position = _player.position + Vector3(0.0, 120.0, 80.0)
 		cam.look_at(_player.position, Vector3.UP)
+	else:
+		cam.position = Vector3(0.0, 120.0, 80.0)
+		cam.look_at(Vector3.ZERO, Vector3.UP)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # HUD BUILDER
