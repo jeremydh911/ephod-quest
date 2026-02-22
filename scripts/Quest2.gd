@@ -80,27 +80,8 @@ func _build_terrain() -> void:
 	_draw_wall(Rect2(-920, -730, 1840, 20))
 	_draw_wall(Rect2(-920,  730, 1840, 20))
 
-func _draw_tile(r: Rect2, color: Color) -> void:
-	var mesh_instance := MeshInstance3D.new()
-	var plane := PlaneMesh.new()
-	plane.size = Vector2(r.size.x, r.size.y)
-	mesh_instance.mesh = plane
-	var material := StandardMaterial3D.new()
-	material.albedo_color = color
-	mesh_instance.material_override = material
-	mesh_instance.position = Vector3(r.position.x + r.size.x / 2, 0, r.position.y + r.size.y / 2)
-	mesh_instance.rotation_degrees = Vector3(-90, 0, 0)  # Rotate to horizontal
-	add_child(mesh_instance)
-
-func _draw_wall(r: Rect2) -> void:
-	var sb := StaticBody3D.new()
-	sb.position = Vector3(r.position.x + r.size.x / 2, r.size.y / 2, r.position.y + r.size.y / 2)
-	var cs3d := CollisionShape3D.new()
-	var box := BoxShape3D.new()
-	box.size = Vector3(r.size.x, r.size.y, 1)  # Assuming thin wall
-	cs3d.shape = box
-	sb.add_child(cs3d)
-	add_child(sb)
+# _draw_tile and _draw_wall inherited from WorldBase — no override needed
+# "The Lion of Judah has triumphed" — Revelation 5:5
 
 # ─────────────────────────────────────────────────────────────────────────────
 # NPCs
