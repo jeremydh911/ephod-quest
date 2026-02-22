@@ -117,9 +117,15 @@ func _show_world_intro() -> void:
 	var tname: String = world_name if world_name != "Unknown Land" else tribe_key.capitalize() + " Land"
 	show_dialogue([
 		{"name": tname,
-		 "text": "Welcome to " + tname + ". Speak with " + elder + " to begin your quest."}
+		 "text": "Welcome to " + tname + ". Speak with " + elder + " to begin your quest.",
+		 "callback": Callable(self, "on_quest_ready")}
 	])
 	update_quest_log("Find " + elder + "\nto begin your quest")
+
+## Override this in each quest to fire the elder's opening dialogue
+## immediately after the world intro banner closes.
+func on_quest_ready() -> void:
+	pass  # default: nothing (subclasses override)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # LIGHTING AND ENVIRONMENT
@@ -1364,6 +1370,78 @@ func _wall(pos: Vector3, size: Vector3, texture: String) -> void:
 	body.add_child(shape)
 	wall_mi.add_child(body)
 	add_child(wall_mi)
+
+## Lay a coloured flat terrain tile defined by a 2-D Rect2 (x, z coords).
+## Height is always 0.  A collider is added automatically.
+## "He set the earth on its foundations" – Psalm 104:5
+func _draw_tile(r: Rect2, color: Color, texture_name: String = "") -> void:
+	var mi    := MeshInstance3D.new()
+	var plane := PlaneMesh.new()
+	plane.size = Vector2(r.size.x, r.size.y)
+	mi.mesh   = plane
+	mi.position = Vector3(r.position.x + r.size.x * 0.5, 0.0,
+	                      r.position.y + r.size.y * 0.5)
+
+	var mat := StandardMaterial3D.new()
+	if texture_name != "":
+		var tex_path := AssetRegistry.terrain(texture_name) \
+			if AssetRegistry.has_method("terrain") else ""
+		if tex_path != "" and ResourceLoader.exists(tex_path):
+			mat.albedo_texture = load(tex_path) as Texture2D
+	mat.albedo_color             = color
+	mat.roughness                = 0.88
+	mat.metallic                 = 0.0
+	mi.material_override         = mat
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+
+	var body  := StaticBody3D.new()
+	var cshape := CollisionShape3D.new()
+	var box    := BoxShape3D.new()
+	box.size   = Vector3(r.size.x, 0.2, r.size.y)
+	cshape.shape = box
+	body.position.y = -0.1
+	body.add_child(cshape)
+	mi.add_child(body)
+	add_child(mi)
+
+## Place an invisible boundary wall defined by a 2-D Rect2.
+## The wall is 30 units tall and coloured to match nearby terrain.
+func _draw_wall(r: Rect2, height: float = 30.0) -> void:
+	# r encodes the wall's X/Z footprint (thin in one axis = wall plane)
+	var wall_h: float = height
+	var mi    := MeshInstance3D.new()
+	var box   := BoxMesh.new()
+	box.size  = Vector3(max(r.size.x, 2.0), wall_h, max(r.size.y, 2.0))
+	mi.mesh   = box
+	mi.position = Vector3(r.position.x + r.size.x * 0.5,
+	                      wall_h * 0.5,
+	                      r.position.y + r.size.y * 0.5)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color              = Color(0.32, 0.28, 0.22, 1)
+	mat.flags_transparent         = false
+	mi.material_override          = mat
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+
+	var body  := StaticBody3D.new()
+	var cshape := CollisionShape3D.new()
+	var cbox   := BoxShape3D.new()
+	cbox.size  = box.size
+	cshape.shape = cbox
+	body.add_child(cshape)
+	mi.add_child(body)
+	add_child(mi)
+
+## Alias kept for forward compatibility – matches Quest1-3 local definition.
+func _spawn_chest(pos: Vector3, key: String, _type: String, _unused: String,
+                  ref: String, text: String = "") -> void:
+	_chest(pos, key, ref)
+	if text != "":
+		# Store verse text for display in the chest popup
+		if not has_meta("_chest_texts"):
+			set_meta("_chest_texts", {})
+		var ct: Dictionary = get_meta("_chest_texts") as Dictionary
+		ct[key] = text
+		set_meta("_chest_texts", ct)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # NPC HELPERS
