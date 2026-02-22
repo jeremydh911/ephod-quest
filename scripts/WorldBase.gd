@@ -114,6 +114,7 @@ func on_world_ready() -> void:
 	_add_sky()
 	_add_backdrop()           # tribe artwork as far-plane panorama
 	_add_atmospheric_props()  # scattered trees, rocks, bushes
+	_add_ambient_particles()  # biome-specific floating particles (fireflies, dust, embers…)
 
 # Default world intro — subclasses override this to show tribe-specific opening dialogue
 # "The LORD makes his face shine on you" – Numbers 6:25
@@ -395,6 +396,159 @@ func _spawn_bush(pos: Vector3, size: float, bush_tex: String, tint: Color) -> vo
 	mi.material_override = _tex_mat(bush_tex, tint.lightened(0.15))
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(mi)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AMBIENT PARTICLES
+# Floating particles fill each tribe's world with living atmosphere:
+#   levi/judah   → golden incense sparks   ("like gold refined in fire" – Rev 3:18)
+#   naphtali/gad/joseph → green fireflies  ("the firefly gives light" – Job 41:32)
+#   reuben/asher/dan    → blue water mist   ("waters above the heavens" – Ps 148:4)
+#   simeon/benjamin     → warm dust motes   ("from dust you were made" – Gen 3:19)
+#   issachar/zebulun    → silver starlight  ("stars sing together" – Job 38:7)
+# "He breathed into his nostrils the breath of life" – Genesis 2:7
+# ─────────────────────────────────────────────────────────────────────────────
+func _add_ambient_particles() -> void:
+	if tribe_key == "":
+		return
+
+	var biome: Dictionary = VisualEnvironment.BIOMES.get(
+			tribe_key, VisualEnvironment.BIOMES["reuben"]) as Dictionary
+	var base_col: Color = biome.get("particle", Color(0.8, 0.8, 0.8, 0.5)) as Color
+
+	# ── Choose behaviour archetype per tribe ──────────────────────────────────
+	var p_type: String  # "spark" | "firefly" | "mist" | "dust" | "star"
+	match tribe_key:
+		"levi", "judah":
+			p_type = "spark"       # golden incense sparks drift upward
+		"naphtali", "gad", "joseph":
+			p_type = "firefly"     # green fireflies bob up and sideways
+		"reuben", "asher", "dan":
+			p_type = "mist"        # cool water mist drifts slowly
+		"simeon", "benjamin":
+			p_type = "dust"        # warm sandy dust blown by invisible wind
+		"issachar", "zebulun":
+			p_type = "star"        # silver starlight sparkles twinkle on/off
+		_:
+			p_type = "firefly"
+
+	# ── Build GPU particle system ─────────────────────────────────────────────
+	var gps := GPUParticles3D.new()
+	gps.name       = "_AmbientParticles"
+	gps.emitting   = true
+	gps.one_shot   = false
+	gps.preprocess = 2.0      # pre-warm so particles appear immediately on load
+
+	var pm := ParticleProcessMaterial.new()
+
+	# Scatter particles over the whole play area from above
+	pm.emission_shape           = ParticleProcessMaterial.EMISSION_SHAPE_BOX
+	pm.emission_box_extents     = Vector3(60.0, 20.0, 60.0)   # wide but thin vertical band
+	gps.position                = Vector3(0.0, 8.0, 0.0)      # float at mid-air height
+
+	match p_type:
+		"spark":
+			# Incense sparks rise gently — "prayers rising like incense" – Psalm 141:2
+			gps.amount   = 120
+			gps.lifetime = 5.0
+			pm.gravity              = Vector3(0.0, 0.8, 0.0)   # rise
+			pm.initial_velocity_min = 1.5
+			pm.initial_velocity_max = 3.5
+			pm.scale_min            = 0.08
+			pm.scale_max            = 0.22
+			pm.color                = Color(base_col.r, base_col.g, base_col.b, 0.8)
+			pm.turbulence_enabled   = true
+			pm.turbulence_noise_scale = 3.0
+			pm.turbulence_influence  = 0.10
+
+		"firefly":
+			# Fireflies drift in lazy sine-like arcs
+			gps.amount   = 80
+			gps.lifetime = 6.0
+			pm.gravity              = Vector3(0.0, 0.05, 0.0)  # near-weightless
+			pm.initial_velocity_min = 0.8
+			pm.initial_velocity_max = 2.2
+			pm.scale_min            = 0.15
+			pm.scale_max            = 0.35
+			pm.color                = Color(base_col.r, base_col.g, base_col.b, 0.9)
+			pm.turbulence_enabled   = true
+			pm.turbulence_noise_scale = 2.0
+			pm.turbulence_influence  = 0.18
+
+		"mist":
+			# Water mist particles: large, translucent, slow horizontal drift
+			gps.amount   = 60
+			gps.lifetime = 8.0
+			pm.gravity              = Vector3(0.3, -0.05, 0.1)  # gentle lateral drift
+			pm.initial_velocity_min = 0.3
+			pm.initial_velocity_max = 1.2
+			pm.scale_min            = 0.5
+			pm.scale_max            = 1.2
+			pm.color                = Color(base_col.r, base_col.g, base_col.b, 0.35)
+			pm.turbulence_enabled   = true
+			pm.turbulence_noise_scale = 1.5
+			pm.turbulence_influence  = 0.08
+
+		"dust":
+			# Sandy dust swept by wind — large spread, low opacity
+			gps.amount   = 90
+			gps.lifetime = 7.0
+			pm.gravity              = Vector3(0.8, -0.1, 0.2)   # blown sideways
+			pm.initial_velocity_min = 1.0
+			pm.initial_velocity_max = 3.0
+			pm.scale_min            = 0.3
+			pm.scale_max            = 0.7
+			pm.color                = Color(base_col.r, base_col.g, base_col.b, 0.45)
+			pm.turbulence_enabled   = true
+			pm.turbulence_noise_scale = 2.5
+			pm.turbulence_influence  = 0.12
+
+		"star":
+			# Twinkle sparkles: tiny, very fast fade, spread wide
+			gps.amount   = 100
+			gps.lifetime = 3.5
+			pm.gravity              = Vector3(0.0, 0.0, 0.0)    # float in place
+			pm.initial_velocity_min = 0.1
+			pm.initial_velocity_max = 0.6
+			pm.scale_min            = 0.06
+			pm.scale_max            = 0.18
+			pm.color                = Color(base_col.r, base_col.g, base_col.b, 1.0)
+			pm.turbulence_enabled   = false
+
+	# Colour ramp: fade in → vivid → fade out gracefully
+	var grad       := Gradient.new()
+	var grad_tex   := GradientTexture1D.new()
+	grad.colors    = [Color(base_col.r, base_col.g, base_col.b, 0.0),
+	                  Color(base_col.r, base_col.g, base_col.b, 1.0),
+	                  Color(base_col.r, base_col.g, base_col.b, 1.0),
+	                  Color(base_col.r, base_col.g, base_col.b, 0.0)]
+	grad.offsets   = [0.0, 0.15, 0.75, 1.0]
+	grad_tex.gradient = grad
+	pm.color_ramp  = grad_tex
+
+	gps.process_material = pm
+
+	# Particle mesh: tiny sphere for crisper look under bloom
+	var sph := SphereMesh.new()
+	sph.radius = 0.18;  sph.height = 0.36
+	sph.radial_segments = 6;  sph.rings = 4   # low-poly = cheap + stylised
+	gps.draw_pass_1 = sph
+
+	# GI disabled — particles are purely additive atmosphere, not scene-lit
+	gps.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
+
+	# Glow emission material on the spheres so bloom picks them up beautifully
+	var emit_mat := StandardMaterial3D.new()
+	emit_mat.shading_mode       = BaseMaterial3D.SHADING_MODE_UNSHADED
+	emit_mat.albedo_color       = Color(base_col.r, base_col.g, base_col.b, 0.9)
+	emit_mat.emission_enabled   = true
+	emit_mat.emission           = Color(base_col.r, base_col.g, base_col.b, 1.0) * 1.5
+	emit_mat.flags_transparent  = true
+	emit_mat.distance_fade_mode = BaseMaterial3D.DISTANCE_FADE_OBJECT_DITHER
+	emit_mat.distance_fade_max_distance = 120.0
+	emit_mat.distance_fade_min_distance = 80.0
+	gps.material_override = emit_mat
+
+	add_child(gps)
 
 ## Internal helper: create a StandardMaterial3D with a texture, fallback color,
 ## and sensible roughness/tiling for outdoor surfaces.
@@ -1386,13 +1540,23 @@ func _draw_tile(r: Rect2, color: Color, texture_name: String = "") -> void:
 	mi.position = Vector3(r.position.x + r.size.x * 0.5, 0.0,
 	                      r.position.y + r.size.y * 0.5)
 
+	# ── Subtle per-tile colour variation keeps terrain natural (±6 % value) ──
+	# "The earth is full of His glory" – Isaiah 6:3
+	var rng_val: float = (sin(r.position.x * 13.7 + r.position.y * 7.3) * 0.5 + 0.5) * 0.12 - 0.06
+	var varied_color: Color = Color(
+		clampf(color.r + rng_val, 0.0, 1.0),
+		clampf(color.g + rng_val * 0.8, 0.0, 1.0),
+		clampf(color.b + rng_val * 0.6, 0.0, 1.0),
+		color.a
+	)
+
 	var mat := StandardMaterial3D.new()
 	if texture_name != "":
 		var tex_path := AssetRegistry.terrain(texture_name) \
 			if AssetRegistry.has_method("terrain") else ""
 		if tex_path != "" and ResourceLoader.exists(tex_path):
 			mat.albedo_texture = load(tex_path) as Texture2D
-	mat.albedo_color             = color
+	mat.albedo_color             = varied_color
 	mat.roughness                = 0.88
 	mat.metallic                 = 0.0
 	mi.material_override         = mat
@@ -1510,6 +1674,23 @@ func _build_npc(key: String, pos: Vector3, texture: String = "") -> void:
 	)
 
 	_npc_registry[key] = {"area": npc, "sprite": sprite}
+
+	# ── Soft radiance light around each NPC – elders glow warmer ─────────────
+	# "His face shone like the sun shining in full strength" – Revelation 1:16
+	var npc_glow := OmniLight3D.new()
+	var glow_hex: String = (_tribe_data.get("color", "FFD700") as String)
+	npc_glow.light_color  = Color("#" + glow_hex).lightened(0.35)
+	npc_glow.light_energy = 0.55
+	npc_glow.omni_range   = 4.5
+	npc_glow.position     = Vector3(0.0, 1.6, 0.0)
+	npc_glow.shadow_enabled = false   # no shadow needed – keeps it cheap
+	npc.add_child(npc_glow)
+	# Breathing pulse: energy rises and falls like a heartbeat
+	var npc_tw := create_tween()
+	npc_tw.set_loops()
+	npc_tw.tween_property(npc_glow, "light_energy", 0.25, 2.2).set_ease(Tween.EASE_IN_OUT)
+	npc_tw.tween_property(npc_glow, "light_energy", 0.55, 2.2).set_ease(Tween.EASE_IN_OUT)
+
 	add_child(npc)
 
 ## Animate an NPC after dialogue — celebrate, bow, etc.
