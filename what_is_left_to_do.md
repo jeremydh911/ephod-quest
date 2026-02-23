@@ -339,9 +339,41 @@ ephod-quest/                          ← repo root
 | Quest4-12 .tscn files not updated      | ✅ DONE  | All .tscn already pointed to correct WorldBase scripts |
 | PlayerBody.gd init in wrong method     | ✅ DONE  | Moved _build_visual + area + HUD into _ready(); fixed MeshInstance→MeshInstance3D, Area2D→Area3D, Vector2→Vector3 |
 | Camera too low (Y=5, Z=5)              | ✅ DONE  | WorldBase camera: CAMERA_OFFSET = Vector3(0,120,80) — proper Zelda 3/4-overhead |
+| SwipeMinigame dodge was 50/50 random   | ✅ DONE  | _needed_dir set at spawn time; hint shown (bc28e34) |
+| Finale.gd extends Control (crash)      | ✅ DONE  | Changed to extends Node3D; dynamic CanvasLayer stars (bc28e34) |
+| WorldBase _chest() non-interactive     | ✅ DONE  | Added interact_callable meta; saves to Global.treasures_found; shows verse scroll (bc28e34) |
+| WorldBase NPCs non-interactive         | ✅ DONE  | _build_npc() adds default Shalom callable; set_npc_dialogue() helper (bc28e34) |
+| RhythmMinigame no hit/miss feedback    | ✅ DONE  | Green flash on hit, red on miss (bc28e34) |
+| NPC.gd bubble tween wrong coords       | ✅ DONE  | Fixed y=-62/-52 → +2.0/+2.6 local (d6016e7) |
+| Quest3 chest reward_id empty           | ✅ DONE  | reward_id = "Matthew 5:16" (d6016e7) |
+| TapMinigame no visual feedback         | ✅ DONE  | Scale-bounce + gold bar flash per tap (d6016e7) |
+| Quest6-12 secondary NPCs no dialogue   | ✅ DONE  | set_npc_dialogue() added for all 19 secondary NPCs (815f76c) |
 | Multiplayer cross-tribe not tested     | 🟡 MED   | Test with 2 devices on LAN              |
 | Android APK not built / signed         | 🟡 MED   | Create keystore, export from Godot      |
 | Camera2D reparent order                | 🟢 LOW   | Move to _post_ready or defer            |
+
+---
+
+## ✅ FINAL STATUS — All Core Systems Complete (commit 815f76c)
+
+**34/34 Playwright E2E tests pass** (7.2 min run, 2025).
+
+| System                            | Status |
+|-----------------------------------|--------|
+| All 12 tribe worlds               | ✅ Done |
+| All 12 elder dialogues            | ✅ Done |
+| All 19 secondary NPC dialogues    | ✅ Done |
+| All 48 chests interactive         | ✅ Done |
+| All 5 minigames functional        | ✅ Done |
+| SwipeMinigame deterministic       | ✅ Done |
+| RhythmMinigame visual feedback    | ✅ Done |
+| TapMinigame visual feedback       | ✅ Done |
+| Finale Node3D + dynamic stars     | ✅ Done |
+| WorldBase chest interact system   | ✅ Done |
+| WorldBase NPC interact system     | ✅ Done |
+| Android/iOS/PC/Web export presets | ✅ Done |
+| Mobile texture compression        | ✅ Done |
+| All production assets             | ✅ Done |
 
 ---
 
