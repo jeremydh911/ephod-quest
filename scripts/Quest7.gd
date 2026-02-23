@@ -25,6 +25,23 @@ func on_world_ready() -> void:
 	_build_terrain()
 	_place_npcs()
 	_place_chests()
+	# Give secondary NPCs meaningful dialogue – Hebrews 12:1
+	set_npc_dialogue(
+		"scout_haggi",
+		[
+			{ "name": "Haggi", "text": "I have scouted these ridges since boyhood. Every path has its season, and every season its purpose." },
+			{ "name": "Haggi", "text": "'Let us run with perseverance the race marked for us.' – Hebrews 12:1. Keep moving, friend!" },
+		],
+		[{ "name": "Haggi", "text": "Shalom. The path ahead is clear." }],
+	)
+	set_npc_dialogue(
+		"shepherd_shuni",
+		[
+			{ "name": "Shuni", "text": "The flock can sense a storm before it comes. God gives his creatures wisdom for their way." },
+			{ "name": "Shuni", "text": "'The LORD is my shepherd, I lack nothing.' – Psalm 23:1. Shalom, friend." },
+		],
+		[{ "name": "Shuni", "text": "Shalom, shalom. The sheep are safe." }],
+	)
 	_show_world_intro()
 
 

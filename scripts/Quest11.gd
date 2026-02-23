@@ -24,6 +24,31 @@ func on_world_ready() -> void:
 	_place_npcs()
 	_place_chests()
 	_place_side_quest_objects()
+	# Joseph: forgiveness, dreams, and fruitfulness – Genesis 50:20
+	set_npc_dialogue(
+		"manasseh",
+		[
+			{ "name": "Manasseh", "text": "My child, my father named me 'forgetting'. Not to erase pain, but because God turned it into purpose." },
+			{ "name": "Manasseh", "text": "'You intended to harm me, but God intended it for good to accomplish what is now being done.' – Genesis 50:20" },
+		],
+		[{ "name": "Manasseh", "text": "Shalom. What was meant for harm, God redeems." }],
+	)
+	set_npc_dialogue(
+		"ephraim",
+		[
+			{ "name": "Ephraim", "text": "My child, my name means fruitful. Even in Egypt — even in suffering — God made us multiply." },
+			{ "name": "Ephraim", "text": "'God has made me fruitful in the land of my suffering.' – Genesis 41:52" },
+		],
+		[{ "name": "Ephraim", "text": "Shalom, shalom. No desert lasts forever in God's plan." }],
+	)
+	set_npc_dialogue(
+		"servant_asenath",
+		[
+			{ "name": "Asenath", "text": "My child, I serve with all my heart. Not for reward, but because faithfulness is its own gift from God." },
+			{ "name": "Asenath", "text": "'Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.' – Colossians 3:23" },
+		],
+		[{ "name": "Asenath", "text": "Shalom. Serve well today — it matters eternally." }],
+	)
 	_show_world_intro()
 
 
@@ -214,8 +239,7 @@ func on_minigame_timeout(result: Dictionary) -> void:
 			func():
 				for child in _mini_game_container.get_children():
 					child.queue_free()
-				_growth_result = build_tap_minigame(_mini_game_container, 12, "Tend the garden!", 22.0)
-			,
+				_growth_result = build_tap_minigame(_mini_game_container, 12, "Tend the garden!", 22.0),
 			CONNECT_ONE_SHOT,
 		)
 	elif result.get("root") == _forgiveness_result.get("root"):

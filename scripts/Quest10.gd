@@ -23,6 +23,31 @@ func on_world_ready() -> void:
 	_build_terrain()
 	_place_npcs()
 	_place_chests()
+	# Zebulun: harbour, trade, and the sea – Genesis 49:13
+	set_npc_dialogue(
+		"fisherman_sered",
+		[
+			{ "name": "Sered", "text": "My child, the sea is vast and I am small. Yet God knows every wave by name, and He knows mine." },
+			{ "name": "Sered", "text": "'He stilled the storm to a whisper; the waves of the sea were hushed.' – Psalm 107:29" },
+		],
+		[{ "name": "Sered", "text": "Shalom. Cast your nets wide and trust the Maker of the deep." }],
+	)
+	set_npc_dialogue(
+		"merchant_elon",
+		[
+			{ "name": "Elon", "text": "My child, I have traded with many peoples. The ones who prosper longest are those who deal honestly." },
+			{ "name": "Elon", "text": "'Honest scales and balances belong to the LORD; all the weights in the bag are of his making.' – Proverbs 16:11" },
+		],
+		[{ "name": "Elon", "text": "Shalom, shalom. Let every trade reflect the Lord's fairness." }],
+	)
+	set_npc_dialogue(
+		"watchman_jahleel",
+		[
+			{ "name": "Jahleel", "text": "My child, I watch through every long night. But it is the Lord who truly keeps this shore." },
+			{ "name": "Jahleel", "text": "'Unless the LORD watches over the city, the guards stand watch in vain.' – Psalm 127:1" },
+		],
+		[{ "name": "Jahleel", "text": "Shalom. Go well — the Lord watches when I cannot." }],
+	)
 	_show_world_intro()
 
 
@@ -186,7 +211,8 @@ func on_minigame_timeout(result: Dictionary) -> void:
 			func():
 				for child in _mini_game_container.get_children():
 					child.queue_free()
-				_sailing_result = build_swipe_minigame(_mini_game_container, 10, "Steer through the waves!", 20.0),
+				_sailing_result = build_swipe_minigame(_mini_game_container, 10, "Steer through the waves!", 20.0)
+			,
 			CONNECT_ONE_SHOT,
 		)
 	elif result.get("root") == _hospitality_result.get("root"):

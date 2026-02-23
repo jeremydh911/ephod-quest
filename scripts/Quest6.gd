@@ -25,6 +25,23 @@ func on_world_ready() -> void:
 	_build_terrain()
 	_place_npcs()
 	_place_chests()
+	# Give secondary NPCs meaningful dialogue – Proverbs 15:1
+	set_npc_dialogue(
+		"traveller_darda",
+		[
+			{ "name": "Darda", "text": "The road is long, yet God prepares every step. I came seeking the oasis, and I found more than water." },
+			{ "name": "Darda", "text": "'He leads me beside quiet waters.' – Psalm 23:2. Shalom, traveller." },
+		],
+		[{ "name": "Darda", "text": "Shalom, shalom. Safe travels." }],
+	)
+	set_npc_dialogue(
+		"gatekeeper_jamin",
+		[
+			{ "name": "Jamin", "text": "I watch this ridge so others may pass safely. Justice is not just in courts — it lives in small acts of faithfulness." },
+			{ "name": "Jamin", "text": "'Act justly, love mercy, walk humbly.' – Micah 6:8. Through, friend." },
+		],
+		[{ "name": "Jamin", "text": "'He will judge the world in righteousness.' – Psalm 9:8. Shalom." }],
+	)
 	_show_world_intro()
 
 

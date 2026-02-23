@@ -25,6 +25,31 @@ func on_world_ready() -> void:
 	_build_terrain()
 	_place_npcs()
 	_place_chests()
+	# Asher: abundance and blessing – Genesis 49:20
+	set_npc_dialogue(
+		"beekeeper_beriah",
+		[
+			{ "name": "Beriah", "text": "My child, every drop of honey is a gift. God made sweetness from nothing but flower and wing." },
+			{ "name": "Beriah", "text": "'Taste and see that the LORD is good; blessed is the one who takes refuge in him.' – Psalm 34:8" },
+		],
+		[{ "name": "Beriah", "text": "Shalom, shalom. Return any time the honey calls you." }],
+	)
+	set_npc_dialogue(
+		"baker_japhlet",
+		[
+			{ "name": "Japhlet", "text": "My child, I bake every loaf with thanks. Bread sustains the body, but God sustains the soul." },
+			{ "name": "Japhlet", "text": "'Man shall not live on bread alone, but on every word that comes from the mouth of God.' – Matthew 4:4" },
+		],
+		[{ "name": "Japhlet", "text": "Shalom. The ovens are warm and the Lord is good." }],
+	)
+	set_npc_dialogue(
+		"orchard_jimnah",
+		[
+			{ "name": "Jimnah", "text": "My child, the orchard speaks what the heart knows — good roots bring good fruit. So it is with faithfulness." },
+			{ "name": "Jimnah", "text": "'But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness.' – Galatians 5:22" },
+		],
+		[{ "name": "Jimnah", "text": "Shalom, shalom. Walk in the Spirit and the fruit will follow." }],
+	)
 	_show_world_intro()
 
 

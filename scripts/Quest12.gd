@@ -24,6 +24,31 @@ func on_world_ready() -> void:
 	_build_terrain()
 	_place_npcs()
 	_place_chests()
+	# Benjamin: the beloved last tribe – Deuteronomy 33:12
+	set_npc_dialogue(
+		"shepherd_muppim",
+		[
+			{ "name": "Muppim", "text": "My child, we are the last tribe to gather. But in God's eyes, no one is last — all are loved the same." },
+			{ "name": "Muppim", "text": "'The LORD bless you and keep you; the LORD make his face shine on you and be gracious to you.' – Numbers 6:24–25" },
+		],
+		[{ "name": "Muppim", "text": "Shalom, shalom. The blessing of the Lord rests on you." }],
+	)
+	set_npc_dialogue(
+		"watchwoman_ard",
+		[
+			{ "name": "Ard", "text": "My child, I have stood watch long years. The race is nearly run — finish well." },
+			{ "name": "Ard", "text": "'I have fought the good fight, I have finished the race, I have kept the faith.' – 2 Timothy 4:7" },
+		],
+		[{ "name": "Ard", "text": "Shalom. Finish well — that is all that matters now." }],
+	)
+	set_npc_dialogue(
+		"hermit_gera",
+		[
+			{ "name": "Gera", "text": "My child, the desert taught me one thing above all: in the stillness, God speaks plainest." },
+			{ "name": "Gera", "text": "'Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.' – Psalm 46:10" },
+		],
+		[{ "name": "Gera", "text": "Shalom. Be still. Listen. He is here." }],
+	)
 	_show_world_intro()
 
 
@@ -188,7 +213,8 @@ func on_minigame_timeout(result: Dictionary) -> void:
 			func():
 				for child in _mini_game_container.get_children():
 					child.queue_free()
-				_precision_result = build_tap_minigame(_mini_game_container, 10, "Tap each target with precision!", 20.0),
+				_precision_result = build_tap_minigame(_mini_game_container, 10, "Tap each target with precision!", 20.0)
+			,
 			CONNECT_ONE_SHOT,
 		)
 	elif result.get("root") == _protection_result.get("root"):

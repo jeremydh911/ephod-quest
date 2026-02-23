@@ -1694,6 +1694,15 @@ func _build_npc(key: String, pos: Vector3, texture: String = "") -> void:
 
 	_npc_registry[key] = {"area": npc, "sprite": sprite}
 
+	# Set a default interact callable so NPCs respond gracefully even before
+	# quest scripts assign specific dialogue. Overridable via set_npc_dialogue().
+	# "The lips of the wise spread knowledge" – Proverbs 15:7
+	var neat_name: String = key.capitalize().replace("_", " ")
+	npc.set_meta("interact_callable", func(world: Node):
+		if world.has_method("show_dialogue"):
+			world.show_dialogue([{"name": neat_name, "text": "Shalom, shalom."}])
+	)
+
 	# ── Soft radiance light around each NPC – elders glow warmer ─────────────
 	# "His face shone like the sun shining in full strength" – Revelation 1:16
 	var npc_glow := OmniLight3D.new()
@@ -1723,6 +1732,23 @@ func animate_npc(key: String, anim: String) -> void:
 		"pray":      sprite.play_pray()
 		"walk_left": sprite.play_walk(Vector3.LEFT)
 		"walk_right":sprite.play_walk(Vector3.RIGHT)
+
+## Assign dialogue to a _build_npc() NPC by key. Replaces the default "Shalom" response.
+## Call in on_quest_ready() after _place_npcs() to give secondary NPCs real lines.
+## "Her mouth is full of wisdom, and faithful instruction is on her tongue" – Proverbs 31:26
+func set_npc_dialogue(key: String, lines: Array, repeat_lines: Array = []) -> void:
+	if not _npc_registry.has(key):
+		push_warning("set_npc_dialogue: NPC key '%s' not found in registry" % key)
+		return
+	var npc: Area3D = _npc_registry[key]["area"]
+	var _talked: bool = false
+	npc.set_meta("interact_callable", func(world: Node):
+		if not world.has_method("show_dialogue"):
+			return
+		var dialogue: Array = lines if not _talked else (repeat_lines if not repeat_lines.is_empty() else lines)
+		world.show_dialogue(dialogue)
+		_talked = true
+	)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CHEST HELPERS

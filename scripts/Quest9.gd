@@ -25,6 +25,23 @@ func on_world_ready() -> void:
 	_build_terrain()
 	_place_npcs()
 	_place_chests()
+	# Issachar: understanding times and seasons – 1 Chronicles 12:32
+	set_npc_dialogue(
+		"apprentice_puah",
+		[
+			{ "name": "Puah", "text": "My child, I am still learning the seasons. But I know this — every time has its purpose under heaven." },
+			{ "name": "Puah", "text": "'There is a time for everything, and a season for every activity under the heavens.' – Ecclesiastes 3:1" },
+		],
+		[{ "name": "Puah", "text": "Shalom. Wait on the Lord — the right season will come." }],
+	)
+	set_npc_dialogue(
+		"farmer_shimron",
+		[
+			{ "name": "Shimron", "text": "My child, a farmer who plants well sleeps well. God honours honest work done in season." },
+			{ "name": "Shimron", "text": "'He who sows righteousness reaps a sure reward.' – Proverbs 11:18" },
+		],
+		[{ "name": "Shimron", "text": "Shalom, shalom. Plant well, and trust the rain to God." }],
+	)
 	_show_world_intro()
 
 
