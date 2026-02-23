@@ -1,20 +1,40 @@
-extends Control
+extends Node3D
+
 # Finale.gd  –  Closing courtyard ephod-weave sequence
 # "Sing to the LORD, for he has done glorious things" – Isaiah 12:5
 
 const VisualEnvironment := preload("res://scripts/VisualEnvironment.gd")
 
 const TRIBE_ORDER: Array[String] = [
-	"reuben","simeon","levi","judah","dan","naphtali",
-	"gad","asher","issachar","zebulun","joseph","benjamin"
+	"reuben",
+	"simeon",
+	"levi",
+	"judah",
+	"dan",
+	"naphtali",
+	"gad",
+	"asher",
+	"issachar",
+	"zebulun",
+	"joseph",
+	"benjamin",
 ]
 
 const GEM_COLORS: Array[Color] = [
-	Color(0.80, 0.15, 0.15, 1),  Color(0.20, 0.55, 0.85, 1),  Color(0.10, 0.60, 0.20, 1),
-	Color(0.70, 0.20, 0.85, 1),  Color(0.10, 0.10, 0.10, 1),  Color(0.85, 0.75, 0.10, 1),
-	Color(0.70, 0.45, 0.10, 1),  Color(0.10, 0.70, 0.75, 1),  Color(0.75, 0.25, 0.10, 1),
-	Color(0.22, 0.17, 0.52, 1),  Color(0.10, 0.35, 0.80, 1),  Color(0.90, 0.82, 0.55, 1)
+	Color(0.80, 0.15, 0.15, 1),
+	Color(0.20, 0.55, 0.85, 1),
+	Color(0.10, 0.60, 0.20, 1),
+	Color(0.70, 0.20, 0.85, 1),
+	Color(0.10, 0.10, 0.10, 1),
+	Color(0.85, 0.75, 0.10, 1),
+	Color(0.70, 0.45, 0.10, 1),
+	Color(0.10, 0.70, 0.75, 1),
+	Color(0.75, 0.25, 0.10, 1),
+	Color(0.22, 0.17, 0.52, 1),
+	Color(0.10, 0.35, 0.80, 1),
+	Color(0.90, 0.82, 0.55, 1),
 ]
+
 
 func _ready() -> void:
 	# Background artwork (img_17) behind the night sky / stars
@@ -22,8 +42,8 @@ func _ready() -> void:
 	VisualEnvironment.add_scene_background(self, "finale")
 
 	# Finale music cascade: finale_main → inspired_by_my_best → finale_theme fallback
-	const FINALE_MAIN     := "res://assets/audio/music/finale_main.wav"
-	const FINALE_ALT      := "res://assets/audio/music/inspired_by_my_best.wav"
+	const FINALE_MAIN := "res://assets/audio/music/finale_main.wav"
+	const FINALE_ALT := "res://assets/audio/music/inspired_by_my_best.wav"
 	const FINALE_FALLBACK := "res://assets/audio/music/finale_theme.ogg"
 	var finale_track: String = FINALE_MAIN if ResourceLoader.exists(FINALE_MAIN) else (FINALE_ALT if ResourceLoader.exists(FINALE_ALT) else FINALE_FALLBACK)
 	AudioManager.play_music(finale_track)
@@ -34,8 +54,16 @@ func _ready() -> void:
 	tw.tween_property(fr, "modulate:a", 0.0, 1.8)
 	tw.tween_callback(Callable(self, "_spawn_tribe_circle"))
 
+
 func _generate_stars() -> void:
-	var stars_node := $NightSkyBG/StarsContainer as Node2D
+	# "He determines the number of the stars and calls them each by name" – Psalm 147:4
+	# Build a CanvasLayer for stars so they render on top of the 3D scene
+	var canvas := CanvasLayer.new()
+	canvas.layer = -10 # render behind UI panels
+	add_child(canvas)
+	var stars_node := Node2D.new()
+	stars_node.name = "StarsContainer"
+	canvas.add_child(stars_node)
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
 	for i in range(80):
@@ -45,6 +73,7 @@ func _generate_stars() -> void:
 		star.position = Vector2(rng.randf_range(0, 640), rng.randf_range(0, 400))
 		star.color = Color(1, 1, rng.randf_range(0.85, 1.0), rng.randf_range(0.5, 1.0))
 		stars_node.add_child(star)
+
 
 func _spawn_tribe_circle() -> void:
 	var circle_node := $TribeCircle as Node2D
@@ -69,11 +98,13 @@ func _spawn_tribe_circle() -> void:
 	await get_tree().create_timer(count * 0.18 + 0.8).timeout
 	_weave_ephod()
 
+
 func _weave_ephod() -> void:
 	var ephod := $EphodCloth as ColorRect
 	var tw := create_tween()
 	tw.tween_property(ephod, "color:a", 0.9, 1.4)
 	tw.tween_callback(Callable(self, "_reveal_gem_rows"))
+
 
 func _reveal_gem_rows() -> void:
 	var rows := [$GemRow1, $GemRow2, $GemRow3, $GemRow4]
@@ -95,6 +126,7 @@ func _reveal_gem_rows() -> void:
 	await get_tree().create_timer(rows.size() * 0.5 + 0.8).timeout
 	_glow_people()
 
+
 func _glow_people() -> void:
 	var glow := $PeopleGlow as ColorRect
 	var tw := create_tween()
@@ -103,6 +135,7 @@ func _glow_people() -> void:
 	tw.tween_property(glow, "color:a", 0.05, 0.7)
 	await get_tree().create_timer(5.8).timeout
 	_show_message_sequence()
+
 
 func _show_message_sequence() -> void:
 	var panel := $MessagePanel as PanelContainer
@@ -123,6 +156,7 @@ func _show_message_sequence() -> void:
 		await get_tree().create_timer(0.9).timeout
 	_show_buttons()
 
+
 func _show_buttons() -> void:
 	var btns := $ButtonRow as HBoxContainer
 	btns.visible = true
@@ -130,20 +164,24 @@ func _show_buttons() -> void:
 	var tw := create_tween()
 	tw.tween_property(btns, "modulate:a", 1.0, 0.8)
 	($ButtonRow/ReplayBtn as Button).pressed.connect(_on_replay)
-	($ButtonRow/MenuBtn   as Button).pressed.connect(_on_menu)
+	($ButtonRow/MenuBtn as Button).pressed.connect(_on_menu)
+
 
 func _on_replay() -> void:
 	_fade_and_go("res://scenes/AvatarPick.tscn")
 
+
 func _on_menu() -> void:
 	_fade_and_go("res://scenes/MainMenu.tscn")
+
 
 func _fade_and_go(path: String) -> void:
 	var fr := $FadeRect as ColorRect
 	var tw := create_tween()
 	tw.tween_property(fr, "modulate:a", 1.0, 1.0)
-	tw.tween_callback(func():
-		var res := get_tree().change_scene_to_file(path)
-		if res != OK:
-			push_error("Finale: failed to change scene to %s" % path)
+	tw.tween_callback(
+		func():
+			var res := get_tree().change_scene_to_file(path)
+			if res != OK:
+				push_error("Finale: failed to change scene to %s" % path)
 	)

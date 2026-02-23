@@ -30,11 +30,13 @@
 ## 2 — 3D Element Quality & Precise Placement
 
 ### What the engine is doing
+
 Every quest world is built procedurally at runtime via `WorldBase.gd` + quest overrides.
 Terrain tiles are `PlaneMesh` (rotated −90 ° on X to lie flat), walls are `StaticBody3D` + `BoxShape3D`.
 Characters use `Character.gd` — procedural `SphereMesh` head, `CylinderMesh` robe, `CapsuleMesh` arms/legs — scaled 18× to match world units.
 
 ### Placement accuracy (Quest 1 as reference)
+
 | Element | World position | Status |
 |---|---|---|
 | Player spawn plateau | Rect2(−360, −120, 560, 320) | ✅ Correct |
@@ -47,6 +49,7 @@ Characters use `Character.gd` — procedural `SphereMesh` head, `CylinderMesh` r
 | World boundary walls | All four edges ±920 / ±740 | ✅ Player cannot escape |
 
 ### Rendering quality: honest score — 6 / 10 right now
+
 - **Lighting**: DirectionalLight3D + ambient from WorldEnvironment ✅ present
 - **Terrain colour blocking**: All tiles use solid RGBA colours as fallback ✅ readable
 - **Texture overlays**: Loaded if `assets/textures/<name>.jpg` exists — files not present → colour fallback (no error, but looks flat)
@@ -55,6 +58,7 @@ Characters use `Character.gd` — procedural `SphereMesh` head, `CylinderMesh` r
 - **Finale stars**: 80 randomly placed `ColorRect` stars with tween fade ✅ atmospheric
 
 ### What Sprint 2 will change to reach 9/10
+
 - PBR/SSS skin `ShaderMaterial` → skin warmth and translucency
 - Strand-hair shader → visible hair volume on all characters
 - `SoftBody3D` on robe hem → cloth sway when walking
@@ -77,6 +81,7 @@ Characters use `Character.gd` — procedural `SphereMesh` head, `CylinderMesh` r
 - Finale: star field → tribe circle → ephod weave → gem row reveal → celebration
 
 **Gaps before a public release:**
+
 1. Audio files — many tracks referenced but not all present in `assets/audio/`; AudioManager falls back gracefully (no crash)
 2. Texture files — `.jpg` terrain tiles missing; colour fallback is functional but plain
 3. Elder portrait sprites — referenced via `AssetRegistry.ELDERS` but display as coloured placeholder squares if SVGs not loaded into ImporterMesh
@@ -87,6 +92,7 @@ Characters use `Character.gd` — procedural `SphereMesh` head, `CylinderMesh` r
 ## 4 — Is it professional?
 
 **Code quality: 9 / 10**
+
 - Clean Godot 4.x API throughout (no deprecated 3.x patterns)
 - Full type annotations (`-> void`, `-> Dictionary`, `Array[String]`)
 - Every function has a biblical comment anchor (`# Psalm 23:3`, `# Isaiah 40:31`)
@@ -98,6 +104,7 @@ Characters use `Character.gd` — procedural `SphereMesh` head, `CylinderMesh` r
 **Visual quality now: 6.5 / 10** (will reach 9/10 after Sprint 2 textures + shaders)
 
 **UX polish: 7 / 10**
+
 - Fade-in on every scene load ✅
 - Parchment-texture dialogue panel with tribe-coloured portrait ✅
 - Verse scroll with soft reveal tween ✅
@@ -112,6 +119,7 @@ Characters use `Character.gd` — procedural `SphereMesh` head, `CylinderMesh` r
 **For its intended audience (ages 8–14): Yes — 7 / 10**
 
 ### What works well
+
 - *Discovery loop*: explore map → find elder → earn stone → unlock verse — this is a clean and satisfying loop with no artificial gates
 - *Variety*: 5 mini-game types (Tap, Rhythm, Swipe, Sorting, DialogueChoice) — enough to feel different per tribe
 - *Side quests*: Lost Lamb, Torch Lighting, Herb Collecting (Quest 1) add 20–30 min of optional exploration per world
@@ -119,6 +127,7 @@ Characters use `Character.gd` — procedural `SphereMesh` head, `CylinderMesh` r
 - *Finale*: The ephod-weave moment where all 12 gems light up together is a genuinely moving payoff
 
 ### What could be more fun
+
 - Mini-game variety is mechanically shallow right now (tap is still tap whether it's climbing or butterflies) — adding visual layers (animated ladder, butterfly fluttering) would close that gap
 - Player character speed feels unresponsive at 160 px/s via keyboard until touch joystick is engaged
 - No mid-quest save checkpoints — replaying from the start after closing browser is painful
@@ -138,12 +147,14 @@ Characters use `Character.gd` — procedural `SphereMesh` head, `CylinderMesh` r
 | Ephod gem mapping | 12 | ✅ Exodus 28 exact row order |
 
 **Sample verified facts:**
+
 - *Reuben*: "Butterflies taste with their feet" — TRUE (tarsal chemoreceptors, confirmed)
 - *Simeon*: "Sheep recognise their shepherd's individual voice and will not follow a stranger" — TRUE (Kendrick 1996, Animal Behaviour)
 - *Levi*: "Fireflies produce cold light — nearly 100% of their energy becomes light" — TRUE (luciferase bioluminescence, ~95% efficiency)
 - *Judah*: "Male lions' roars can be heard up to 8 km away" — TRUE (Grinnell 1995, confirmed 5–8 km)
 
 **Pedagogical design:**
+
 - Verse appears in context of the quest narrative (not as a flash-card quiz)
 - Optional memorisation input gives children agency
 - Nature facts always paired with a related verse — faith + science integration
@@ -177,8 +188,10 @@ Characters use `Character.gd` — procedural `SphereMesh` head, `CylinderMesh` r
 **Yes — strong niche with little direct competition: 8 / 10 marketability score**
 
 ### Target market analysis
+
 The Christian educational game market is large and almost entirely unserved by quality mobile titles.  
 The most relevant overlap is:
+
 - *Superbook* (CBN): 2D animated, passive viewing — no gameplay
 - *Bible VR*: Passive VR experience
 - *Faith-E Games* catalog: Browser mini-games, 2000s-era quality
@@ -187,6 +200,7 @@ The most relevant overlap is:
 **Twelve Stones fills a genuine gap**: a modern, mobile-first, 3D co-operative game with Biblical accuracy, diverse representation, and no in-app purchases.
 
 ### Revenue model options
+
 1. **Free on Google Play / App Store** with donation prompt after Finale — lowest friction, highest download rate
 2. **$2.99 premium** on app stores — justified by content depth, targets church family audiences
 3. **Church/school licensing**: Yearly fee per classroom installation (highest ARPU)
@@ -204,6 +218,7 @@ The most relevant overlap is:
 | **Mission organisations** | Language-localised versions for children overseas | Compassion International, Wycliffe partners |
 
 ### Market size (conservative)
+
 - 2.6 billion Christians globally
 - ~600 million Christian households with children under 18
 - Even 0.1 % download rate = **600,000 installs**
@@ -298,6 +313,7 @@ Since Godot executable is not in PATH, please test manually:
 ## 🚀 Deployment Status
 
 **Ready for testing on:**
+
 - ✅ Desktop (Linux/Windows/Mac)
 - ✅ Web (HTML5 export)
 - ⚠️ Android (needs device testing)

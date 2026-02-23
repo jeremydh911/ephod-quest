@@ -1,4 +1,5 @@
 extends Control
+
 # ─────────────────────────────────────────────────────────────────────────────
 # RhythmMinigame.gd – Modular Mini-Game Asset
 # Tap on beat to score points.
@@ -22,10 +23,12 @@ var _prompt_lbl: Label
 var _beat_timer: Timer
 var _tw_holder: Array = [null]
 
+
 func _ready() -> void:
 	_beats_left = total_beats
 	_build_ui()
 	_start_rhythm()
+
 
 func _build_ui() -> void:
 	var root := VBoxContainer.new()
@@ -53,6 +56,7 @@ func _build_ui() -> void:
 
 	_beat_btn.pressed.connect(_on_beat_pressed)
 
+
 func _start_rhythm() -> void:
 	_beat_timer = Timer.new()
 	_beat_timer.wait_time = beat_duration
@@ -61,6 +65,7 @@ func _start_rhythm() -> void:
 	_beat_timer.start()
 	_pulse()
 
+
 func _pulse() -> void:
 	_tw_holder[0] = create_tween()
 	_on_beat = true
@@ -68,23 +73,35 @@ func _pulse() -> void:
 	_tw_holder[0].tween_property(_beat_btn, "scale", Vector2(1.0, 1.0), beat_duration * 0.4)
 	_tw_holder[0].tween_callback(func(): _on_beat = false)
 
+
 func _on_beat_timeout() -> void:
-	if _beats_left <= 0: return
+	if _beats_left <= 0:
+		return
 	_beats_left -= 1
 	_pulse()
 	if _beats_left <= 0:
 		_beat_timer.stop()
 		await get_tree().create_timer(beat_duration).timeout
 		if _score >= goal_score:
-			minigame_complete.emit({"root": self, "score_label": _score_lbl})
+			minigame_complete.emit({ "root": self, "score_label": _score_lbl })
 		else:
 			AudioManager.play_sfx("res://assets/audio/sfx/timeout_gentle.wav")
-			minigame_timeout.emit({"root": self, "score_label": _score_lbl})
+			minigame_timeout.emit({ "root": self, "score_label": _score_lbl })
+
 
 func _on_beat_pressed() -> void:
 	if _on_beat:
 		_score += 1
 		_score_lbl.text = "Score: %d" % _score
 		AudioManager.play_sfx("res://assets/audio/sfx/rhythm_beat.wav")
+		# Green flash – on beat!
+		# "Sing and make music from your heart to the Lord" – Ephesians 5:19
+		var tw := _beat_btn.create_tween()
+		tw.tween_property(_beat_btn, "modulate", Color(0.4, 1.0, 0.5, 1.0), 0.07)
+		tw.tween_property(_beat_btn, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.20)
 	else:
 		AudioManager.play_sfx("res://assets/audio/sfx/rhythm_miss.wav")
+		# Red flash – missed the beat
+		var tw := _beat_btn.create_tween()
+		tw.tween_property(_beat_btn, "modulate", Color(1.0, 0.3, 0.3, 1.0), 0.07)
+		tw.tween_property(_beat_btn, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.25)

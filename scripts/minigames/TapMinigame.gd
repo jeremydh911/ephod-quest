@@ -1,4 +1,5 @@
 extends Control
+
 # ─────────────────────────────────────────────────────────────────────────────
 # TapMinigame.gd – Modular Mini-Game Asset
 # Tap a button to reach a goal within time limit.
@@ -19,9 +20,11 @@ var _count_lbl: Label
 var _tap_btn: Button
 var _prompt_lbl: Label
 
+
 func _ready() -> void:
 	_build_ui()
 	_start_timer()
+
 
 func _build_ui() -> void:
 	var root := VBoxContainer.new()
@@ -54,8 +57,10 @@ func _build_ui() -> void:
 
 	_tap_btn.pressed.connect(_on_tap)
 
+
 func _on_tap() -> void:
-	if _done: return
+	if _done:
+		return
 	_taps += 1
 	_prog.value = _taps
 	_count_lbl.text = "%d / %d" % [_taps, goal]
@@ -65,7 +70,7 @@ func _on_tap() -> void:
 	# "Clap your hands, all you nations; shout to God with cries of joy" – Psalm 47:1
 	var tw := _tap_btn.create_tween()
 	tw.tween_property(_tap_btn, "scale", Vector2(1.12, 1.12), 0.07).set_ease(Tween.EASE_OUT)
-	tw.tween_property(_tap_btn, "scale", Vector2(1.0,  1.0 ), 0.10).set_ease(Tween.EASE_IN)
+	tw.tween_property(_tap_btn, "scale", Vector2(1.0, 1.0), 0.10).set_ease(Tween.EASE_IN)
 
 	var bar_tw := _prog.create_tween()
 	bar_tw.tween_property(_prog, "modulate", Color(1.0, 0.9, 0.2, 1.0), 0.06).set_ease(Tween.EASE_OUT)
@@ -76,11 +81,13 @@ func _on_tap() -> void:
 		_tap_btn.disabled = true
 		_tap_btn.text = "✦ Done!"
 		AudioManager.play_sfx("res://assets/audio/sfx/stone_collect.wav")
-		minigame_complete.emit({"button": _tap_btn, "label": _count_lbl, "bar": _prog, "root": self})
+		minigame_complete.emit({ "button": _tap_btn, "label": _count_lbl, "bar": _prog, "root": self })
+
 
 func _start_timer() -> void:
 	if time_limit > 0.0:
 		get_tree().create_timer(time_limit).timeout.connect(_on_timeout)
+
 
 func _on_timeout() -> void:
 	if not _done:
@@ -88,4 +95,4 @@ func _on_timeout() -> void:
 		_tap_btn.disabled = true
 		_tap_btn.text = "Keep trying next time!"
 		AudioManager.play_sfx("res://assets/audio/sfx/timeout_gentle.wav")
-		minigame_timeout.emit({"button": _tap_btn, "label": _count_lbl, "bar": _prog, "root": self})
+		minigame_timeout.emit({ "button": _tap_btn, "label": _count_lbl, "bar": _prog, "root": self })

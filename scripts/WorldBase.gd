@@ -1121,6 +1121,11 @@ func _on_player_interact() -> void:
 		return
 	if _interaction_target.has_method("on_interact"):
 		_interaction_target.on_interact(self)
+	elif _interaction_target.has_meta("interact_callable"):
+		# Used by built-in _chest() nodes that store their open logic in meta
+		# "Ask and it will be given to you" – Matthew 7:7
+		var cb: Callable = _interaction_target.get_meta("interact_callable") as Callable
+		cb.call(self)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # DIALOGUE SYSTEM  –  "Col 4:6 – Let your conversation be full of grace"
@@ -1788,6 +1793,35 @@ func _chest(pos: Vector3, key: String, label: String) -> void:
 		if body == _player and _interaction_target == chest:
 			_interaction_target = null
 			_interaction_hint.visible = false
+	)
+
+	# Store an interact callable so the player can open the chest
+	# "The kingdom of heaven is like treasure hidden in a field" – Matthew 13:44
+	var chest_key: String = key
+	var chest_label: String = label
+	chest.set_meta("interact_callable", func(world: Node):
+		if Global.treasures_found.has(chest_key):
+			return  # already opened
+		Global.treasures_found.append(chest_key)
+		Global.save_game()
+		AudioManager.play_sfx("res://assets/audio/sfx/stone_collect.wav")
+		# Look up verse text: prefer text stored by _spawn_chest, then VerseVault
+		# "Your word is a lamp for my feet" – Psalm 119:105
+		var verse_text: String = ""
+		if world.has_meta("_chest_texts"):
+			var ct: Dictionary = world.get_meta("_chest_texts") as Dictionary
+			verse_text = ct.get(chest_key, "") as String
+		if verse_text.is_empty():
+			for entry: Dictionary in VerseVault.get_all_entries():
+				var entry_ref: String = entry.get("ref", "") as String
+				if entry_ref.find(chest_label) >= 0 or chest_label.find(entry_ref) >= 0:
+					verse_text = entry.get("text", "") as String
+					break
+		if verse_text.is_empty():
+			verse_text = "Seek the LORD with all your heart. – Proverbs 3:5"
+		if world.has_method("show_verse_scroll"):
+			world.show_verse_scroll(chest_label, verse_text)
+		chest.queue_free()
 	)
 	add_child(chest)
 
