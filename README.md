@@ -1,5 +1,11 @@
 # Twelve Stones — Ephod Quest
 
+Install on Windows: double-click `Install-ephod-quest.bat`.
+Install on Mac: double-click `Install-ephod-quest.command` (it runs `Install-ephod-quest.sh`).
+
+Publisher: Ahanaai Company, DUNS 149970889 (`PUBLISHER.txt`).
+
+
 > *"For the LORD gives wisdom; from his mouth come knowledge and understanding."*
 > — Proverbs 2:6
 
